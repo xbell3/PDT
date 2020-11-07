@@ -31,12 +31,12 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	}
 
 	@Override
-	public void crearUsuario(Usuario usuario) throws ServiciosException {
+	public void crear(Usuario usuario) throws ServiciosException {
 		try {
 			em.persist(usuario);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo crear la carrera");
+			throw new ServiciosException("No se pudo crear el usuario");
 		}
 	}
 

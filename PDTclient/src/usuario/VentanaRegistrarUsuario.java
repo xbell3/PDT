@@ -133,7 +133,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 								"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
 
 					} else {
-						usuariosBeanRemote.crearUsuario(usuario);
+						usuariosBeanRemote.crear(usuario);
 
 						JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.",
 								"Usuario Registrado!", JOptionPane.INFORMATION_MESSAGE);

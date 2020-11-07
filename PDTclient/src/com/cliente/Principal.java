@@ -22,7 +22,7 @@ public class Principal {
 	usuario.setCorreo("Raul.Perez");
 
 	try {
-		usuariosBeanRemote.crearUsuario(usuario);
+		usuariosBeanRemote.crear(usuario);
 		System.out.println("Se creó exitosamente el departamento");
 	} catch (ServiciosException e) {
 		System.out.println(e.getMessage());
