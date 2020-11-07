@@ -30,6 +30,9 @@ public class Usuario implements Serializable {
 	@Column(length = 40)
 	private String contrasena;
 
+	public Usuario() {
+		super();
+	}
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -71,9 +74,6 @@ public class Usuario implements Serializable {
 		this.contrasena = contrasena;
 	}
 
-	public Usuario() {
-		super();
-	}
 
 	public String getNombreUsuario() {
 		return nombreUsuario;

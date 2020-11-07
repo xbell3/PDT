@@ -1,19 +1,29 @@
 package com.cliente;
 
+import java.util.List;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
 public class Principal {
 
 	public static void main(String[] args) throws NamingException {
 		
-		UsuariosBeanRemote usuariosBeanRemote = (UsuariosBeanRemote) InitialContext.doLookup("ModuloEJB/UsuariosBean!com.servicios.UsuariosBeanRemote");
-	
-	
+		UsuariosBeanRemote usuariosBeanRemote = (UsuariosBeanRemote) InitialContext.doLookup("PDTejb/UsuariosBean!com.servicios.UsuariosBeanRemote");
+		RolBeanRemote rolBeanRemote = (RolBeanRemote) InitialContext.doLookup("PDTejb/UsuariosBean!com.servicios.UsuariosBeanRemote");
+		Rol admin2 = new Rol();
+	admin2.setNombre("Administrador");
+		
+		Rol experto = new Rol();
+		experto.setNombre("Experto");
+		
+		
 	Usuario usuario = new Usuario();
 	usuario.setNombre("Raul");
 	usuario.setApellido("Perez");

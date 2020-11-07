@@ -46,7 +46,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			em.merge(usuario);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo actualizar la materia");
+			throw new ServiciosException("No se pudo actualizar el usuario");
 		}
 	}
 
@@ -57,7 +57,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			em.remove(usuario);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo borrar la materia");
+			throw new ServiciosException("No se pudo actualizar el usuario");
 		}
 
 	}
