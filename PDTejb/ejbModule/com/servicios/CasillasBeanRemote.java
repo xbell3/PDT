@@ -18,7 +18,7 @@ public interface CasillasBeanRemote {
 
 	List<Casilla> obtenerTodos();
 
-	List<Casilla> obtenerTodos(String filtro);
+	List<Casilla> obtenerTodosPorParametro(String filtro);
 
 
 }

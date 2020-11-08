@@ -8,6 +8,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
 

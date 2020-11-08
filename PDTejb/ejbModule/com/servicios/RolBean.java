@@ -83,7 +83,8 @@ public class RolBean implements RolBeanRemote {
 	@Override
 	public List<Rol> obtenerTodos(String filtro) {
 		
-		TypedQuery<Rol>query = em.createQuery("SELECT r FROM Rol r WHERE r.nombre LIKE :nombre", Rol.class).setParameter("nombre", filtro);
+		TypedQuery<Rol>query = em.createQuery("SELECT r FROM Rol r WHERE r.nombreRol LIKE :nombreRol", Rol.class)
+				.setParameter("nombreRol", filtro);
 		return query.getResultList();
 		
 	}

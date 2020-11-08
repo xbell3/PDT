@@ -1,6 +1,8 @@
 package com.entidades;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +15,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idUsuario;
+	private Long id;
 
 	@Column(length = 40)
 	private String nombre;
@@ -29,16 +31,28 @@ public class Usuario implements Serializable {
 
 	@Column(length = 40)
 	private String contrasena;
-	
-	@ManyToOne
-	private Rol rol;
 
-	public Long getIdUsuario() {
-		return idUsuario;
+	@OneToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL )
+	@JoinColumn(name = "nombreRol")
+	private Rol rol;
+	
+	
+	public Rol getRol() {
+		return rol;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -85,12 +99,5 @@ public class Usuario implements Serializable {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-
+	
 }

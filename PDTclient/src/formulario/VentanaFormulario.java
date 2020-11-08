@@ -4,14 +4,24 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
+import com.entidades.Formulario;
 import com.entidades.Usuario;
+import com.servicios.FormulariosBeanRemote;
+import com.servicios.UsuariosBeanRemote;
+
+import usuario.VentanaEditarUsuario;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
@@ -19,13 +29,16 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.naming.NamingException;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaFormulario extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tableFormulario;
 	private JTextField txtBusquedaFormulario;
+	private JTable tableFormulario;
 
 	public VentanaFormulario(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,23 +57,25 @@ public class VentanaFormulario extends JFrame {
 		JButton btnCrearFormulario = new JButton("Nuevo Formulario");
 		btnCrearFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				VentanaRegistrarFormulario ventanaRegistrarFormulario = new VentanaRegistrarFormulario(usuario);
+				ventanaRegistrarFormulario.setVisible(true);
+				ventanaRegistrarFormulario.setLocation(400, 150);
+				dispose();	
 			}
 		});
 		btnCrearFormulario.setBounds(44, 66, 123, 34);
 		panelFormulario.add(btnCrearFormulario);
 		
-		tableFormulario = new JTable();
-		tableFormulario.setBackground(UIManager.getColor("Button.light"));
-		tableFormulario.setBounds(144, 104, 601, 356);
-		panelFormulario.add(tableFormulario);
-		
-		JButton btnBuscarFormulario = new JButton("Buscar");
-		btnBuscarFormulario.setBounds(514, 72, 72, 23);
-		panelFormulario.add(btnBuscarFormulario);
+		JButton btnListarFormulario = new JButton("Listar");
+		btnListarFormulario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cargarFormularios();
+			}
+		});
+		btnListarFormulario.setBounds(514, 72, 72, 23);
+		panelFormulario.add(btnListarFormulario);
 		
 		txtBusquedaFormulario = new JTextField();
-		txtBusquedaFormulario.setText("...");
 		txtBusquedaFormulario.setBounds(596, 73, 103, 20);
 		panelFormulario.add(txtBusquedaFormulario);
 		txtBusquedaFormulario.setColumns(10);
@@ -88,6 +103,42 @@ public class VentanaFormulario extends JFrame {
 		});
 		btnVolver.setBounds(24, 425, 89, 23);
 		panelFormulario.add(btnVolver);
+		
+		tableFormulario = new JTable();
+		tableFormulario.setModel(new DefaultTableModel());
+		tableFormulario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				int row = tableFormulario.getSelectedRow();
+				String nombreFormulario = (String) tableFormulario.getModel().getValueAt(row, 0);
+				Formulario formulario = new Formulario();
+				formulario.setNombreFormulario(nombreFormulario);
+				List<Formulario> formularios = new ArrayList<>();
+
+				try {
+
+					FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
+
+					formularios = formulariosBeanRemote.obtenerPorNombreFormulario(nombreFormulario);
+					formulario = formularios.get(0);
+
+				} catch (NamingException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+
+				VentanaEditarFormulario ventanaEditarFormulario = new VentanaEditarFormulario();
+				ventanaEditarFormulario.setUndecorated(false);
+				ventanaEditarFormulario.setVisible(true);
+				dispose();
+
+			
+			}
+		});
+		tableFormulario.setBackground(SystemColor.controlHighlight);
+		tableFormulario.setBounds(123, 111, 601, 356);
+		panelFormulario.add(tableFormulario);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -124,5 +175,34 @@ public class VentanaFormulario extends JFrame {
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
+	}
+	
+	private void cargarFormularios() {
+
+		try {
+			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
+			List<Formulario> formularios = new ArrayList<>();
+			
+			formularios = formulariosBeanRemote.obtenerTodos();
+
+			String[] columnNames = {  "nombreFormulario", "resumen" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableFormulario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Formulario formulario : formularios) {
+				Object[] fila = new Object[2];
+				fila[0] = formulario.getNombreFormulario();
+				fila[1] = formulario.getResumen();
+				model.addRow(fila);
+
+			}
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
 	}
 }

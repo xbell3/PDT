@@ -9,18 +9,36 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
 import javax.swing.border.SoftBevelBorder;
+
+import com.cliente.EJBLocator;
+import com.cliente.VentanaGeneral;
+import com.entidades.Formulario;
+import com.entidades.Usuario;
+import com.exception.ServiciosException;
+import com.servicios.FormulariosBeanRemote;
+import com.servicios.UsuariosBeanRemote;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.naming.NamingException;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaRegistrarFormulario extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField txtNombreFormulario;
+	private JTextField txtResumen;
+	public JFrame frame;
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistrarFormulario() {
+	public VentanaRegistrarFormulario(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -33,6 +51,87 @@ public class VentanaRegistrarFormulario extends JFrame {
 		panelFormulario.setBounds(0, 90, 784, 471);
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
+		
+		JLabel lblNuevoFormulario = new JLabel("Nuevo Formulario");
+		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNuevoFormulario.setBounds(200, 33, 174, 42);
+		panelFormulario.add(lblNuevoFormulario);
+		
+		txtNombreFormulario = new JTextField();
+		txtNombreFormulario.setText("Nombre de Formulario");
+		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNombreFormulario.setColumns(10);
+		txtNombreFormulario.setBounds(123, 164, 168, 42);
+		panelFormulario.add(txtNombreFormulario);
+		
+		txtResumen = new JTextField();
+		txtResumen.setText("Resumen");
+		txtResumen.setHorizontalAlignment(SwingConstants.CENTER);
+		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtResumen.setColumns(10);
+		txtResumen.setBounds(339, 164, 168, 42);
+		panelFormulario.add(txtResumen);
+		
+		JButton btnCrearFormulario = new JButton("Crear formulario");
+		btnCrearFormulario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FormulariosBeanRemote formulariosBeanRemote;
+				Formulario formulario = new Formulario ();
+				formulario.setNombreFormulario(txtNombreFormulario.getText());
+				formulario.setResumen(txtResumen.getText());
+				
+				try {
+
+					formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
+
+					if (txtNombreFormulario.getText().isEmpty() || txtResumen.getText().isEmpty()
+							) {
+						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
+								JOptionPane.INFORMATION_MESSAGE);
+
+						return;
+
+					} else if (formulariosBeanRemote.registro(txtNombreFormulario.getText())) {
+						JOptionPane.showMessageDialog(frame,
+								"El nombre del formulario ya se encuentra en uso. Intente Nuevamente",
+								"Nombre de formulario en uso!", JOptionPane.ERROR_MESSAGE);
+
+					} else {
+						formulariosBeanRemote.crear(formulario);
+
+						JOptionPane.showMessageDialog(frame, "El Formulario ha sido registrado con éxito.",
+								"Formulario Registrado!", JOptionPane.INFORMATION_MESSAGE);
+						VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+						ventanaGeneral.setVisible(true);
+						ventanaGeneral.setLocation(400, 150);
+						dispose();
+					}
+
+				
+				} catch (NamingException e1) {
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnCrearFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnCrearFormulario.setBounds(303, 336, 174, 42);
+		panelFormulario.add(btnCrearFormulario);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {			
+				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+				ventanaGeneral.setVisible(true);
+				ventanaGeneral.setLocation(400, 150);
+				dispose();
+			}
+		});
+		btnVolver.setBounds(534, 348, 89, 23);
+		panelFormulario.add(btnVolver);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -63,5 +162,4 @@ public class VentanaRegistrarFormulario extends JFrame {
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
 	}
-
 }

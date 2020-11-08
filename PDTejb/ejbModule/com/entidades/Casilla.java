@@ -28,8 +28,19 @@ public class Casilla implements Serializable {
 	@Column(length = 150)
 	private String descripcion;
 	
+	
 	@ManyToMany
-	private List<Formulario> formularios = new ArrayList<Formulario>(); 
+	private List<Formulario> formularios; 
+	
+	
+
+	public List<Formulario> getFormularios() {
+		return formularios;
+	}
+
+	public void setFormularios(List<Formulario> formularios) {
+		this.formularios = formularios;
+	}
 
 	public Long getIdCasilla() {
 		return idCasilla;

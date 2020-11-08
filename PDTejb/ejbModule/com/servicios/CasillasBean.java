@@ -62,14 +62,16 @@ public class CasillasBean implements CasillasBeanRemote {
 
 	@Override
 	public List<Casilla> obtenerTodos() {
-		TypedQuery<Casilla> query = em.createQuery("SELECT m FROM Casilla m", Casilla.class);
+		TypedQuery<Casilla> query = em.createQuery("SELECT c FROM Casilla c", Casilla.class);
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Casilla> obtenerTodos(String filtro) {
-		TypedQuery<Casilla> query = em.createQuery("SELECT M FROM Casilla m WHERE m.nombre LIKE :nombre", Casilla.class)
-				.setParameter("nombre", filtro);
+	public List<Casilla> obtenerTodosPorParametro(String filtro) {
+		TypedQuery<Casilla> query = em.createQuery("SELECT c FROM Casilla c WHERE c.parametro LIKE :parametro", Casilla.class)
+				.setParameter("parametro", filtro);
 		return query.getResultList();
 	}
+
+
 }

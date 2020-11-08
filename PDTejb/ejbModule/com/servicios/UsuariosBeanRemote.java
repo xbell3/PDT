@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 
@@ -24,6 +25,8 @@ public interface UsuariosBeanRemote {
 
 	List<Usuario> obtenerPorNombreUsuario(String filtro);
 
+	List<Usuario> obtenerPorRol(String filtro);
+
 	boolean login(String nombreUsuario, String contrasena);
 
 	boolean obtenerNombre(String filtro);
@@ -31,4 +34,6 @@ public interface UsuariosBeanRemote {
 	List<Usuario> obtenerTodos(String filtro);
 
 	boolean registro(String nombreUsuario);
+
+
 }

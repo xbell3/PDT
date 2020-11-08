@@ -1,13 +1,16 @@
 package com.cliente;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.entidades.Formulario;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.FormulariosBeanRemote;
 import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
@@ -16,39 +19,22 @@ public class Principal {
 	public static void main(String[] args) throws NamingException {
 		
 		UsuariosBeanRemote usuariosBeanRemote = (UsuariosBeanRemote) InitialContext.doLookup("PDTejb/UsuariosBean!com.servicios.UsuariosBeanRemote");
-		RolBeanRemote rolBeanRemote = (RolBeanRemote) InitialContext.doLookup("PDTejb/UsuariosBean!com.servicios.UsuariosBeanRemote");
-		Rol admin2 = new Rol();
-	admin2.setNombre("Administrador");
+		RolBeanRemote rolBeanRemote = (RolBeanRemote) InitialContext.doLookup("PDTejb/RolBean!com.servicios.RolBeanRemote");
+		FormulariosBeanRemote formulariosBeanRemote = (FormulariosBeanRemote) InitialContext.doLookup("PDTejb/FormulariosBean!com.servicios.FormulariosBeanRemote");
+
 		
-		Rol experto = new Rol();
-		experto.setNombre("Experto");
-		
-		
+	Formulario formulario = new Formulario();	
 	Usuario usuario = new Usuario();
-	usuario.setNombre("Raul");
-	usuario.setApellido("Perez");
-	usuario.setContrasena("quer99234");
-	usuario.setNombreUsuario("Raul.Perez");
-	usuario.setCorreo("Raul.Perez");
-
-	try {
-		usuariosBeanRemote.crear(usuario);
-		System.out.println("Se creó exitosamente el departamento");
-	} catch (ServiciosException e) {
-		System.out.println(e.getMessage());
+	Rol rol = new Rol();
+	
+	formulario.setNombreFormulario("Agua");
+	formulario.setResumen("Este formulario sera para todo el manejo del agua");
+	List<Formulario> formularios = new ArrayList<>();
+	formularios = formulariosBeanRemote.obtenerTodos();
+	for (Formulario f : formularios) {
+		System.out.println("Se obtiene el " + f);
 	}
-	/*
-	Rol admin = new Rol();
-	admin.setId(1L);
-	admin.setNombre("Administrador");
-
-	try {
-		RolBean.crear(admin);
-		System.out.println("Se creó exitosamente el rol");
-		
-	} catch (ServiciosException e) {
-		System.out.println(e.getMessage());
-	} */
+	System.out.println("Se creó exitosamente el formulario");
 
 }
 

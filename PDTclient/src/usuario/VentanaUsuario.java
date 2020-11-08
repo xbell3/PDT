@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
 import com.cliente.EJBLocator;
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
 
@@ -41,9 +42,9 @@ public class VentanaUsuario extends JFrame {
 	private JTable tableUsuario;
 	private JTextField txtBusqueda;
 	private JFrame frame;
-	public String seleccionar = "";
 	public JComboBox combofiltro;
 
+//	public JComboBox comboBuscarRol;
 	public VentanaUsuario(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -51,12 +52,35 @@ public class VentanaUsuario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JComboBox combofiltro = new JComboBox();
 		combofiltro.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Usuario", "Rol" }));
 		combofiltro.setBounds(424, 161, 81, 22);
 		contentPane.add(combofiltro);
 
+		/*
+		 * JComboBox comboBuscarRol = new JComboBox(); comboBuscarRol.setVisible(false);
+		 * comboBuscarRol.setEnabled(false); comboBuscarRol.setModel(new
+		 * DefaultComboBoxModel(new String[] {"Administrador", "Experto", "Comun"}));
+		 * comboBuscarRol.setBounds(616, 161, 84, 22); contentPane.add(comboBuscarRol);
+		 * 
+		 * combofiltro.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent arg0) { //Bloque if, que evalua si se eligio el
+		 * filtro Rol if(combofiltro.getSelectedItem() == "Rol"){
+		 * txtBusqueda.setVisible(false); txtBusqueda.setEnabled(false);
+		 * comboBuscarRol.setEnabled(true); comboBuscarRol.setVisible(true);
+		 * 
+		 * }else { txtBusqueda.setVisible(true); txtBusqueda.setEnabled(true);
+		 * comboBuscarRol.setVisible(false); comboBuscarRol.setEnabled(false); } } });
+		 * 
+		 * 
+		 * 
+		 * comboBuscarRol.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent arg0) { if(comboBuscarRol.getSelectedItem() ==
+		 * "Administrador") { refrescarTabla(); }else
+		 * if(comboBuscarRol.getSelectedItem() == "Experto") { cargarUsuarioPorRol(); }
+		 * 
+		 * }});
+		 */
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
@@ -112,27 +136,27 @@ public class VentanaUsuario extends JFrame {
 				Usuario usuario = new Usuario();
 				usuario.setNombreUsuario(nombreUsuario);
 				List<Usuario> usuarios = new ArrayList<>();
-				
+
 				try {
-				
+
 					UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
-			
-					usuarios = usuariosBeanRemote.obtenerPorNombreUsuario(nombreUsuario);	
-					usuario = usuarios.get(0);	
-					
-				
+
+					usuarios = usuariosBeanRemote.obtenerPorNombreUsuario(nombreUsuario);
+					usuario = usuarios.get(0);
+
 				} catch (NamingException ex) {
 					// TODO Auto-generated catch block
 					ex.printStackTrace();
 				}
-				
+
 				VentanaEditarUsuario ventanaEditarUsuario = new VentanaEditarUsuario(usuario);
 				ventanaEditarUsuario.setUndecorated(false);
 				ventanaEditarUsuario.setVisible(true);
-				
+				dispose();
+
 			}
 		});
-		
+
 		tableUsuario.setBackground(SystemColor.controlHighlight);
 		tableUsuario.setBounds(145, 194, 601, 356);
 		contentPane.add(tableUsuario);
@@ -143,19 +167,20 @@ public class VentanaUsuario extends JFrame {
 		JButton btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				/*
+				 * Filtros del comboBox, evalua el item elegido, y elije la funcion de listar
+				 * segun se desee.
+				 */
 				if (combofiltro.getSelectedItem() == "Nombre") {
 					cargarUsuarioNombre();
-				}else if(combofiltro.getSelectedItem() == "Apellido"){
+				} else if (combofiltro.getSelectedItem() == "Apellido") {
 					cargarUsuarioApellido();
-				}else if(combofiltro.getSelectedItem() == "Usuario"){
+				} else if (combofiltro.getSelectedItem() == "Usuario") {
 					cargarUsuarioNombreUsuario();
-				}else if(combofiltro.getSelectedItem() == "Rol"){
-					JOptionPane.showMessageDialog(frame, "Falta implementar ENUM", "Campos Incompletos!",
-							JOptionPane.ERROR_MESSAGE);
+				} else if (combofiltro.getSelectedItem() == "Rol") {
+					cargarUsuarioPorRol();
 				}
 			}
-
 		});
 		btnListar.setBounds(515, 162, 72, 23);
 		contentPane.add(btnListar);
@@ -187,14 +212,14 @@ public class VentanaUsuario extends JFrame {
 		txtBusqueda.setBounds(600, 163, 86, 20);
 		contentPane.add(txtBusqueda);
 		txtBusqueda.setColumns(10);
-		
+
 		JLabel lblFiltrarPor = new JLabel("Filtrar por:");
 		lblFiltrarPor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltrarPor.setBounds(342, 165, 72, 14);
 		contentPane.add(lblFiltrarPor);
 
 	}
-	
+
 	private void cargarUsuarioNombre() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -202,17 +227,18 @@ public class VentanaUsuario extends JFrame {
 
 			usuarios = usuariosBeanRemote.obtenerPorNombre(txtBusqueda.getText() + "%");
 
-			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo" };
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();
 			tableUsuario.setModel(model);
 
 			model.setColumnIdentifiers(columnNames);
 			for (Usuario usuario : usuarios) {
-				Object[] fila = new Object[4];
+				Object[] fila = new Object[6];
 				fila[0] = usuario.getNombreUsuario();
 				fila[1] = usuario.getNombre();
 				fila[2] = usuario.getApellido();
 				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
 				model.addRow(fila);
 			}
 
@@ -222,6 +248,7 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
+
 	private void cargarUsuarioApellido() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -229,17 +256,18 @@ public class VentanaUsuario extends JFrame {
 
 			usuarios = usuariosBeanRemote.obtenerPorApellido(txtBusqueda.getText() + "%");
 
-			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo" };
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();
 			tableUsuario.setModel(model);
 
 			model.setColumnIdentifiers(columnNames);
 			for (Usuario usuario : usuarios) {
-				Object[] fila = new Object[4];
+				Object[] fila = new Object[6];
 				fila[0] = usuario.getNombreUsuario();
 				fila[1] = usuario.getNombre();
 				fila[2] = usuario.getApellido();
 				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
 				model.addRow(fila);
 			}
 
@@ -248,9 +276,36 @@ public class VentanaUsuario extends JFrame {
 			e.printStackTrace();
 		}
 
-	
-		
 	}
+
+	private void cargarUsuarioPorRol() {
+		try {
+			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			List<Usuario> usuarios = new ArrayList<>();
+			usuarios = usuariosBeanRemote.obtenerTodos();
+
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableUsuario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Usuario usuario : usuarios) {
+				Object[] fila = new Object[6];
+				fila[0] = usuario.getNombreUsuario();
+				fila[1] = usuario.getNombre();
+				fila[2] = usuario.getApellido();
+				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
+				model.addRow(fila);
+			}
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	private void cargarUsuarioNombreUsuario() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -258,17 +313,18 @@ public class VentanaUsuario extends JFrame {
 
 			usuarios = usuariosBeanRemote.obtenerPorNombreUsuario(txtBusqueda.getText() + "%");
 
-			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo" };
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();
 			tableUsuario.setModel(model);
 
 			model.setColumnIdentifiers(columnNames);
 			for (Usuario usuario : usuarios) {
-				Object[] fila = new Object[4];
+				Object[] fila = new Object[6];
 				fila[0] = usuario.getNombreUsuario();
 				fila[1] = usuario.getNombre();
 				fila[2] = usuario.getApellido();
 				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
 				model.addRow(fila);
 			}
 
@@ -277,9 +333,8 @@ public class VentanaUsuario extends JFrame {
 			e.printStackTrace();
 		}
 
-	
-		
 	}
+
 	private void refrescarTabla() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -287,17 +342,18 @@ public class VentanaUsuario extends JFrame {
 
 			usuarios = usuariosBeanRemote.obtenerTodos();
 
-			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo" };
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();
 			tableUsuario.setModel(model);
 
 			model.setColumnIdentifiers(columnNames);
 			for (Usuario usuario : usuarios) {
-				Object[] fila = new Object[4];
+				Object[] fila = new Object[6];
 				fila[0] = usuario.getNombreUsuario();
 				fila[1] = usuario.getNombre();
 				fila[2] = usuario.getApellido();
 				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
 				model.addRow(fila);
 			}
 

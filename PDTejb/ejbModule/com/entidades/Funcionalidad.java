@@ -23,8 +23,7 @@ public class Funcionalidad implements Serializable {
 	@Column(length=100)
 	private String descripcion;
 	
-/*	@ManyToMany(fetch=FetchType.EAGER, mappedBy="funcionalidades")
-	private List<Rol> roles = new ArrayList<>();*/
+
 	
 	public Funcionalidad() {
 		super();
@@ -59,6 +58,8 @@ public class Funcionalidad implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+
 
 	
 	

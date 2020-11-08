@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.naming.NamingException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,8 +22,10 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
 public class VentanaEditarUsuario extends JFrame {
@@ -33,7 +37,10 @@ public class VentanaEditarUsuario extends JFrame {
 	private JTextField txtCorreo;
 	private JTextField txtContrasena;
 	private JFrame frame;
-
+	private JTextField txtCedula;
+	private JTextField txtProfesion;
+	private JTextField txtInstituto;
+	private Rol rol = new Rol();
 	public VentanaEditarUsuario(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -41,16 +48,46 @@ public class VentanaEditarUsuario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JComboBox comboRol = new JComboBox();
+		comboRol.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+		
+				/*
+				 * La siguiente condicion evalua el item seleccionado en el comboBox y establece
+				 * que se vean los parametros segun el item seleccionado.
+				 */
+				
+				if (comboRol.getSelectedItem() == "Administrador") {
+					txtCedula.setVisible(true);
+					txtCedula.setEnabled(true);
+					txtInstituto.setVisible(true);
+					txtInstituto.setEnabled(true);
+					txtProfesion.setVisible(false);
+					txtProfesion.setEnabled(false);
+					
+				}else if (comboRol.getSelectedItem() == "Experto") {
+					txtCedula.setVisible(true);
+					txtCedula.setEnabled(true);
+					txtProfesion.setVisible(true);
+					txtProfesion.setEnabled(true);
+					txtInstituto.setVisible(false);
+					txtInstituto.setEnabled(false);
 
-		/*
-		 * JComboBox<String> comboBoxRol = new JComboBox<>();
-		 * comboBoxRol.setForeground(new Color(65, 105, 225)); comboBoxRol.setFont(new
-		 * Font("Trebuchet MS", Font.BOLD, 14)); comboBoxRol.setModel(new
-		 * DefaultComboBoxModel<String>(new String[] {"Administrador", "Experto",
-		 * "Comun"})); comboBoxRol.setBounds(327, 94, 174, 42);
-		 * contentPane.add(comboBoxRol);
-		 * comboBoxRol.setToolTipText(usuario.getRol().toString());
-		 */
+				} else {
+					txtCedula.setVisible(false);
+					txtCedula.setEnabled(false);
+					txtInstituto.setVisible(false);
+					txtInstituto.setEnabled(false);
+					txtProfesion.setVisible(false);
+					txtProfesion.setEnabled(false);
+				}
+
+			}
+		});
+		comboRol.setModel(new DefaultComboBoxModel(new String[] { "Administrador", "Experto", "Comun" }));
+		comboRol.setBounds(373, 95, 136, 22);
+		contentPane.add(comboRol);
 
 		JLabel lblModificar = new JLabel("Modificar Usuario");
 		lblModificar.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -58,6 +95,37 @@ public class VentanaEditarUsuario extends JFrame {
 		lblModificar.setBounds(195, 11, 174, 42);
 		contentPane.add(lblModificar);
 
+
+		txtCedula = new JTextField();
+		txtCedula.setVisible(false);
+		txtCedula.setEnabled(false);
+		txtCedula.setText("Cedula");
+		txtCedula.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCedula.setColumns(10);
+		txtCedula.setBounds(354, 147, 168, 42);
+		contentPane.add(txtCedula);
+
+		txtProfesion = new JTextField();
+		txtProfesion.setEnabled(false);
+		txtProfesion.setVisible(false);
+		txtProfesion.setText("Profesion");
+		txtProfesion.setHorizontalAlignment(SwingConstants.CENTER);
+		txtProfesion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtProfesion.setColumns(10);
+		txtProfesion.setBounds(354, 221, 168, 42);
+		contentPane.add(txtProfesion);
+
+		txtInstituto = new JTextField();
+		txtInstituto.setVisible(false);
+		txtInstituto.setEnabled(false);
+		txtInstituto.setText("Instituto");
+		txtInstituto.setHorizontalAlignment(SwingConstants.CENTER);
+		txtInstituto.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtInstituto.setColumns(10);
+		txtInstituto.setBounds(354, 221, 168, 42);
+		contentPane.add(txtInstituto);
+		
 		txtNombre = new JTextField();
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -100,15 +168,29 @@ public class VentanaEditarUsuario extends JFrame {
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
 				UsuariosBeanRemote usuariosBeanRemote;
+				RolBeanRemote rolBeanRemote;
 				usuario.setNombreUsuario(txtNombreUsuario.getText());
 				usuario.setContrasena(txtContrasena.getText());
 				usuario.setApellido(txtApellido.getText());
 				usuario.setCorreo(txtCorreo.getText());
-				usuario.setNombre(txtNombre.getText());			
-				
+				usuario.setNombre(txtNombre.getText());
+				usuario.setRol(rol);
+					/*
+					 * Lo que resta de la condicion establece los parametros segun el
+					 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
+					 */
+					if (txtCedula.isEnabled() || txtInstituto.isEnabled()) {
+						rol.setNombreRol("Administrador");
+					}
+				 
+					if (txtCedula.isEnabled() || txtProfesion.isEnabled()) {
+						rol.setNombreRol("Experto");
+					}
+					if(txtCedula.isEnabled() == false)
+						rol.setNombreRol("Comun");
 				try {
 					usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
 
@@ -120,11 +202,15 @@ public class VentanaEditarUsuario extends JFrame {
 
 						return;
 
+					} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
+						JOptionPane.showMessageDialog(frame,
+								"El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
+								"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
 
 					} else {
 						usuariosBeanRemote.actualizar(usuario);
 
-						JOptionPane.showMessageDialog(frame, "El Usuario ha sido modificado con éxito.",
+						JOptionPane.showMessageDialog(frame, "El Usuario ha sido Modificado con éxito.",
 								"Usuario Modificado!", JOptionPane.INFORMATION_MESSAGE);
 						VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
 						ventanaGeneral.setVisible(true);

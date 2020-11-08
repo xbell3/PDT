@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entidades.Funcionalidad;
-import com.entidades.Rol;
 import com.exception.ServiciosException;
 
 

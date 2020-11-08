@@ -8,7 +8,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entidades.Casilla;
 import com.entidades.Formulario;
+import com.entidades.Usuario;
 import com.exception.ServiciosException;
 
 /**
@@ -35,7 +37,18 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo crear el formulario");
 		}
-	}
+	} 
+	/*
+	@Override
+	public void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException {
+		try{
+			Formulario formulario = em.find(Formulario.class, idFormulario);
+			formulario.getCasillas().add(em.find(Casilla.class, idCasilla));
+			em.flush();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo asignar el departamento a la carrera");
+		}
+	}*/
 
 	@Override
 	public void actualizar(Formulario formulario) throws ServiciosException {
@@ -60,14 +73,39 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	}
 	@Override
 	public List<Formulario> obtenerTodos() {
-		TypedQuery<Formulario> query = em.createQuery("SELECT m FROM Formulario m",Formulario.class); 
+		TypedQuery<Formulario> query = em.createQuery("SELECT m FROM Formulario m", Formulario.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Formulario> obtenerTodos(String filtro) {
-		TypedQuery<Formulario> query = em.createQuery("SELECT M FROM Formulario m WHERE m.nombre LIKE :nombre",Formulario.class)
-				.setParameter("nombre", filtro);
+		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM FORMULARIO f WHERE f.nombreFormulario LIKE :nombreFormulario",Formulario.class)
+				.setParameter("nombreFormulario", filtro);
+		return query.getResultList();
+	}
+	
+	@Override
+	public boolean registro(String nombreFormulario) {
+		try {
+			TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f WHERE f.nombreFormulario = :nombreFormulario",
+					Formulario.class);
+			query.setParameter("nombreFormulario", nombreFormulario);
+			try {
+				Formulario f = query.getSingleResult();
+				return true;
+			} catch (javax.persistence.NoResultException e) {
+				return false;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	@Override
+	public List<Formulario> obtenerPorNombreFormulario(String filtro) {
+		TypedQuery<Formulario> query = em
+				.createQuery("SELECT f FROM Formulario f WHERE f.nombreFormulario LIKE :nombreFormulario", Formulario.class)
+				.setParameter("nombreFormulario", filtro);
 		return query.getResultList();
 	}
 }

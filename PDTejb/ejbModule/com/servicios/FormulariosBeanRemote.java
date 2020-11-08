@@ -10,14 +10,20 @@ import com.exception.ServiciosException;
 @Remote
 public interface FormulariosBeanRemote {
 
-	void actualizar(Formulario formulario) throws ServiciosException;
-
-	void crear(Formulario formulario) throws ServiciosException;
-
-	void borrar(Long idFormulario) throws ServiciosException;
+	boolean registro(String nombreFormulario);
 
 	List<Formulario> obtenerTodos(String filtro);
 
 	List<Formulario> obtenerTodos();
+
+	void borrar(Long idFormulario) throws ServiciosException;
+
+	void actualizar(Formulario formulario) throws ServiciosException;
+
+//	void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException;
+
+	void crear(Formulario formulario) throws ServiciosException;
+
+	List<Formulario> obtenerPorNombreFormulario(String filtro);
 
 }

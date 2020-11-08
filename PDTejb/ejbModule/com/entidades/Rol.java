@@ -1,41 +1,37 @@
 package com.entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToMany;
+import com.entidades.Usuario;
 
+/**
+ * Entity implementation class for Entity: Rol
+ *
+ */
 @Entity
+
 public class Rol implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long idRol;
-	
-	@Column(length=40/*,unique=true*/)
-	private String nombre;
-	
-	@Column(length=100)
-	private String descripcion;
-	
-	/*@ManyToMany(fetch=FetchType.LAZY)
-	private List<Funcionalidad> funcionalidades = new ArrayList<>();*/
-	
+
 	public Rol() {
 		super();
 	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idRol;
 
+	@Column(length = 40, name ="nombreRol")
+	private String nombreRol;
 
-
+	
 	public Long getIdRol() {
 		return idRol;
 	}
-
 
 
 	public void setIdRol(Long idRol) {
@@ -44,28 +40,17 @@ public class Rol implements Serializable {
 
 
 
-	public String getNombre() {
-		return nombre;
+
+	public String getNombreRol() {
+		return nombreRol;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreRol(String nombreRol) {
+		this.nombreRol = nombreRol;
 	}
-
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 
 	
-   
+	
+	
 }
-
-

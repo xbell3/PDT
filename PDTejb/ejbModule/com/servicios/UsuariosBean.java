@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 
@@ -36,9 +37,10 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			em.persist(usuario);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo crear el usuario");
+			throw new ServiciosException("No se pudo crear la carrera");
 		}
 	}
+	
 
 	@Override
 	public void actualizar(Usuario usuario) throws ServiciosException {
@@ -46,7 +48,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			em.merge(usuario);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo actualizar el usuario");
+			throw new ServiciosException("No se pudo actualizar la materia");
 		}
 	}
 
@@ -57,7 +59,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			em.remove(usuario);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo actualizar el usuario");
+			throw new ServiciosException("No se pudo borrar la materia");
 		}
 
 	}
@@ -105,6 +107,13 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			}
 		} finally {
 		}
+	}
+	@Override
+	public List<Usuario> obtenerPorRol(String filtro) {
+		TypedQuery<Usuario> query = em.createQuery("SELECT ROL.NOMBREROL,USUARIO.NOMBREUSUARIO,USUARIO.NOMBRE FROM ROL INNER JOIN USUARIO ON ROL.IDROL = USUARIO.NOMBREROL", Usuario.class)
+				.setParameter("NOMBREROL", filtro);
+			
+		return query.getResultList();
 	}
 
 	@Override
