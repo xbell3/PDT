@@ -108,17 +108,34 @@ public class VentanaUsuario extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				int row = tableUsuario.getSelectedRow();
-				Long id = (Long) tableUsuario.getModel().getValueAt(row, 0);
-				String nombre = (String) tableUsuario.getModel().getValueAt(row, 1);
+				String nombreUsuario = (String) tableUsuario.getModel().getValueAt(row, 0);
 				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(id);
-				;
-				usuario.setNombre(nombre);
+				usuario.setNombreUsuario(nombreUsuario);
+				List<Usuario> usuarios = new ArrayList<>();
+				
+				try {
+				
+					UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			
+					usuarios = usuariosBeanRemote.obtenerPorNombreUsuario(nombreUsuario);	
+					usuario = usuarios.get(0);	
+					
+				
+				} catch (NamingException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+				
 				VentanaEditarUsuario ventanaEditarUsuario = new VentanaEditarUsuario(usuario);
 				ventanaEditarUsuario.setUndecorated(false);
 				ventanaEditarUsuario.setVisible(true);
+				
 			}
 		});
+		
+		tableUsuario.setBackground(SystemColor.controlHighlight);
+		tableUsuario.setBounds(145, 194, 601, 356);
+		contentPane.add(tableUsuario);
 		tableUsuario.setBackground(SystemColor.controlHighlight);
 		tableUsuario.setBounds(145, 194, 601, 356);
 		contentPane.add(tableUsuario);

@@ -29,10 +29,9 @@ public class Usuario implements Serializable {
 
 	@Column(length = 40)
 	private String contrasena;
-
-	public Usuario() {
-		super();
-	}
+	
+	@ManyToOne
+	private Rol rol;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -74,6 +73,9 @@ public class Usuario implements Serializable {
 		this.contrasena = contrasena;
 	}
 
+	public Usuario() {
+		super();
+	}
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -81,6 +83,14 @@ public class Usuario implements Serializable {
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 }
