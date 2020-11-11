@@ -43,7 +43,7 @@ public class VentanaUsuario extends JFrame {
 	private JTextField txtBusqueda;
 	private JFrame frame;
 	public JComboBox combofiltro;
-
+//HOLA RECIBISTE EL NUEVO COMMIT?
 //	public JComboBox comboBuscarRol;
 	public VentanaUsuario(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

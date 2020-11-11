@@ -2,43 +2,49 @@ package formulario;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.naming.NamingException;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import com.cliente.EJBLocator;
-import com.cliente.VentanaGeneral;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.FormulariosBeanRemote;
-import com.servicios.UsuariosBeanRemote;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JRadioButtonMenuItem;
 
-import javax.swing.border.BevelBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.naming.NamingException;
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class VentanaRegistrarFormulario extends JFrame {
+public class VentanaRegistrarCasilla extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtNombreFormulario;
-	private JTextField txtResumen;
+	private JTextField txtParametro;
+	private JTextField txtUnidadMedida;
 	public JFrame frame;
+	private JTextField txtDescripcion;
+	private JTextField txtTipoDeValor;
+	/**
+	 * Launch the application.
+	 */
+
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistrarFormulario(Usuario usuario) {
+	public VentanaRegistrarCasilla(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -52,48 +58,48 @@ public class VentanaRegistrarFormulario extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
-		JLabel lblNuevoFormulario = new JLabel("Nuevo Formulario");
-		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNuevoFormulario.setBounds(200, 33, 174, 42);
-		panelFormulario.add(lblNuevoFormulario);
+		JLabel lblNuevaCasilla = new JLabel("Nueva Casilla");
+		lblNuevaCasilla.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNuevaCasilla.setBounds(200, 33, 174, 42);
+		panelFormulario.add(lblNuevaCasilla);
 		
-		txtNombreFormulario = new JTextField();
-		txtNombreFormulario.setText("Nombre de Formulario");
-		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtNombreFormulario.setColumns(10);
-		txtNombreFormulario.setBounds(123, 164, 168, 42);
-		panelFormulario.add(txtNombreFormulario);
+		txtParametro = new JTextField();
+		txtParametro.setText("Parametro");
+		txtParametro.setHorizontalAlignment(SwingConstants.CENTER);
+		txtParametro.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtParametro.setColumns(10);
+		txtParametro.setBounds(123, 164, 168, 42);
+		panelFormulario.add(txtParametro);
 		
-		txtResumen = new JTextField();
-		txtResumen.setText("Resumen");
-		txtResumen.setHorizontalAlignment(SwingConstants.CENTER);
-		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtResumen.setColumns(10);
-		txtResumen.setBounds(339, 164, 168, 42);
-		panelFormulario.add(txtResumen);
+		txtUnidadMedida = new JTextField();
+		txtUnidadMedida.setText("Unidad de Medida");
+		txtUnidadMedida.setHorizontalAlignment(SwingConstants.CENTER);
+		txtUnidadMedida.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtUnidadMedida.setColumns(10);
+		txtUnidadMedida.setBounds(339, 164, 168, 42);
+		panelFormulario.add(txtUnidadMedida);
 		
-		JButton btnCrearFormulario = new JButton("Crear formulario");
-		btnCrearFormulario.addActionListener(new ActionListener() {
+		JButton btnCrearCasilla = new JButton("Crear Casilla");
+		btnCrearCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FormulariosBeanRemote formulariosBeanRemote;
 				Formulario formulario = new Formulario ();
-				formulario.setNombreFormulario(txtNombreFormulario.getText());
-				formulario.setResumen(txtResumen.getText());
+				formulario.setNombreFormulario(txtParametro.getText());
+				formulario.setResumen(txtUnidadMedida.getText());
 				
 				try {
 
 					formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 
-					if (txtNombreFormulario.getText().isEmpty() || txtResumen.getText().isEmpty()
+					if (txtParametro.getText().isEmpty() || txtUnidadMedida.getText().isEmpty()
 							) {
 						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
 								JOptionPane.INFORMATION_MESSAGE);
 
 						return;
 
-					} else if (formulariosBeanRemote.registro(txtNombreFormulario.getText())) {
+					} else if (formulariosBeanRemote.registro(txtParametro.getText())) {
 						JOptionPane.showMessageDialog(frame,
 								"El nombre del formulario ya se encuentra en uso. Intente Nuevamente",
 								"Nombre de formulario en uso!", JOptionPane.ERROR_MESSAGE);
@@ -117,9 +123,9 @@ public class VentanaRegistrarFormulario extends JFrame {
 				}
 			}
 		});
-		btnCrearFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearFormulario.setBounds(303, 336, 174, 42);
-		panelFormulario.add(btnCrearFormulario);
+		btnCrearCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnCrearCasilla.setBounds(349, 336, 174, 42);
+		panelFormulario.add(btnCrearCasilla);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
@@ -130,12 +136,34 @@ public class VentanaRegistrarFormulario extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(534, 348, 89, 23);
+		btnVolver.setBounds(580, 348, 89, 23);
 		panelFormulario.add(btnVolver);
+		
+		txtDescripcion = new JTextField();
+		txtDescripcion.setText("Descripcion");
+		txtDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtDescripcion.setColumns(10);
+		txtDescripcion.setBounds(123, 226, 168, 42);
+		panelFormulario.add(txtDescripcion);
+		
+		txtTipoDeValor = new JTextField();
+		txtTipoDeValor.setText("Tipo de Valor");
+		txtTipoDeValor.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTipoDeValor.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTipoDeValor.setColumns(10);
+		txtTipoDeValor.setBounds(455, 236, 168, 42);
+		panelFormulario.add(txtTipoDeValor);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Numero entero", "Numero decimal", "Texto", "Boolean"}));
+		comboBox.setBounds(339, 238, 113, 22);
+		panelFormulario.add(comboBox);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
-		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
+		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
+
 						UIManager.getColor("Button.shadow"), null, null));
 		panelUsuario.setBackground(SystemColor.activeCaption);
 		panelUsuario.setBounds(0, 0, 784, 90);

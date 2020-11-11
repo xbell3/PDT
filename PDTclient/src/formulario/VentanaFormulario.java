@@ -128,7 +128,7 @@ public class VentanaFormulario extends JFrame {
 					ex.printStackTrace();
 				}
 
-				VentanaEditarFormulario ventanaEditarFormulario = new VentanaEditarFormulario();
+				VentanaEditarFormulario ventanaEditarFormulario = new VentanaEditarFormulario(usuario);
 				ventanaEditarFormulario.setUndecorated(false);
 				ventanaEditarFormulario.setVisible(true);
 				dispose();
@@ -139,6 +139,28 @@ public class VentanaFormulario extends JFrame {
 		tableFormulario.setBackground(SystemColor.controlHighlight);
 		tableFormulario.setBounds(123, 111, 601, 356);
 		panelFormulario.add(tableFormulario);
+		
+		JButton btnAsignarCasilla = new JButton("Asignar Casilla");
+		btnAsignarCasilla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAsignarCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
+		btnAsignarCasilla.setBounds(338, 77, 123, 23);
+		panelFormulario.add(btnAsignarCasilla);
+		
+		JButton btnCrearCasilla = new JButton("Crear Casilla");
+		btnCrearCasilla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario);
+				ventanaRegistrarCasilla.setUndecorated(false);
+				ventanaRegistrarCasilla.setVisible(true);
+				dispose();
+			}
+		});
+		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
+		btnCrearCasilla.setBounds(205, 77, 123, 23);
+		panelFormulario.add(btnCrearCasilla);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);

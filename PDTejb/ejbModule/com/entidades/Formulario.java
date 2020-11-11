@@ -24,6 +24,16 @@ public class Formulario implements Serializable {
 	@Column(length = 150)
 	private String resumen;
 	
+	@ManyToMany(mappedBy= "formularios")
+	private List<Casilla> casillas; 
+	
+	public List<Casilla> getCasillas() {
+		return casillas;
+	}
+
+	public void setCasillas(List<Casilla> casillas) {
+		this.casillas = casillas;
+	}
 
 	public Long getIdFormulario() {
 		return idFormulario;

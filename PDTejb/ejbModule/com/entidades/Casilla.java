@@ -28,11 +28,9 @@ public class Casilla implements Serializable {
 	@Column(length = 150)
 	private String descripcion;
 	
-	
+
 	@ManyToMany
 	private List<Formulario> formularios; 
-	
-	
 
 	public List<Formulario> getFormularios() {
 		return formularios;

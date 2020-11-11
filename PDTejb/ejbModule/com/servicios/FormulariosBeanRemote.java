@@ -20,7 +20,7 @@ public interface FormulariosBeanRemote {
 
 	void actualizar(Formulario formulario) throws ServiciosException;
 
-//	void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException;
+	void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException;
 
 	void crear(Formulario formulario) throws ServiciosException;
 

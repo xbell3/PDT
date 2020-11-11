@@ -38,7 +38,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 			throw new ServiciosException("No se pudo crear el formulario");
 		}
 	} 
-	/*
+	
 	@Override
 	public void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException {
 		try{
@@ -48,7 +48,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo asignar el departamento a la carrera");
 		}
-	}*/
+	}
 
 	@Override
 	public void actualizar(Formulario formulario) throws ServiciosException {
