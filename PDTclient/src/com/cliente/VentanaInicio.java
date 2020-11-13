@@ -1,14 +1,12 @@
 package com.cliente;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
-
-import com.cliente.EJBLocator;
-import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
 
@@ -21,8 +19,17 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Toolkit;
 
 public class VentanaInicio extends JFrame {
 
@@ -30,6 +37,7 @@ public class VentanaInicio extends JFrame {
 	private JTextField txtNombreUsuario;
 	private JTextField txtContrasena;
 	private JFrame frame;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -47,33 +55,43 @@ public class VentanaInicio extends JFrame {
 			}
 		});
 	}
-
 	public VentanaInicio(Usuario usuario) {
+		setTitle("Login");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicio.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 600);
+		setBounds(100, 100, 655, 600);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("Iniciar Sesion");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(125, 11, 150, 44);
-		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setIcon(new ImageIcon(VentanaInicio.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_3.setBounds(0, 0, 639, 248);
+		contentPane.add(lblNewLabel_3);
 
 		txtNombreUsuario = new JTextField();
-		txtNombreUsuario.setToolTipText("Escribe tu nombre de usuario");
-		txtNombreUsuario.setBounds(134, 156, 150, 30);
+		txtNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtNombreUsuario.setToolTipText("Ingresar nombre de usuario");
+		txtNombreUsuario.setForeground(new Color(0, 102, 0));
+		txtNombreUsuario.setBounds(206, 306, 214, 30);
 		contentPane.add(txtNombreUsuario);
 		txtNombreUsuario.setColumns(10);
 
 		txtContrasena = new JPasswordField();
-		txtContrasena.setBounds(134, 218, 150, 30);
+		txtContrasena.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtContrasena.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		txtContrasena.setToolTipText("Ingresar contrase\u00F1a");
+		txtContrasena.setForeground(new Color(0, 102, 0));
+		txtContrasena.setBounds(206, 359, 214, 30);
 		contentPane.add(txtContrasena);
 		txtContrasena.setColumns(10);
 
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.setForeground(new Color(0, 102, 0));
+		btnIngresar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnIngresar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -107,22 +125,12 @@ public class VentanaInicio extends JFrame {
 			}
 		});
 
-		btnIngresar.setBounds(134, 292, 150, 23);
+		btnIngresar.setBounds(239, 403, 150, 23);
 		contentPane.add(btnIngresar);
 
-		JLabel lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setLabelFor(txtNombreUsuario);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(63, 164, 61, 14);
-		contentPane.add(lblNewLabel_1);
-
-		JLabel lblNewLabel_2 = new JLabel("Constrase\u00F1a");
-		lblNewLabel_2.setLabelFor(txtContrasena);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(63, 226, 61, 14);
-		contentPane.add(lblNewLabel_2);
-
 		JButton btnRegistrarme = new JButton("Registrarme");
+		btnRegistrarme.setForeground(new Color(0, 102, 0));
+		btnRegistrarme.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarme.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -132,8 +140,23 @@ public class VentanaInicio extends JFrame {
 				dispose();
 			}
 		});
-		btnRegistrarme.setBounds(134, 337, 150, 23);
+		btnRegistrarme.setBounds(239, 447, 150, 23);
 		contentPane.add(btnRegistrarme);
+		
+		textField = new JTextField();
+		textField.setText("Iniciar Sesi\u00F3n");
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setForeground(Color.WHITE);
+		textField.setFont(new Font("Calibri", Font.PLAIN, 20));
+		textField.setEditable(false);
+		textField.setColumns(10);
+		textField.setBackground(new Color(0, 128, 0));
+		textField.setBounds(23, 243, 584, 45);
+		contentPane.add(textField);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(VentanaInicio.class.getResource("/Imagenes/USycon_v03.png")));
+		lblNewLabel.setBounds(168, 299, 32, 92);
+		contentPane.add(lblNewLabel);
 	}
-
 }
