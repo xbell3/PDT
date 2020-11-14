@@ -4,10 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
-import com.cliente.EJBLocator;
-import com.entidades.Rol;
+import usuario.VentanaRegistrarUsuario;
+import com.cliente.VentanaInicio;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
 
@@ -23,81 +24,75 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.naming.NamingException;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
-import java.awt.Component;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import java.awt.Color;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import java.awt.Cursor;
 
 public class VentanaUsuario extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableUsuario;
 	private JTextField txtBusqueda;
-	private JFrame frame;
 	public JComboBox combofiltro;
-//HOLA RECIBISTE EL NUEVO COMMIT?
-//	public JComboBox comboBuscarRol;
+	public String seleccionar = "";
+	private JFrame frame;
+
 	public VentanaUsuario(Usuario usuario) {
+		setTitle("Usuarios");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaUsuario.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		JComboBox combofiltro = new JComboBox();
-		combofiltro.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Usuario", "Rol" }));
-		combofiltro.setBounds(424, 161, 81, 22);
-		contentPane.add(combofiltro);
 
-		/*
-		 * JComboBox comboBuscarRol = new JComboBox(); comboBuscarRol.setVisible(false);
-		 * comboBuscarRol.setEnabled(false); comboBuscarRol.setModel(new
-		 * DefaultComboBoxModel(new String[] {"Administrador", "Experto", "Comun"}));
-		 * comboBuscarRol.setBounds(616, 161, 84, 22); contentPane.add(comboBuscarRol);
-		 * 
-		 * combofiltro.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent arg0) { //Bloque if, que evalua si se eligio el
-		 * filtro Rol if(combofiltro.getSelectedItem() == "Rol"){
-		 * txtBusqueda.setVisible(false); txtBusqueda.setEnabled(false);
-		 * comboBuscarRol.setEnabled(true); comboBuscarRol.setVisible(true);
-		 * 
-		 * }else { txtBusqueda.setVisible(true); txtBusqueda.setEnabled(true);
-		 * comboBuscarRol.setVisible(false); comboBuscarRol.setEnabled(false); } } });
-		 * 
-		 * 
-		 * 
-		 * comboBuscarRol.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent arg0) { if(comboBuscarRol.getSelectedItem() ==
-		 * "Administrador") { refrescarTabla(); }else
-		 * if(comboBuscarRol.getSelectedItem() == "Experto") { cargarUsuarioPorRol(); }
-		 * 
-		 * }});
-		 */
+		txtBusqueda = new JTextField();
+		txtBusqueda.setBounds(441, 130, 138, 20);
+		contentPane.add(txtBusqueda);
+		txtBusqueda.setColumns(10);
+
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
 				UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBackground(new Color(0, 102, 0));
+		panelUsuario.setBounds(0, 0, 784, 92);
 		contentPane.add(panelUsuario);
 
+		JComboBox combofiltro = new JComboBox();
+		combofiltro.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Usuario", "Rol" }));
+		combofiltro.setBounds(353, 130, 81, 22);
+		contentPane.add(combofiltro);
+
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setForeground(new Color(255, 255, 255));
+		lblTipoUser.setBounds(10, 52, 46, 14);
 		panelUsuario.add(lblTipoUser);
 
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(37, 27, 118, 14);
 		panelUsuario.add(lblNewLabel);
 
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
@@ -107,22 +102,35 @@ public class VentanaUsuario extends JFrame {
 			}
 
 		});
-		btnSalir.setBounds(714, 16, 60, 23);
+		btnSalir.setBounds(539, 16, 68, 17);
 		panelUsuario.add(btnSalir);
 
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setForeground(new Color(0, 102, 0));
+		btnNewButton.setBounds(461, 16, 68, 17);
 		panelUsuario.add(btnNewButton);
 
-		JLabel lblNombreSistema = new JLabel("Nombre App");
-		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
-		panelUsuario.add(lblNombreSistema);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(10, 11, 55, 45);
+		panelUsuario.add(lblNewLabel_1);
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Usuario_gris.png")));
+
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_2.setBounds(-52, 0, 698, 90);
+		panelUsuario.add(lblNewLabel_2);
 
 		JLabel lblTituloUsuario = new JLabel("Usuarios");
+		lblTituloUsuario.setForeground(new Color(0, 102, 0));
+		lblTituloUsuario.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/usuarios_v02.png")));
 		lblTituloUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTituloUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTituloUsuario.setBounds(10, 101, 157, 39);
+		lblTituloUsuario.setBounds(30, 103, 157, 70);
 		contentPane.add(lblTituloUsuario);
 
 		tableUsuario = new JTable();
@@ -152,19 +160,15 @@ public class VentanaUsuario extends JFrame {
 				VentanaEditarUsuario ventanaEditarUsuario = new VentanaEditarUsuario(usuario);
 				ventanaEditarUsuario.setUndecorated(false);
 				ventanaEditarUsuario.setVisible(true);
-				dispose();
 
 			}
 		});
-
 		tableUsuario.setBackground(SystemColor.controlHighlight);
-		tableUsuario.setBounds(145, 194, 601, 356);
-		contentPane.add(tableUsuario);
-		tableUsuario.setBackground(SystemColor.controlHighlight);
-		tableUsuario.setBounds(145, 194, 601, 356);
+		tableUsuario.setBounds(127, 161, 493, 316);
 		contentPane.add(tableUsuario);
 
 		JButton btnListar = new JButton("Listar");
+		btnListar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/*
@@ -182,42 +186,9 @@ public class VentanaUsuario extends JFrame {
 				}
 			}
 		});
-		btnListar.setBounds(515, 162, 72, 23);
+		btnListar.setBounds(246, 130, 72, 23);
 		contentPane.add(btnListar);
 
-		JButton btnRefrescar = new JButton("");
-		btnRefrescar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				refrescarTabla();
-			}
-		});
-		btnRefrescar.setBounds(710, 162, 20, 23);
-		contentPane.add(btnRefrescar);
-
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-				ventanaGeneral.setVisible(true);
-				ventanaGeneral.setLocation(400, 150);
-				dispose();
-
-			}
-		});
-		btnVolver.setBounds(23, 514, 89, 23);
-		contentPane.add(btnVolver);
-
-		txtBusqueda = new JTextField();
-		txtBusqueda.setBounds(600, 163, 86, 20);
-		contentPane.add(txtBusqueda);
-		txtBusqueda.setColumns(10);
-
-		JLabel lblFiltrarPor = new JLabel("Filtrar por:");
-		lblFiltrarPor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFiltrarPor.setBounds(342, 165, 72, 14);
-		contentPane.add(lblFiltrarPor);
-		
 		JButton btnRegistrar = new JButton("Registrar usuario");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -227,7 +198,7 @@ public class VentanaUsuario extends JFrame {
 				
 			}
 		});
-		btnRegistrar.setBounds(16, 228, 119, 23);
+		btnRegistrar.setBounds(1, 246, 121, 23);
 		contentPane.add(btnRegistrar);
 		
 		JButton btnBorrar = new JButton("Borrar Usuario");
@@ -236,17 +207,44 @@ public class VentanaUsuario extends JFrame {
 				
 			}
 		});
-		btnBorrar.setBounds(16, 262, 119, 23);
+		
+			
+				JButton btnRefrescar = new JButton("");
+				btnRefrescar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						refrescarTabla();
+					}
+				});
+				btnRefrescar.setBounds(596, 130, 21, 23);
+				contentPane.add(btnRefrescar);
+		btnBorrar.setBounds(2, 281, 121, 23);
 		contentPane.add(btnBorrar);
+		
 
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(0, 102, 0));
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+				ventanaGeneral.setVisible(true);
+				ventanaGeneral.setLocation(400, 150);
+				dispose();
+
+			}
+		});
+		btnVolver.setBounds(20, 448, 89, 23);
+		contentPane.add(btnVolver);
 	}
+	
+	
 
-	private void cargarUsuarioNombre() {
+	private void cargarUsuarioPorRol() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
 			List<Usuario> usuarios = new ArrayList<>();
-
-			usuarios = usuariosBeanRemote.obtenerPorNombre(txtBusqueda.getText() + "%");
+			usuarios = usuariosBeanRemote.obtenerTodos();
 
 			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();
@@ -269,9 +267,12 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
-	private void borrarUsuario() {
+
 		
+	private void borrarUsuario() {
+
 	}
+
 	private void cargarUsuarioApellido() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -300,12 +301,13 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
-
-	private void cargarUsuarioPorRol() {
+	
+	private void cargarUsuarioNombre() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
 			List<Usuario> usuarios = new ArrayList<>();
-			usuarios = usuariosBeanRemote.obtenerTodos();
+
+			usuarios = usuariosBeanRemote.obtenerPorNombre(txtBusqueda.getText() + "%");
 
 			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();

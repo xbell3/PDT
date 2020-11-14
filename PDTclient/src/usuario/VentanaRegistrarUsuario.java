@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
+import usuario.VentanaUsuario;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
