@@ -161,7 +161,7 @@ public class VentanaInicio extends JFrame {
 			 * el usuario tiene permisos de ingresar a la aplicacion*/
 			if (usuariosBeanRemote.login(txtNombreUsuario.getText(), txtContrasena.getText())) {
 				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-				ventanaGeneral.lblNombreUsuario.setText(usuario.getNombreUsuario());
+				//ventanaGeneral.lblNombreUsuario.setText(usuario.getNombreUsuario());
 				ventanaGeneral.setVisible(true);
 				ventanaGeneral.setLocation(450, 150);
 				dispose();
