@@ -16,7 +16,7 @@ public class Casilla implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long idCasilla;
 
 	@Column(length = 40)
@@ -31,18 +31,17 @@ public class Casilla implements Serializable {
 	@Column(length = 40)
 	private String tipoUnidad;
 
-	@ManyToOne(fetch=FetchType.LAZY, optional=true)
-	@JoinColumn(name="idFormulario")
-	private Formulario formulario; 
-
-	
-	public Formulario getFormulario() {
-		return formulario;
-	}
-
-	public void setFormulario(Formulario formulario) {
-		this.formulario = formulario;
-	}
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	private Formulario formulario; 
+//
+//	
+//	public Formulario getFormulario() {
+//		return formulario;
+//	}
+//
+//	public void setFormulario(Formulario formulario) {
+//		this.formulario = formulario;
+//	}
 
 	public String getTipoUnidad() {
 		return tipoUnidad;

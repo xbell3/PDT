@@ -118,15 +118,15 @@ public class VentanaAgregarCasilla extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				int row = tableCasilla.getSelectedRow();
-				String parametro = (String) tableCasilla.getModel().getValueAt(row, 0);
+				Long idCasilla = (Long) tableCasilla.getModel().getValueAt(row, 0);
 				Casilla casilla = new Casilla();
-				casilla.setParametro(parametro);
+				casilla.setIdCasilla(idCasilla);
 				
 				try {
 
 					FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 
-					formulariosBeanRemote.asignarCasilla(formulario.getNombreFormulario(), parametro);
+					formulariosBeanRemote.asignarCasilla(formulario.getIdFormulario(), idCasilla );
 
 				} catch (NamingException ex) {
 					// TODO Auto-generated catch block
@@ -164,7 +164,9 @@ public class VentanaAgregarCasilla extends JFrame {
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {}
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
 		});
 		btnAgregar.setBounds(499, 437, 89, 23);
 		panelCasilla.add(btnAgregar);

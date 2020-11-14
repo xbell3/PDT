@@ -25,6 +25,6 @@ public interface FormulariosBeanRemote {
 
 	List<Formulario> obtenerPorNombreFormulario(String filtro);
 
-	void asignarCasilla(String nombreFormulario, String parametro) throws ServiciosException;
+	void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException;
 
 }

@@ -15,7 +15,7 @@ public class Formulario implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long idFormulario;
 
 	@Column(length = 40)
@@ -24,8 +24,8 @@ public class Formulario implements Serializable {
 	@Column(length = 150)
 	private String resumen;
 	
-/*	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Casilla> casillas = new ArrayList<Casilla>();
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<Casilla> casillas;
 	
 	public List<Casilla> getCasillas() {
 		return casillas;
@@ -33,7 +33,7 @@ public class Formulario implements Serializable {
 
 	public void setCasillas(List<Casilla> casillas) {
 		this.casillas = casillas;
-	}*/
+	}
 
 	public String getNombreFormulario() {
 		return nombreFormulario;

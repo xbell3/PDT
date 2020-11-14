@@ -155,7 +155,8 @@ public class VentanaEditarUsuario extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				modificarUsuario();
+				Usuario usuario = new Usuario();
+				modificarUsuario(usuario);
 				
 			}
 		});
@@ -409,14 +410,13 @@ public class VentanaEditarUsuario extends JFrame {
 		}
 
 	}
-	private void modificarUsuario() {
+	private void modificarUsuario(Usuario usuario) {
 		/*Se enlazan los parametros escritos en cada campo de texto 
 		 * con cada parametro de la entidad Usuario
 		 * i.e: txtNombreUsuario obtiene el texto del campo (getText();)
 		 * y lo "setea" al campo nombreUsuario de la entidad Usuario*/
 		UsuariosBeanRemote usuariosBeanRemote;
 		RolBeanRemote rolBeanRemote;
-		Usuario usuario =  new Usuario();
 		usuario.setContrasena(txtContrasena.getText());
 		usuario.setApellido(txtApellido.getText());
 		usuario.setCorreo(txtCorreo.getText());

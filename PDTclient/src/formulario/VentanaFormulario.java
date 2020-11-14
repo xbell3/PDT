@@ -77,8 +77,7 @@ public class VentanaFormulario extends JFrame {
 		
 		JButton btnListarFormulario = new JButton("Listar");
 		btnListarFormulario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
+			public void actionPerformed(ActionEvent arg0) {				
 				/*
 				 * Filtros del comboBox, evalua el item elegido, y elije la funcion de listar
 				 * segun se desee.
@@ -163,7 +162,6 @@ public class VentanaFormulario extends JFrame {
 				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario);
 				ventanaRegistrarCasilla.setUndecorated(false);
 				ventanaRegistrarCasilla.setVisible(true);
-				dispose();
 			}
 		});
 		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
@@ -237,14 +235,13 @@ public class VentanaFormulario extends JFrame {
 	}
 	
 	private void cargarFormularios() {
-
 		try {
 			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 			List<Formulario> formularios = new ArrayList<>();
-			
-			formularios = formulariosBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
+	
+			formularios = formulariosBeanRemote.obtenerTodos();
 
-			String[] columnNames = {  "nombreFormulario", "resumen" };
+			String[] columnNames = {"nombreFormulario", "resumen"};
 			DefaultTableModel model = new DefaultTableModel();
 			tableFormulario.setModel(model);
 
@@ -254,14 +251,10 @@ public class VentanaFormulario extends JFrame {
 				fila[0] = formulario.getNombreFormulario();
 				fila[1] = formulario.getResumen();
 				model.addRow(fila);
-
-			}
-
+			}		
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-	
 	}
 }

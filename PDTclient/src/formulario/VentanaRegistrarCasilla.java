@@ -21,9 +21,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import com.cliente.EJBLocator;
+import com.entidades.Casilla;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -37,10 +39,6 @@ public class VentanaRegistrarCasilla extends JFrame {
 	public JFrame frame;
 	private JTextField txtDescripcion;
 	private JTextField txtTipoDeValor;
-	/**
-	 * Launch the application.
-	 */
-
 	/**
 	 * Create the frame.
 	 */
@@ -83,44 +81,8 @@ public class VentanaRegistrarCasilla extends JFrame {
 		JButton btnCrearCasilla = new JButton("Crear Casilla");
 		btnCrearCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FormulariosBeanRemote formulariosBeanRemote;
-				Formulario formulario = new Formulario ();
-				formulario.setNombreFormulario(txtParametro.getText());
-				formulario.setResumen(txtUnidadMedida.getText());
+				crearCasilla();
 				
-				try {
-
-					formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
-
-					if (txtParametro.getText().isEmpty() || txtUnidadMedida.getText().isEmpty()
-							) {
-						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-								JOptionPane.INFORMATION_MESSAGE);
-
-						return;
-
-					} else if (formulariosBeanRemote.registro(txtParametro.getText())) {
-						JOptionPane.showMessageDialog(frame,
-								"El nombre del formulario ya se encuentra en uso. Intente Nuevamente",
-								"Nombre de formulario en uso!", JOptionPane.ERROR_MESSAGE);
-
-					} else {
-						formulariosBeanRemote.crear(formulario);
-
-						JOptionPane.showMessageDialog(frame, "El Formulario ha sido registrado con éxito.",
-								"Formulario Registrado!", JOptionPane.INFORMATION_MESSAGE);
-						VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-						ventanaFormulario.setVisible(true);
-						ventanaFormulario.setLocation(400, 150);
-						dispose();
-					}
-
-				
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
-				}
 			}
 		});
 		btnCrearCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -189,5 +151,41 @@ public class VentanaRegistrarCasilla extends JFrame {
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
+	}
+	private void crearCasilla() {
+
+		CasillasBeanRemote casillasBeanRemote;
+		Casilla casilla = new Casilla ();
+		
+		casilla.setParametro(txtParametro.getText());
+		casilla.setDescripcion(txtDescripcion.getText());
+		casilla.setTipoUnidad(txtTipoDeValor.getText());
+		casilla.setUnidadMedida(txtUnidadMedida.getText());
+		try {
+
+			casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
+
+			if (txtParametro.getText().isEmpty() || txtUnidadMedida.getText().isEmpty()
+					) {
+				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
+						JOptionPane.INFORMATION_MESSAGE);
+
+				return;
+
+			}else {
+				casillasBeanRemote.crear(casilla);
+
+				JOptionPane.showMessageDialog(frame, "La casilla ha sido creada con éxito.",
+						"Casilla Registrado!", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+			}
+
+		
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		} catch (ServiciosException e1) {
+			e1.printStackTrace();
+		}
+	
 	}
 }

@@ -200,14 +200,6 @@ public class VentanaUsuario extends JFrame {
 		});
 		btnRegistrar.setBounds(1, 246, 121, 23);
 		contentPane.add(btnRegistrar);
-		
-		JButton btnBorrar = new JButton("Borrar Usuario");
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		
 			
 				JButton btnRefrescar = new JButton("");
 				btnRefrescar.addMouseListener(new MouseAdapter() {
@@ -218,11 +210,8 @@ public class VentanaUsuario extends JFrame {
 				});
 				btnRefrescar.setBounds(596, 130, 21, 23);
 				contentPane.add(btnRefrescar);
-		btnBorrar.setBounds(2, 281, 121, 23);
-		contentPane.add(btnBorrar);
-		
 
-		JButton btnVolver = new JButton("Volver");
+				JButton btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
@@ -267,12 +256,6 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
-
-		
-	private void borrarUsuario() {
-
-	}
-
 	private void cargarUsuarioApellido() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
