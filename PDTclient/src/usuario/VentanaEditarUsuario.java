@@ -318,6 +318,23 @@ public class VentanaEditarUsuario extends JFrame {
 		panel.setBackground(new Color(0, 102, 0));
 		panel.setBounds(0, 0, 624, 98);
 		contentPane.add(panel);
+		
+		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				try {
+					borrarUsuario(usuario.getId());
+				} catch (ServiciosException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnBorrar.setForeground(new Color(0, 128, 0));
+		btnBorrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBorrar.setBounds(490, 437, 134, 23);
+		contentPane.add(btnBorrar);
 
 	}
 	/* El siguiente metodo evaluarComboBox evalua el item seleccionado en el comboBox y establece
@@ -378,7 +395,20 @@ public class VentanaEditarUsuario extends JFrame {
 	 * dar de alta un usuario en este caso la funcion se llama "crear" y le 
 	 * pasamos por parametro el objeto Usuario, al que le vamos a insertar todos los
 	 * campos descritos a continuacion. */
-	
+	private void borrarUsuario(Long id) throws ServiciosException {
+		UsuariosBeanRemote usuariosBeanRemote;
+		try {
+			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			usuariosBeanRemote.borrar(id);
+			
+			JOptionPane.showMessageDialog(frame, "El Usuario ha sido borrado.",
+					"Usuario borrado!", JOptionPane.INFORMATION_MESSAGE);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	private void modificarUsuario() {
 		/*Se enlazan los parametros escritos en cada campo de texto 
 		 * con cada parametro de la entidad Usuario
@@ -426,8 +456,8 @@ public class VentanaEditarUsuario extends JFrame {
 			} else {
 				usuariosBeanRemote.crear(usuario);
 
-				JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.",
-						"Usuario Registrado!", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "El Usuario ha sido modificado con éxito.",
+						"Usuario modificado!", JOptionPane.INFORMATION_MESSAGE);
 				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
 				ventanaGeneral.setVisible(true);
 				ventanaGeneral.setLocation(400, 150);

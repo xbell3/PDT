@@ -140,7 +140,7 @@ public class VentanaFormulario extends JFrame {
 
 					FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 
-				//	formularios = formulariosBeanRemote.obtenerPorNombreFormulario(nombreFormulario);
+					formularios = formulariosBeanRemote.obtenerPorNombreFormulario(nombreFormulario);
 					formulario = formularios.get(0);
 
 				} catch (NamingException ex) {

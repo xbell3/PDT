@@ -109,44 +109,7 @@ public class VentanaEditarFormulario extends JFrame {
 		JButton btnModificarFormulario = new JButton("Modificar Formulario");
 		btnModificarFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FormulariosBeanRemote formulariosBeanRemote;
-				Formulario formulario = new Formulario ();
-				formulario.setNombreFormulario(txtNombreFormulario.getText());
-				formulario.setResumen(txtResumen.getText());
-				
-				try {
-
-					formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
-
-					if (txtNombreFormulario.getText().isEmpty() || txtResumen.getText().isEmpty()
-							) {
-						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-								JOptionPane.INFORMATION_MESSAGE);
-
-						return;
-
-					} else if (formulariosBeanRemote.registro(txtNombreFormulario.getText())) {
-						JOptionPane.showMessageDialog(frame,
-								"El nombre del formulario ya se encuentra en uso. Intente Nuevamente",
-								"Nombre de formulario en uso!", JOptionPane.ERROR_MESSAGE);
-
-					} else {
-						formulariosBeanRemote.actualizar(formulario);
-
-						JOptionPane.showMessageDialog(frame, "El Formulario ha sido registrado con éxito.",
-								"Formulario Registrado!", JOptionPane.INFORMATION_MESSAGE);
-						VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-						ventanaFormulario.setVisible(true);
-						ventanaFormulario.setLocation(400, 150);
-						dispose();
-					}
-
-				
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
-				}
+				modificarFormulario(formulario);
 			}
 		});
 		btnModificarFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -155,15 +118,50 @@ public class VentanaEditarFormulario extends JFrame {
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {		
-					VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-					ventanaFormulario.setVisible(true);
-					ventanaFormulario.setLocation(400, 150);
+			public void actionPerformed(ActionEvent arg0) {							
 					dispose();
 				}
 		});
 		btnVolver.setBounds(476, 355, 89, 23);
 		panelFormulario.add(btnVolver);
 
+	}
+	/*El metodo modificarFormulRio, llama al EJBLocator para localizar los Beans y 
+	 * consigo cada metodo de persistencia que vamos requerir a traves de su 
+	 * interfaz remota FormulariosBeanRemote, de donde sacaremos las funciones para
+	 * dar de alta un usuario en este caso la funcion se llama "crear" y le 
+	 * pasamos por parametro el objeto Formulario, al que le vamos a insertar todos los
+	 * campos descritos a continuacion. */
+	private void modificarFormulario(Formulario formulario) {
+
+		FormulariosBeanRemote formulariosBeanRemote;
+		formulario.setNombreFormulario(txtNombreFormulario.getText());
+		formulario.setResumen(txtResumen.getText());
+		
+		try {
+
+			formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
+
+			if (txtNombreFormulario.getText().isEmpty() || txtResumen.getText().isEmpty()
+					) {
+				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
+						JOptionPane.INFORMATION_MESSAGE);
+
+				return;
+
+			}else {
+				formulariosBeanRemote.actualizar(formulario);
+
+				JOptionPane.showMessageDialog(frame, "El Formulario ha sido registrado con éxito.",
+						"Formulario Registrado!", JOptionPane.INFORMATION_MESSAGE);
+			}
+
+		
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		} catch (ServiciosException e1) {
+			e1.printStackTrace();
+		}
+	
 	}
 }
