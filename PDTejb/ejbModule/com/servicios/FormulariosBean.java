@@ -40,10 +40,10 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	} 
 	
 	@Override
-	public void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException {
+	public void asignarCasilla(String nombreFormulario, String parametro) throws ServiciosException {
 		try{
-			Formulario formulario = em.find(Formulario.class, idFormulario);
-			formulario.getCasillas().add(em.find(Casilla.class, idCasilla));
+			Formulario formulario = em.find(Formulario.class, nombreFormulario);
+	//		formulario.getCasillas().add(em.find(Casilla.class, parametro));
 			em.flush();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo asignar el departamento a la carrera");
@@ -73,13 +73,13 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	}
 	@Override
 	public List<Formulario> obtenerTodos() {
-		TypedQuery<Formulario> query = em.createQuery("SELECT m FROM Formulario m", Formulario.class);
+		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f", Formulario.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Formulario> obtenerTodos(String filtro) {
-		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM FORMULARIO f WHERE f.nombreFormulario LIKE :nombreFormulario",Formulario.class)
+		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f WHERE f.nombreFormulario LIKE :nombreFormulario",Formulario.class)
 				.setParameter("nombreFormulario", filtro);
 		return query.getResultList();
 	}

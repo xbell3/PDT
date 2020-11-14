@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entidades.Casilla;
-import com.entidades.Formulario;
 import com.exception.ServiciosException;
 
 /**
@@ -34,9 +33,10 @@ public class CasillasBean implements CasillasBeanRemote {
 			em.persist(casilla);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo crear la Casilla");
+			throw new ServiciosException("No se pudo crear la casilla");
 		}
 	}
+	
 
 	@Override
 	public void actualizar(Casilla casilla) throws ServiciosException {
@@ -44,10 +44,9 @@ public class CasillasBean implements CasillasBeanRemote {
 			em.merge(casilla);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo actualizar la Casilla");
+			throw new ServiciosException("No se pudo actualizar la casilla");
 		}
 	}
-
 	@Override
 	public void borrar(Long idCasilla) throws ServiciosException {
 		try {
@@ -55,7 +54,7 @@ public class CasillasBean implements CasillasBeanRemote {
 			em.remove(casilla);
 			em.flush();
 		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo borrar la Casilla");
+			throw new ServiciosException("No se pudo borrar la casilla");
 		}
 
 	}
@@ -67,11 +66,10 @@ public class CasillasBean implements CasillasBeanRemote {
 	}
 
 	@Override
-	public List<Casilla> obtenerTodosPorParametro(String filtro) {
+	public List<Casilla> obtenerTodos(String filtro) {
 		TypedQuery<Casilla> query = em.createQuery("SELECT c FROM Casilla c WHERE c.parametro LIKE :parametro", Casilla.class)
 				.setParameter("parametro", filtro);
 		return query.getResultList();
 	}
-
 
 }

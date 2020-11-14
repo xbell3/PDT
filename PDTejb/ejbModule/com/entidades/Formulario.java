@@ -24,8 +24,8 @@ public class Formulario implements Serializable {
 	@Column(length = 150)
 	private String resumen;
 	
-	@ManyToMany(mappedBy= "formularios")
-	private List<Casilla> casillas; 
+/*	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Casilla> casillas = new ArrayList<Casilla>();
 	
 	public List<Casilla> getCasillas() {
 		return casillas;
@@ -33,7 +33,13 @@ public class Formulario implements Serializable {
 
 	public void setCasillas(List<Casilla> casillas) {
 		this.casillas = casillas;
+	}*/
+
+	public String getNombreFormulario() {
+		return nombreFormulario;
 	}
+
+
 
 	public Long getIdFormulario() {
 		return idFormulario;
@@ -41,10 +47,6 @@ public class Formulario implements Serializable {
 
 	public void setIdFormulario(Long idFormulario) {
 		this.idFormulario = idFormulario;
-	}
-
-	public String getNombreFormulario() {
-		return nombreFormulario;
 	}
 
 	public void setNombreFormulario(String nombreFormulario) {

@@ -7,8 +7,10 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
+import com.entidades.Casilla;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
+import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
@@ -33,11 +35,13 @@ import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class VentanaFormulario extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtBusquedaFormulario;
+	private JTextField txtBusqueda;
 	private JTable tableFormulario;
 
 	public VentanaFormulario(Usuario usuario) {
@@ -54,7 +58,7 @@ public class VentanaFormulario extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
-		JButton btnCrearFormulario = new JButton("Nuevo Formulario");
+		JButton btnCrearFormulario = new JButton("Crear Formulario");
 		btnCrearFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarFormulario ventanaRegistrarFormulario = new VentanaRegistrarFormulario(usuario);
@@ -66,19 +70,35 @@ public class VentanaFormulario extends JFrame {
 		btnCrearFormulario.setBounds(44, 66, 123, 34);
 		panelFormulario.add(btnCrearFormulario);
 		
+		JComboBox comboFiltro = new JComboBox();
+		comboFiltro.setModel(new DefaultComboBoxModel(new String[] {"Formularios", "Casillas"}));
+		comboFiltro.setBounds(401, 72, 103, 22);
+		panelFormulario.add(comboFiltro);
+		
 		JButton btnListarFormulario = new JButton("Listar");
 		btnListarFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cargarFormularios();
+
+				/*
+				 * Filtros del comboBox, evalua el item elegido, y elije la funcion de listar
+				 * segun se desee.
+				 */
+				if (comboFiltro.getSelectedItem() == "Formularios") {
+					cargarFormularios();
+				} else if (comboFiltro.getSelectedItem() == "Casillas") {
+					cargarCasillas();
+			
+			}
+			
 			}
 		});
 		btnListarFormulario.setBounds(514, 72, 72, 23);
 		panelFormulario.add(btnListarFormulario);
 		
-		txtBusquedaFormulario = new JTextField();
-		txtBusquedaFormulario.setBounds(596, 73, 103, 20);
-		panelFormulario.add(txtBusquedaFormulario);
-		txtBusquedaFormulario.setColumns(10);
+		txtBusqueda = new JTextField();
+		txtBusqueda.setBounds(596, 73, 103, 20);
+		panelFormulario.add(txtBusqueda);
+		txtBusqueda.setColumns(10);
 		
 		
 		JButton btnRefrescar = new JButton("");
@@ -120,34 +140,22 @@ public class VentanaFormulario extends JFrame {
 
 					FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 
-					formularios = formulariosBeanRemote.obtenerPorNombreFormulario(nombreFormulario);
+				//	formularios = formulariosBeanRemote.obtenerPorNombreFormulario(nombreFormulario);
 					formulario = formularios.get(0);
 
 				} catch (NamingException ex) {
-					// TODO Auto-generated catch block
 					ex.printStackTrace();
 				}
-
-				VentanaEditarFormulario ventanaEditarFormulario = new VentanaEditarFormulario(usuario);
-				ventanaEditarFormulario.setUndecorated(false);
-				ventanaEditarFormulario.setVisible(true);
-				dispose();
-
-			
+					VentanaEditarFormulario ventanaEditarFormulario = new VentanaEditarFormulario(usuario, formulario);
+					ventanaEditarFormulario.setUndecorated(false);
+					ventanaEditarFormulario.setVisible(true);
+				
+				
 			}
-		});
+		});	
 		tableFormulario.setBackground(SystemColor.controlHighlight);
 		tableFormulario.setBounds(123, 111, 601, 356);
 		panelFormulario.add(tableFormulario);
-		
-		JButton btnAsignarCasilla = new JButton("Asignar Casilla");
-		btnAsignarCasilla.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnAsignarCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
-		btnAsignarCasilla.setBounds(338, 77, 123, 23);
-		panelFormulario.add(btnAsignarCasilla);
 		
 		JButton btnCrearCasilla = new JButton("Crear Casilla");
 		btnCrearCasilla.addActionListener(new ActionListener() {
@@ -159,8 +167,12 @@ public class VentanaFormulario extends JFrame {
 			}
 		});
 		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
-		btnCrearCasilla.setBounds(205, 77, 123, 23);
+		btnCrearCasilla.setBounds(196, 66, 132, 34);
 		panelFormulario.add(btnCrearCasilla);
+		
+		JLabel lblFiltrar = new JLabel("Filtro por:");
+		lblFiltrar.setBounds(401, 47, 103, 14);
+		panelFormulario.add(lblFiltrar);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -198,6 +210,31 @@ public class VentanaFormulario extends JFrame {
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
 	}
+	private void cargarCasillas() {
+		try {
+			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
+			List<Casilla> casillas = new ArrayList<>();
+	
+			casillas = casillasBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
+
+			String[] columnNames = {  "parametro", "descripcion", "unidadMedida", "tipoUnidad" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableFormulario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Casilla casilla : casillas) {
+				Object[] fila = new Object[4];
+				fila[0] = casilla.getParametro();
+				fila[1] = casilla.getDescripcion();
+				fila[2] = casilla.getUnidadMedida();
+				fila[3] = casilla.getTipoUnidad();
+				model.addRow(fila);
+			}		
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private void cargarFormularios() {
 
@@ -205,7 +242,7 @@ public class VentanaFormulario extends JFrame {
 			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 			List<Formulario> formularios = new ArrayList<>();
 			
-			formularios = formulariosBeanRemote.obtenerTodos();
+			formularios = formulariosBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
 
 			String[] columnNames = {  "nombreFormulario", "resumen" };
 			DefaultTableModel model = new DefaultTableModel();

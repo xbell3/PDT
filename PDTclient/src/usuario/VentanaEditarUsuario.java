@@ -85,35 +85,7 @@ public class VentanaEditarUsuario extends JFrame {
 			/*A continuacion llamamos al metodo evaluarComboBox 
 			 * al activar el comboBox al escuchar con el ActionListener*/
 				evaluarComboBox();
-				/*
-				 * La siguiente condicion evalua el item seleccionado en el comboBox y establece
-				 * que se vean los parametros segun el item seleccionado.
-				 */
 				
-				if (comboRol.getSelectedItem() == "Administrador") {
-					txtCedula.setVisible(true);
-					txtCedula.setEnabled(true);
-					txtInstituto.setVisible(true);
-					txtInstituto.setEnabled(true);
-					txtProfesion.setVisible(false);
-					txtProfesion.setEnabled(false);
-					
-				}else if (comboRol.getSelectedItem() == "Experto") {
-					txtCedula.setVisible(true);
-					txtCedula.setEnabled(true);
-					txtProfesion.setVisible(true);
-					txtProfesion.setEnabled(true);
-					txtInstituto.setVisible(false);
-					txtInstituto.setEnabled(false);
-
-				} else {
-					txtCedula.setVisible(false);
-					txtCedula.setEnabled(false);
-					txtInstituto.setVisible(false);
-					txtInstituto.setEnabled(false);
-					txtProfesion.setVisible(false);
-					txtProfesion.setEnabled(false);
-				}
 
 			}
 		});
@@ -183,60 +155,8 @@ public class VentanaEditarUsuario extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				UsuariosBeanRemote usuariosBeanRemote;
-				RolBeanRemote rolBeanRemote;
-				usuario.setNombreUsuario(txtNombreUsuario.getText());
-				usuario.setContrasena(txtContrasena.getText());
-				usuario.setApellido(txtApellido.getText());
-				usuario.setCorreo(txtCorreo.getText());
-				usuario.setNombre(txtNombre.getText());
-				usuario.setRol(rol);
-					/*
-					 * Lo que resta de la condicion establece los parametros segun el
-					 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
-					 */
-					if (txtCedula.isEnabled() || txtInstituto.isEnabled()) {
-						rol.setNombreRol("Administrador");
-					}
-				 
-					if (txtCedula.isEnabled() || txtProfesion.isEnabled()) {
-						rol.setNombreRol("Experto");
-					}
-					if(txtCedula.isEnabled() == false)
-						rol.setNombreRol("Comun");
-				try {
-					usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
-
-					if (txtNombreUsuario.getText().isEmpty() || txtCorreo.getText().isEmpty()
-							|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
-							|| txtNombre.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-								JOptionPane.INFORMATION_MESSAGE);
-
-						return;
-
-					} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
-						JOptionPane.showMessageDialog(frame,
-								"El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
-								"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
-
-					} else {
-						usuariosBeanRemote.actualizar(usuario);
-
-						JOptionPane.showMessageDialog(frame, "El Usuario ha sido Modificado con éxito.",
-								"Usuario Modificado!", JOptionPane.INFORMATION_MESSAGE);
-						VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-						ventanaGeneral.setVisible(true);
-						ventanaGeneral.setLocation(400, 150);
-						dispose();
-					}
-
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
-				}
-
+				modificarUsuario();
+				
 			}
 		});
 				
@@ -451,13 +371,15 @@ public class VentanaEditarUsuario extends JFrame {
 
 	
 	}
-	/*El metodo crearUsuario, llama al EJBLocator para localizar los Beans y 
+	
+	/*El metodo modificarUsuario, llama al EJBLocator para localizar los Beans y 
 	 * consigo cada metodo de persistencia que vamos requerir a traves de su 
 	 * interfaz remota UsuariosBeanRemote, de donde sacaremos las funciones para
 	 * dar de alta un usuario en este caso la funcion se llama "crear" y le 
 	 * pasamos por parametro el objeto Usuario, al que le vamos a insertar todos los
 	 * campos descritos a continuacion. */
-	private void crearUsuario() {
+	
+	private void modificarUsuario() {
 		/*Se enlazan los parametros escritos en cada campo de texto 
 		 * con cada parametro de la entidad Usuario
 		 * i.e: txtNombreUsuario obtiene el texto del campo (getText();)
@@ -465,7 +387,6 @@ public class VentanaEditarUsuario extends JFrame {
 		UsuariosBeanRemote usuariosBeanRemote;
 		RolBeanRemote rolBeanRemote;
 		Usuario usuario =  new Usuario();
-		usuario.setNombreUsuario(txtNombreUsuario.getText());
 		usuario.setContrasena(txtContrasena.getText());
 		usuario.setApellido(txtApellido.getText());
 		usuario.setCorreo(txtCorreo.getText());
@@ -479,22 +400,21 @@ public class VentanaEditarUsuario extends JFrame {
 		 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
 		 *(Administrador, Experto o Comun)  */
 
-		if (txtCedula.isEnabled() || txtInstituto.isEnabled()) {
+		if (txtCedula.isEnabled() && txtInstituto.isEnabled()) {
 			rol.setNombreRol("Administrador");
 		}
 	 
-		if (txtCedula.isEnabled() || txtProfesion.isEnabled()) {
+		if (txtCedula.isEnabled() && txtProfesion.isEnabled()) {
 			rol.setNombreRol("Experto");
 		}
-		if(txtCedula.isEnabled() == false)
+		if(!txtCedula.isEnabled())
 			rol.setNombreRol("Comun");
 		try {
 			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
 			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
 			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un mensaje de informacion
 			 * indicando que debe completar los campos*/
-			if (txtNombreUsuario.getText().isEmpty() || txtCorreo.getText().isEmpty()
-					|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
+			if ( txtCorreo.getText().isEmpty()	|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
 					|| txtNombre.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -503,15 +423,6 @@ public class VentanaEditarUsuario extends JFrame {
 				/*El siguiente else if, llama al metodo "registro", el cual evalua que el usuario
 				 * no se encuentre en la base de datos ya registrado, de esta manera evitaremos
 				 * que los usuarios no accedan a cuentas agenas.*/
-			} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
-				JOptionPane.showMessageDialog(frame,
-						"El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
-						"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
-				/*Por ultimo ya teniendo todos los parametros de la entidad Usuario enlazados
-				 * la condicion termina en un else, aqui es cuando el usuario pasa
-				 * todas las "pruebas", es decir condiciones requeridas, y finalmente se da
-				 * el alta del usuario, mas un dialogo indicando que se registro con exito. Redireccionamos a la ventana VentanaGeneral donde 
-				 * hallaremos la aplicacion y el resto de sus funciones.*/
 			} else {
 				usuariosBeanRemote.crear(usuario);
 

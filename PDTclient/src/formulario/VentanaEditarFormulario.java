@@ -42,7 +42,7 @@ public class VentanaEditarFormulario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaEditarFormulario(Usuario usuario) {
+	public VentanaEditarFormulario(Usuario usuario, Formulario formulario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();

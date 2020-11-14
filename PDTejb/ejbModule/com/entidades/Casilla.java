@@ -28,16 +28,28 @@ public class Casilla implements Serializable {
 	@Column(length = 150)
 	private String descripcion;
 	
+	@Column(length = 40)
+	private String tipoUnidad;
 
-	@ManyToMany
-	private List<Formulario> formularios; 
+	@ManyToOne(fetch=FetchType.LAZY, optional=true)
+	@JoinColumn(name="idFormulario")
+	private Formulario formulario; 
 
-	public List<Formulario> getFormularios() {
-		return formularios;
+	
+	public Formulario getFormulario() {
+		return formulario;
 	}
 
-	public void setFormularios(List<Formulario> formularios) {
-		this.formularios = formularios;
+	public void setFormulario(Formulario formulario) {
+		this.formulario = formulario;
+	}
+
+	public String getTipoUnidad() {
+		return tipoUnidad;
+	}
+
+	public void setTipoUnidad(String tipoUnidad) {
+		this.tipoUnidad = tipoUnidad;
 	}
 
 	public Long getIdCasilla() {

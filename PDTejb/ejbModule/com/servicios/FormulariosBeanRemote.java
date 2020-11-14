@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import com.entidades.Casilla;
 import com.entidades.Formulario;
 import com.exception.ServiciosException;
 
@@ -20,10 +21,10 @@ public interface FormulariosBeanRemote {
 
 	void actualizar(Formulario formulario) throws ServiciosException;
 
-	void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException;
-
 	void crear(Formulario formulario) throws ServiciosException;
 
 	List<Formulario> obtenerPorNombreFormulario(String filtro);
+
+	void asignarCasilla(String nombreFormulario, String parametro) throws ServiciosException;
 
 }
