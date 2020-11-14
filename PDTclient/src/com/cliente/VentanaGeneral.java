@@ -147,7 +147,7 @@ public class VentanaGeneral extends JFrame {
 		 * las actividades de campo segun el rol de usuario.
 		 */
 		
-		JButton btnActividad = new JButton("Actividades");
+		JButton btnActividad = new JButton("Analisis de actividad");
 		btnActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

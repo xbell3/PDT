@@ -43,7 +43,14 @@ public class Principal {
 //	System.out.println("Se creó exitosamente la casilla");
 
 	//---------------------------------------
-	formulariosBeanRemote.asignarCasilla(17L, 18L);
+	//formulariosBeanRemote.asignarCasilla(17L, 18L);
+	
+	List<Formulario> formularios;
+	formularios = formulariosBeanRemote.obtenerTodos();
+	for(Formulario formulario : formularios){
+		System.out.println(formulario+" Se asigno exitosamente la casilla la formulario");
+
+	}
 	System.out.println("Se asigno exitosamente la casilla la formulario");
 
 

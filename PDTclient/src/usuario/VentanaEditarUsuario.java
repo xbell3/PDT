@@ -1,9 +1,6 @@
 package usuario;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.naming.NamingException;
@@ -11,13 +8,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
-import com.cliente.VentanaInicio;
-import usuario.VentanaUsuario;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
@@ -31,33 +25,27 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 //import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.Box;
 import java.awt.Toolkit;
 import java.awt.Cursor;
 import javax.swing.ImageIcon;
-import javax.swing.DropMode;
 
 public class VentanaEditarUsuario extends JFrame {
 	
 	
 //Declaramos todos parametros y componentes que vamos a usar...
+	
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JTextField txtNombreUsuario;
 	private JTextField txtCorreo;
-	private JTextField txtContrasena;
 	private JFrame frame;
 	private JButton btnNewButton;
 	private JTextField txtCedula;
 	private JTextField txtInstituto;
 	private JTextField txtProfesion;
-	private JTextField txtContrasea;
 	private JTextField txtApellido_1;
 	private JTextField txtNombre_1;
-	private JTextField txtNombreDeUsuario;
 	private JTextField txtCedula2;
 	private JTextField txtCorreoElectrnico;
 	private JTextField txtInstituto1;
@@ -120,16 +108,6 @@ public class VentanaEditarUsuario extends JFrame {
 		txtApellido.setBounds(38, 250, 196, 23);
 		contentPane.add(txtApellido);
 
-		txtNombreUsuario = new JTextField();
-		txtNombreUsuario.setForeground(new Color(0, 102, 0));
-		txtNombreUsuario.setToolTipText("Ingrese nombre de usuario");
-		txtNombreUsuario.setText(usuario.getNombreUsuario());
-		txtNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNombreUsuario.setColumns(10);
-		txtNombreUsuario.setBounds(38, 121, 196, 25);
-		contentPane.add(txtNombreUsuario);
-
 		txtCorreo = new JTextField();
 		txtCorreo.setForeground(new Color(0, 102, 0));
 		txtCorreo.setToolTipText("Ingrese correo electr\u00F3nico");
@@ -140,15 +118,6 @@ public class VentanaEditarUsuario extends JFrame {
 		txtCorreo.setBounds(336, 186, 196, 23);
 		contentPane.add(txtCorreo);
 
-		txtContrasena = new JPasswordField();
-		txtContrasena.setForeground(new Color(0, 102, 0));
-		txtContrasena.setToolTipText("Ingrese una contrase\u00F1a");
-		txtContrasena.setText(usuario.getContrasena());
-		txtContrasena.setHorizontalAlignment(SwingConstants.CENTER);
-		txtContrasena.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtContrasena.setColumns(10);
-		txtContrasena.setBounds(38, 318, 196, 26);
-		contentPane.add(txtContrasena);
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setForeground(new Color(0, 128, 0));
@@ -219,15 +188,6 @@ public class VentanaEditarUsuario extends JFrame {
 		contentPane.add(txtProfesion);
 		txtProfesion.setColumns(10);
 
-		txtContrasea = new JTextField();
-		txtContrasea.setFont(new Font("Arial", Font.PLAIN, 11));
-		txtContrasea.setForeground(new Color(255, 255, 255));
-		txtContrasea.setText("Contrase\u00F1a");
-		txtContrasea.setEditable(false);
-		txtContrasea.setBackground(new Color(0, 102, 0));
-		txtContrasea.setBounds(38, 305, 196, 14);
-		contentPane.add(txtContrasea);
-		txtContrasea.setColumns(10);
 
 		txtApellido_1 = new JTextField();
 		txtApellido_1.setText("Apellido");
@@ -247,17 +207,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtNombre_1.setColumns(10);
 		txtNombre_1.setBackground(new Color(0, 102, 0));
 		txtNombre_1.setBounds(38, 173, 196, 14);
-		contentPane.add(txtNombre_1);
-
-		txtNombreDeUsuario = new JTextField();
-		txtNombreDeUsuario.setText("Nombre de usuario");
-		txtNombreDeUsuario.setForeground(Color.WHITE);
-		txtNombreDeUsuario.setFont(new Font("Arial", Font.PLAIN, 11));
-		txtNombreDeUsuario.setEditable(false);
-		txtNombreDeUsuario.setColumns(10);
-		txtNombreDeUsuario.setBackground(new Color(0, 102, 0));
-		txtNombreDeUsuario.setBounds(38, 109, 196, 14);
-		contentPane.add(txtNombreDeUsuario);
+		contentPane.add(txtNombre_1);;
 
 		txtCedula2 = new JTextField();
 		txtCedula2.setText("C\u00E9duda de identidad");
@@ -417,7 +367,6 @@ public class VentanaEditarUsuario extends JFrame {
 		 * y lo "setea" al campo nombreUsuario de la entidad Usuario*/
 		UsuariosBeanRemote usuariosBeanRemote;
 		RolBeanRemote rolBeanRemote;
-		usuario.setContrasena(txtContrasena.getText());
 		usuario.setApellido(txtApellido.getText());
 		usuario.setCorreo(txtCorreo.getText());
 		usuario.setNombre(txtNombre.getText());
@@ -444,8 +393,8 @@ public class VentanaEditarUsuario extends JFrame {
 			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
 			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un mensaje de informacion
 			 * indicando que debe completar los campos*/
-			if ( txtCorreo.getText().isEmpty()	|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
-					|| txtNombre.getText().isEmpty()) {
+			if ( txtCorreo.getText().isEmpty()	|| txtApellido.getText().isEmpty() ||
+					txtNombre.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
 						JOptionPane.INFORMATION_MESSAGE);
 
