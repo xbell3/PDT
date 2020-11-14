@@ -31,6 +31,15 @@ public class Usuario implements Serializable {
 
 	@Column(length = 40)
 	private String contrasena;
+	
+	@Column(length = 40)
+	private String cedula;
+	
+	@Column(length = 40)
+	private String instituto;
+	
+	@Column(length = 40)
+	private String profesion;
 
 	@OneToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL )
 	@JoinColumn(name = "nombreRol")
@@ -45,7 +54,29 @@ public class Usuario implements Serializable {
 		this.rol = rol;
 	}
 
-	
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public String getInstituto() {
+		return instituto;
+	}
+
+	public void setInstituto(String instituto) {
+		this.instituto = instituto;
+	}
+
+	public String getProfesion() {
+		return profesion;
+	}
+
+	public void setProfesion(String profesion) {
+		this.profesion = profesion;
+	}
 
 	public Long getId() {
 		return id;

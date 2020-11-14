@@ -39,7 +39,9 @@ import javax.swing.ImageIcon;
 import javax.swing.DropMode;
 
 public class VentanaRegistrarUsuario extends JFrame {
-
+	
+	
+//Declaramos todos parametros y componentes que vamos a usar...
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
@@ -62,8 +64,12 @@ public class VentanaRegistrarUsuario extends JFrame {
 	private JTextField txtRol;
 	private Rol rol = new Rol();
 	private JLabel lblNewLabel;
-
+	private JComboBox comboRol;
 	public VentanaRegistrarUsuario(Usuario usuario) {
+		/*
+		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
+		 * parametro declarado.
+		 */
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(VentanaRegistrarUsuario.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setTitle("Registro");
@@ -75,58 +81,12 @@ public class VentanaRegistrarUsuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JComboBox comboRol = new JComboBox();
+		comboRol = new JComboBox();
 		comboRol.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				/*
-				 * La siguiente condicion evalua el item seleccionado en el comboBox y establece
-				 * que se vean los parametros segun el item seleccionado.
-				 */
-
-				if (comboRol.getSelectedItem() == "Administrador") {
-					txtCedula2.setVisible(true);
-					txtCedula2.setEnabled(true);
-					txtCedula.setVisible(true);
-					txtCedula.setEnabled(true);
-					txtInstituto1.setVisible(true);
-					txtInstituto1.setEnabled(true);
-					txtInstituto.setVisible(true);
-					txtInstituto.setEnabled(true);
-					txtProfesion1.setVisible(false);
-					txtProfesion1.setEnabled(false);
-					txtProfesion.setVisible(false);
-					txtProfesion.setEnabled(false);
-
-				} else if (comboRol.getSelectedItem() == "Experto") {
-					txtCedula2.setVisible(true);
-					txtCedula2.setEnabled(true);
-					txtProfesion1.setVisible(true);
-					txtProfesion1.setEnabled(true);
-					txtInstituto1.setVisible(false);
-					txtInstituto1.setEnabled(false);
-					txtInstituto.setVisible(false);
-					txtInstituto.setEnabled(false);
-					txtCedula.setVisible(true);
-					txtCedula.setEnabled(true);
-					txtProfesion.setVisible(true);
-					txtProfesion.setEnabled(true);
-
-				} else {
-					txtCedula2.setVisible(false);
-					txtCedula2.setEnabled(false);
-					txtInstituto1.setVisible(false);
-					txtInstituto1.setEnabled(false);
-					txtProfesion1.setVisible(false);
-					txtProfesion1.setEnabled(false);
-					txtCedula.setVisible(false);
-					txtCedula.setEnabled(false);
-					txtInstituto.setVisible(false);
-					txtInstituto.setEnabled(false);
-					txtProfesion.setVisible(false);
-					txtProfesion.setEnabled(false);
-				}
-
+			/*A continuacion llamamos al metodo evaluarComboBox 
+			 * al activar el comboBox al escuchar con el ActionListener*/
+				evaluarComboBox();
 			}
 		});
 		comboRol.setModel(new DefaultComboBoxModel(new String[] { "Administrador", "Experto", "Comun" }));
@@ -191,81 +151,30 @@ public class VentanaRegistrarUsuario extends JFrame {
 		btnRegistrarme.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				UsuariosBeanRemote usuariosBeanRemote;
-				RolBeanRemote rolBeanRemote;
-				usuario.setNombreUsuario(txtNombreUsuario.getText());
-				usuario.setContrasena(txtContrasena.getText());
-				usuario.setApellido(txtApellido.getText());
-				usuario.setCorreo(txtCorreo.getText());
-				usuario.setNombre(txtNombre.getText());
-
-				// usuario.setCedula(txtCedula.getText());
-				// usuario.setInstituto(txtInstituto.getText());
-				// usuario.setProfesion(txtProfesion.getText());
-				usuario.setRol(rol);
-
-				/*
-				 * Lo que resta de la condicion establece los parametros segun el
-				 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
-				 */
-
-				if (txtCedula.isEnabled() || txtInstituto.isEnabled()) {
-					rol.setNombreRol("Administrador");
-				}
-			 
-				if (txtCedula.isEnabled() || txtProfesion.isEnabled()) {
-					rol.setNombreRol("Experto");
-				}
-				if(txtCedula.isEnabled() == false)
-					rol.setNombreRol("Comun");
-				try {
-					usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
-
-					if (txtNombreUsuario.getText().isEmpty() || txtCorreo.getText().isEmpty()
-							|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
-							|| txtNombre.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-								JOptionPane.INFORMATION_MESSAGE);
-
-						return;
-
-					} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
-						JOptionPane.showMessageDialog(frame,
-								"El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
-								"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
-
-					} else {
-						usuariosBeanRemote.crear(usuario);
-
-						JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.",
-								"Usuario Registrado!", JOptionPane.INFORMATION_MESSAGE);
-						VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-						ventanaGeneral.setVisible(true);
-						ventanaGeneral.setLocation(400, 150);
-						dispose();
-					}
-
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					e1.printStackTrace();
-				}
-
+				/*Nuevamente llamamos a un metodo, en este caso
+				 * crearUsuario, al activar el boton "Registrarme"*/
+				crearUsuario();
 			}
 		});
 		btnRegistrarme.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRegistrarme.setBounds(92, 437, 143, 23);
 		contentPane.add(btnRegistrarme);
-
+		
+		
+		/*El boton "Volver" es para regresar a la pestaña de VentanaUsuario
+		 * si bien la ventana registro se accede desde el inicio, esto solo
+		 * sucede para facilitar el desarrollo de la app, pero a futuro no 
+		 * habra un boton Registro en la sesion del usuario.*/
+		
 		btnNewButton = new JButton("Volver");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
-				ventanaInicio.setLocation(400, 150);
-				ventanaInicio.setVisible(true);
+				VentanaUsuario ventanaUsuario = new VentanaUsuario(usuario);
+				ventanaUsuario.setLocation(400, 150);
+				ventanaUsuario.setVisible(true);
 				dispose();
 
 			}
@@ -401,5 +310,136 @@ public class VentanaRegistrarUsuario extends JFrame {
 		panel.setBounds(0, 0, 624, 98);
 		contentPane.add(panel);
 
+	}
+	/* El siguiente metodo evaluarComboBox evalua el item seleccionado en el comboBox y establece
+	 * que se vean y habiliten los parametros segun el item seleccionado.
+	 */
+	private void evaluarComboBox() {
+		
+
+		if (comboRol.getSelectedItem() == "Administrador") {
+			txtCedula2.setVisible(true);
+			txtCedula2.setEnabled(true);
+			txtCedula.setVisible(true);
+			txtCedula.setEnabled(true);
+			txtInstituto1.setVisible(true);
+			txtInstituto1.setEnabled(true);
+			txtInstituto.setVisible(true);
+			txtInstituto.setEnabled(true);
+			txtProfesion1.setVisible(false);
+			txtProfesion1.setEnabled(false);
+			txtProfesion.setVisible(false);
+			txtProfesion.setEnabled(false);
+
+		} else if (comboRol.getSelectedItem() == "Experto") {
+			txtCedula2.setVisible(true);
+			txtCedula2.setEnabled(true);
+			txtProfesion1.setVisible(true);
+			txtProfesion1.setEnabled(true);
+			txtInstituto1.setVisible(false);
+			txtInstituto1.setEnabled(false);
+			txtInstituto.setVisible(false);
+			txtInstituto.setEnabled(false);
+			txtCedula.setVisible(true);
+			txtCedula.setEnabled(true);
+			txtProfesion.setVisible(true);
+			txtProfesion.setEnabled(true);
+
+		} else {
+			txtCedula2.setVisible(false);
+			txtCedula2.setEnabled(false);
+			txtInstituto1.setVisible(false);
+			txtInstituto1.setEnabled(false);
+			txtProfesion1.setVisible(false);
+			txtProfesion1.setEnabled(false);
+			txtCedula.setVisible(false);
+			txtCedula.setEnabled(false);
+			txtInstituto.setVisible(false);
+			txtInstituto.setEnabled(false);
+			txtProfesion.setVisible(false);
+			txtProfesion.setEnabled(false);
+		}
+
+	
+	}
+	/*El metodo crearUsuario, llama al EJBLocator para localizar los Beans y 
+	 * consigo cada metodo de persistencia que vamos requerir a traves de su 
+	 * interfaz remota UsuariosBeanRemote, de donde sacaremos las funciones para
+	 * dar de alta un usuario en este caso la funcion se llama "crear" y le 
+	 * pasamos por parametro el objeto Usuario, al que le vamos a insertar todos los
+	 * campos descritos a continuacion. */
+	private void crearUsuario() {
+		/*Se enlazan los parametros escritos en cada campo de texto 
+		 * con cada parametro de la entidad Usuario
+		 * i.e: txtNombreUsuario obtiene el texto del campo (getText();)
+		 * y lo "setea" al campo nombreUsuario de la entidad Usuario*/
+		UsuariosBeanRemote usuariosBeanRemote;
+		RolBeanRemote rolBeanRemote;
+		Usuario usuario =  new Usuario();
+		usuario.setNombreUsuario(txtNombreUsuario.getText());
+		usuario.setContrasena(txtContrasena.getText());
+		usuario.setApellido(txtApellido.getText());
+		usuario.setCorreo(txtCorreo.getText());
+		usuario.setNombre(txtNombre.getText());
+		usuario.setCedula(txtCedula.getText());
+		usuario.setInstituto(txtInstituto.getText());
+		usuario.setProfesion(txtProfesion.getText());
+		usuario.setRol(rol);
+		/*
+		 * La siguiente condicion establece el nombreRol segun el
+		 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
+		 *(Administrador, Experto o Comun)  */
+
+		if (txtCedula.isEnabled() || txtInstituto.isEnabled()) {
+			rol.setNombreRol("Administrador");
+		}
+	 
+		if (txtCedula.isEnabled() || txtProfesion.isEnabled()) {
+			rol.setNombreRol("Experto");
+		}
+		if(txtCedula.isEnabled() == false)
+			rol.setNombreRol("Comun");
+		try {
+			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
+			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un mensaje de informacion
+			 * indicando que debe completar los campos*/
+			if (txtNombreUsuario.getText().isEmpty() || txtCorreo.getText().isEmpty()
+					|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
+					|| txtNombre.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
+						JOptionPane.INFORMATION_MESSAGE);
+
+				return;
+				/*El siguiente else if, llama al metodo "registro", el cual evalua que el usuario
+				 * no se encuentre en la base de datos ya registrado, de esta manera evitaremos
+				 * que los usuarios no accedan a cuentas agenas.*/
+			} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
+				JOptionPane.showMessageDialog(frame,
+						"El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
+						"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
+				/*Por ultimo ya teniendo todos los parametros de la entidad Usuario enlazados
+				 * la condicion termina en un else, aqui es cuando el usuario pasa
+				 * todas las "pruebas", es decir condiciones requeridas, y finalmente se da
+				 * el alta del usuario, mas un dialogo indicando que se registro con exito. Redireccionamos a la ventana VentanaGeneral donde 
+				 * hallaremos la aplicacion y el resto de sus funciones.*/
+			} else {
+				usuariosBeanRemote.crear(usuario);
+
+				JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.",
+						"Usuario Registrado!", JOptionPane.INFORMATION_MESSAGE);
+				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+				ventanaGeneral.setVisible(true);
+				ventanaGeneral.setLocation(400, 150);
+				dispose();
+			}
+
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		} catch (ServiciosException e1) {
+			e1.printStackTrace();
+		}
+
+	
 	}
 }

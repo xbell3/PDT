@@ -217,6 +217,27 @@ public class VentanaUsuario extends JFrame {
 		lblFiltrarPor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltrarPor.setBounds(342, 165, 72, 14);
 		contentPane.add(lblFiltrarPor);
+		
+		JButton btnRegistrar = new JButton("Registrar usuario");
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaRegistrarUsuario ventanaRegistrarUsuario = new VentanaRegistrarUsuario(usuario);
+				ventanaRegistrarUsuario.setLocation(400, 150);
+				ventanaRegistrarUsuario.setVisible(true);
+				
+			}
+		});
+		btnRegistrar.setBounds(16, 228, 119, 23);
+		contentPane.add(btnRegistrar);
+		
+		JButton btnBorrar = new JButton("Borrar Usuario");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnBorrar.setBounds(16, 262, 119, 23);
+		contentPane.add(btnBorrar);
 
 	}
 
@@ -248,7 +269,9 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
-
+	private void borrarUsuario() {
+		
+	}
 	private void cargarUsuarioApellido() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);

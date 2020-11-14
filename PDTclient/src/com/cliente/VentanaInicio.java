@@ -32,6 +32,7 @@ import java.awt.Cursor;
 import java.awt.Toolkit;
 
 public class VentanaInicio extends JFrame {
+	// Declaramos todos parametros y componentes que vamos a usar...
 
 	private JPanel contentPane;
 	private JTextField txtNombreUsuario;
@@ -40,7 +41,8 @@ public class VentanaInicio extends JFrame {
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
+	 * El siguiente es un metodo main, que nos permite "arrancar" 
+	 * la aplicacion. Aqui es donde inicia el flujo de la aplicaicon.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -55,7 +57,12 @@ public class VentanaInicio extends JFrame {
 			}
 		});
 	}
+	/*Al iniciar la ventana ya le pasamos por parametro el usuario.*/
 	public VentanaInicio(Usuario usuario) {
+		/*
+		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
+		 * parametro declarado.
+		 */
 		setTitle("Login");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicio.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,46 +95,29 @@ public class VentanaInicio extends JFrame {
 		txtContrasena.setBounds(206, 359, 214, 30);
 		contentPane.add(txtContrasena);
 		txtContrasena.setColumns(10);
-
+		
+		
+		/*El boton btnIngresar nos da pie a que el usuario inicie sesion
+		 * utilizando una contraseña y un nombre de usuario, previamente 
+		 * registrado.*/
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.setForeground(new Color(0, 102, 0));
 		btnIngresar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnIngresar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				UsuariosBeanRemote usuariosBeanRemote;
-				try {
-					// Llama a la interfaz remota del Bean con EJBLocator
-					usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
-
-					if (usuariosBeanRemote.login(txtNombreUsuario.getText(), txtContrasena.getText())) {
-						VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-						ventanaGeneral.lblNombreUsuario.setText(usuario.getNombreUsuario());
-						ventanaGeneral.setVisible(true);
-						ventanaGeneral.setLocation(450, 150);
-						dispose();
-					}
-
-					else if (txtNombreUsuario.getText().isEmpty() || txtContrasena.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Vuelva a intentarlo",
-								"Campos Incompletos!", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
+				 ingresar();
 			}
 		});
 
 		btnIngresar.setBounds(239, 403, 150, 23);
 		contentPane.add(btnIngresar);
 
+		
+		/*Con el boton btnRegistrarme, inmediatamente accedemos a la ventana
+		 * de registro de usuario, en donde el usuario podra registrarse 
+		 * en la aplicacion ingresando cada uno de sus datos y el rol qeu va 
+		 * a ocupar en ella.*/
 		JButton btnRegistrarme = new JButton("Registrarme");
 		btnRegistrarme.setForeground(new Color(0, 102, 0));
 		btnRegistrarme.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -158,5 +148,43 @@ public class VentanaInicio extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(VentanaInicio.class.getResource("/Imagenes/USycon_v03.png")));
 		lblNewLabel.setBounds(168, 299, 32, 92);
 		contentPane.add(lblNewLabel);
+	}
+	private void ingresar() {
+
+		UsuariosBeanRemote usuariosBeanRemote;
+		try {
+			Usuario usuario = new Usuario();
+			// Llama a la interfaz remota del Bean con EJBLocator
+			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			/*La siguiente condicion if, evalua que las credenciales que esta indicando
+			 * ya existen en la base de datos, de esta manera el sistema sabra si 
+			 * el usuario tiene permisos de ingresar a la aplicacion*/
+			if (usuariosBeanRemote.login(txtNombreUsuario.getText(), txtContrasena.getText())) {
+				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+				ventanaGeneral.lblNombreUsuario.setText(usuario.getNombreUsuario());
+				ventanaGeneral.setVisible(true);
+				ventanaGeneral.setLocation(450, 150);
+				dispose();
+			}
+			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
+			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un mensaje de informacion
+			 * indicando que debe completar los campos*/
+			else if (txtNombreUsuario.getText().isEmpty() || txtContrasena.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
+						JOptionPane.ERROR_MESSAGE);
+			/*Aqui regresamos al punto inicial con un return, indicando con un mensaje de error
+			 * que las credenciales del usuario fueron evaluadas, y determinadas incorrectas.*/
+			} else {
+				JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Vuelva a intentarlo",
+						"Campos Incompletos!", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	
 	}
 }
