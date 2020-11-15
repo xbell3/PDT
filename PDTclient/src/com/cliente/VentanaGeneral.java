@@ -117,27 +117,27 @@ public class VentanaGeneral extends JFrame {
 		 * El boton btnAdministracion nos lleva a la seccion de la aplicacion donde se
 		 * manejara el alta/baja/modificacion del usuario.
 		 */
-		
-		JButton btnAdministracion = new JButton("Administraci\u00F3n");
-		btnAdministracion.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Admin_BD.png")));
-		btnAdministracion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAdministracion.setBackground(new Color(0, 102, 0));
-		btnAdministracion.setForeground(new Color(255, 255, 255));
-		btnAdministracion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaUsuario ventanaUsuario = new VentanaUsuario (usuario);
-				ventanaUsuario.setLocation(400, 150);
-				ventanaUsuario.setVisible(true);
-				dispose();
-			}
-		});
-		
-		
-		btnAdministracion.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnAdministracion.setBounds(10, 207, 300, 120);
-		panel.add(btnAdministracion);
+		if (usuario.getRol().getNombreRol().equals("Administrador")) {
+			JButton btnAdministracion = new JButton("Administraci\u00F3n");
+			btnAdministracion.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Admin_BD.png")));
+			btnAdministracion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			btnAdministracion.setBackground(new Color(0, 102, 0));
+			btnAdministracion.setForeground(new Color(255, 255, 255));
+			btnAdministracion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VentanaUsuario ventanaUsuario = new VentanaUsuario (usuario);
+					ventanaUsuario.setLocation(400, 150);
+					ventanaUsuario.setVisible(true);
+					dispose();
+				}
+			});
 		
 		
+			btnAdministracion.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			btnAdministracion.setBounds(10, 207, 300, 120);
+			panel.add(btnAdministracion);
+		
+		}
 		
 		
 		/*
@@ -167,23 +167,27 @@ public class VentanaGeneral extends JFrame {
 		 * asignar casillas a los formularios creados, y listarlos.
 		 */
 		
+		if (usuario.getRol().getNombreRol().equals("Administrador") || usuario.getRol().getNombreRol().equals("Experto")) {
+			
+			JButton btnFormulario = new JButton("  Formularios");
+			btnFormulario.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/formulario_v3.png")));
+			btnFormulario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			btnFormulario.setBackground(new Color(0, 102, 0));
+			btnFormulario.setForeground(new Color(255, 255, 255));
+			btnFormulario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
+					ventanaFormulario.setLocation(450, 150);
+					ventanaFormulario.setVisible(true);
+					dispose();
+				}
+			});
+			btnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			btnFormulario.setBounds(10, 76, 300, 120);
+			panel.add(btnFormulario);
+			
+		}
 		
-		JButton btnFormulario = new JButton("  Formularios");
-		btnFormulario.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/formulario_v3.png")));
-		btnFormulario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnFormulario.setBackground(new Color(0, 102, 0));
-		btnFormulario.setForeground(new Color(255, 255, 255));
-		btnFormulario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-				ventanaFormulario.setLocation(450, 150);
-				ventanaFormulario.setVisible(true);
-				dispose();
-			}
-		});
-		btnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnFormulario.setBounds(10, 76, 300, 120);
-		panel.add(btnFormulario);
 		
 		JButton btnAyuda = new JButton("Ayuda");
 		btnAyuda.setForeground(new Color(0, 102, 0));

@@ -90,7 +90,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 				evaluarComboBox();
 			}
 		});
-		comboRol.setModel(new DefaultComboBoxModel(new String[] { "Administrador", "Experto", "Comun" }));
+		comboRol.setModel(new DefaultComboBoxModel(new String[] { "Administrador", "Experto", "Común" }));
 		comboRol.setBounds(336, 124, 196, 23);
 		contentPane.add(comboRol);
 
@@ -399,15 +399,15 @@ public class VentanaRegistrarUsuario extends JFrame {
 		 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
 		 *(Administrador, Experto o Comun)  */
 
-		if (txtCedula.isEnabled() || txtInstituto.isEnabled()) {
+		if (txtInstituto.isEnabled()) {
 			rol.setNombreRol("Administrador");
 		}
 	 
-		if (txtCedula.isEnabled() || txtProfesion.isEnabled()) {
+		if (txtProfesion.isEnabled()) {
 			rol.setNombreRol("Experto");
 		}
 		if(txtCedula.isEnabled() == false)
-			rol.setNombreRol("Comun");
+			rol.setNombreRol("Común");
 		try {
 			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
 			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
