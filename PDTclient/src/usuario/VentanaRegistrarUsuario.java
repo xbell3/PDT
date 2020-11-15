@@ -207,6 +207,10 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtProfesion.setHorizontalAlignment(SwingConstants.CENTER);
 		txtProfesion.setToolTipText("Ingrese profesi\u00F3n");
 		txtProfesion.setBounds(336, 318, 196, 26);
+		txtProfesion.setVisible(false);
+		txtProfesion.setEnabled(false);
+		txtProfesion.setVisible(false);
+		txtProfesion.setEnabled(false);
 		contentPane.add(txtProfesion);
 		txtProfesion.setColumns(10);
 
@@ -288,6 +292,8 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtProfesion1.setColumns(10);
 		txtProfesion1.setBackground(new Color(0, 102, 0));
 		txtProfesion1.setBounds(336, 305, 196, 14);
+		txtProfesion1.setVisible(false);
+		txtProfesion1.setEnabled(false);
 		contentPane.add(txtProfesion1);
 
 		txtRol = new JTextField();
@@ -318,20 +324,21 @@ public class VentanaRegistrarUsuario extends JFrame {
 	private void evaluarComboBox() {
 		
 
-		if (comboRol.getSelectedItem() == "Administrador") {
-			txtCedula2.setVisible(true);
-			txtCedula2.setEnabled(true);
-			txtCedula.setVisible(true);
-			txtCedula.setEnabled(true);
-			txtInstituto1.setVisible(true);
-			txtInstituto1.setEnabled(true);
-			txtInstituto.setVisible(true);
-			txtInstituto.setEnabled(true);
+		if (comboRol.getSelectedItem() == "Común") {
+			txtCedula2.setVisible(false);
+			txtCedula2.setEnabled(false);
+			txtInstituto1.setVisible(false);
+			txtInstituto1.setEnabled(false);
 			txtProfesion1.setVisible(false);
 			txtProfesion1.setEnabled(false);
+			txtCedula.setVisible(false);
+			txtCedula.setEnabled(false);
+			txtInstituto.setVisible(false);
+			txtInstituto.setEnabled(false);
 			txtProfesion.setVisible(false);
 			txtProfesion.setEnabled(false);
-
+			
+		
 		} else if (comboRol.getSelectedItem() == "Experto") {
 			txtCedula2.setVisible(true);
 			txtCedula2.setEnabled(true);
@@ -347,18 +354,19 @@ public class VentanaRegistrarUsuario extends JFrame {
 			txtProfesion.setEnabled(true);
 
 		} else {
-			txtCedula2.setVisible(false);
-			txtCedula2.setEnabled(false);
-			txtInstituto1.setVisible(false);
-			txtInstituto1.setEnabled(false);
+			txtCedula2.setVisible(true);
+			txtCedula2.setEnabled(true);
+			txtCedula.setVisible(true);
+			txtCedula.setEnabled(true);
+			txtInstituto1.setVisible(true);
+			txtInstituto1.setEnabled(true);
+			txtInstituto.setVisible(true);
+			txtInstituto.setEnabled(true);
 			txtProfesion1.setVisible(false);
 			txtProfesion1.setEnabled(false);
-			txtCedula.setVisible(false);
-			txtCedula.setEnabled(false);
-			txtInstituto.setVisible(false);
-			txtInstituto.setEnabled(false);
 			txtProfesion.setVisible(false);
 			txtProfesion.setEnabled(false);
+		
 		}
 
 	
