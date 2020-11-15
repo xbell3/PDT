@@ -111,6 +111,7 @@ public class VentanaUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+			
 		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.setBounds(461, 16, 68, 17);
 		panelUsuario.add(btnNewButton);

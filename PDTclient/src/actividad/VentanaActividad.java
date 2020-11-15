@@ -25,6 +25,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class VentanaActividad extends JFrame {
 
@@ -35,8 +37,10 @@ public class VentanaActividad extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaActividad(Usuario usuario) {
+		setTitle("Actividad");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaActividad.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,16 +51,16 @@ public class VentanaActividad extends JFrame {
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
 
 						UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBackground(new Color(0, 102, 0));
+		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setBounds(453, 45, 46, 14);
 		panelUsuario.add(lblTipoUser);
 		
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setBounds(400, 20, 118, 14);
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -70,7 +74,7 @@ public class VentanaActividad extends JFrame {
 		});
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setBounds(528, 16, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
 		JLabel lblNombreSistema = new JLabel("Nombre App");
@@ -78,28 +82,33 @@ public class VentanaActividad extends JFrame {
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
 		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-94, 0, 718, 90);
+		panelUsuario.add(lblNewLabel_1);
+		
 		JPanel panelActividad = new JPanel();
 		panelActividad.setLayout(null);
-		panelActividad.setBackground(Color.WHITE);
-		panelActividad.setBounds(0, 90, 784, 471);
+		panelActividad.setBackground(new Color(204, 255, 204));
+		panelActividad.setBounds(0, 90, 624, 392);
 		contentPane.add(panelActividad);
 		
 		tableActividad = new JTable();
 		tableActividad.setBackground(SystemColor.controlHighlight);
-		tableActividad.setBounds(144, 104, 601, 356);
+		tableActividad.setBounds(49, 104, 565, 277);
 		panelActividad.add(tableActividad);
 		
 		JButton btnBuscarActividad = new JButton("Buscar");
-		btnBuscarActividad.setBounds(514, 72, 72, 23);
+		btnBuscarActividad.setBounds(385, 70, 72, 23);
 		panelActividad.add(btnBuscarActividad);
 		
 		txtBusquedaActividad = new JTextField();
 		txtBusquedaActividad.setColumns(10);
-		txtBusquedaActividad.setBounds(596, 73, 103, 20);
+		txtBusquedaActividad.setBounds(467, 71, 103, 20);
 		panelActividad.add(txtBusquedaActividad);
 		
 		JButton btnRefrescar = new JButton("R");
-		btnRefrescar.setBounds(709, 72, 31, 23);
+		btnRefrescar.setBounds(580, 70, 31, 23);
 		panelActividad.add(btnRefrescar);
 		
 		JLabel lblTituloFormulario = new JLabel("Actividad de campo");

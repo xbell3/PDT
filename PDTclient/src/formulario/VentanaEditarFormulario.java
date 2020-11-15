@@ -32,6 +32,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class VentanaEditarFormulario extends JFrame {
 
@@ -43,8 +44,10 @@ public class VentanaEditarFormulario extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaEditarFormulario(Usuario usuario, Formulario formulario) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaEditarFormulario.class.getResource("/Imagenes/iAGRO_V04.png")));
+		setTitle("Modificar Formulario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -53,24 +56,24 @@ public class VentanaEditarFormulario extends JFrame {
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),		UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
+		panelUsuario.setBackground(new Color(0, 102, 0));
 		panelUsuario.setBounds(0, 0, 784, 90);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setBounds(368, 36, 46, 14);
 		panelUsuario.add(lblTipoUser);
 		
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setBounds(315, 11, 118, 14);
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(714, 16, 60, 23);
+		btnSalir.setBounds(541, 7, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setBounds(443, 7, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
 		JLabel lblNombreSistema = new JLabel("Nombre App");
@@ -80,8 +83,8 @@ public class VentanaEditarFormulario extends JFrame {
 		
 		JPanel panelFormulario = new JPanel();
 		panelFormulario.setLayout(null);
-		panelFormulario.setBackground(Color.WHITE);
-		panelFormulario.setBounds(0, 90, 784, 471);
+		panelFormulario.setBackground(new Color(204, 255, 204));
+		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		
 		JLabel lblModificar = new JLabel("Modificar Formlario");
@@ -122,7 +125,7 @@ public class VentanaEditarFormulario extends JFrame {
 					dispose();
 				}
 		});
-		btnVolver.setBounds(476, 355, 89, 23);
+		btnVolver.setBounds(429, 355, 89, 23);
 		panelFormulario.add(btnVolver);
 
 	}

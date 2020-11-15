@@ -40,6 +40,8 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class VentanaAgregarCasilla extends JFrame {
 
@@ -48,8 +50,10 @@ public class VentanaAgregarCasilla extends JFrame {
 	private JTextField txtBusqueda;
 
 	public VentanaAgregarCasilla(Usuario usuario, Formulario formulario) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAgregarCasilla.class.getResource("/Imagenes/iAGRO_V04.png")));
+		setTitle("Agregar Casillas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,16 +65,16 @@ public class VentanaAgregarCasilla extends JFrame {
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
 
 		UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBackground(new Color(0, 102, 0));
+		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setBounds(391, 36, 46, 14);
 		panelUsuario.add(lblTipoUser);
 		
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setBounds(338, 11, 118, 14);
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -82,11 +86,11 @@ public class VentanaAgregarCasilla extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(714, 16, 60, 23);
+		btnSalir.setBounds(548, 11, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setBounds(450, 11, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
 		JLabel lblNombreSistema = new JLabel("Nombre App");
@@ -94,10 +98,15 @@ public class VentanaAgregarCasilla extends JFrame {
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
 		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaAgregarCasilla.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-116, 0, 740, 90);
+		panelUsuario.add(lblNewLabel_1);
+		
 		JPanel panelCasilla = new JPanel();
 		panelCasilla.setLayout(null);
-		panelCasilla.setBackground(Color.WHITE);
-		panelCasilla.setBounds(0, 90, 784, 471);
+		panelCasilla.setBackground(new Color(204, 255, 204));
+		panelCasilla.setBounds(0, 90, 624, 471);
 		contentPane.add(panelCasilla);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -109,7 +118,7 @@ public class VentanaAgregarCasilla extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(627, 437, 89, 23);
+		btnVolver.setBounds(566, 437, 89, 23);
 		panelCasilla.add(btnVolver);
 		
 		tableCasilla = new JTable();
@@ -139,7 +148,7 @@ public class VentanaAgregarCasilla extends JFrame {
 			}
 		});
 		tableCasilla.setBackground(SystemColor.controlHighlight);
-		tableCasilla.setBounds(55, 70, 601, 356);
+		tableCasilla.setBounds(55, 70, 559, 284);
 		panelCasilla.add(tableCasilla);
 		
 		JButton btnListarCasilla = new JButton("Listar");
@@ -148,7 +157,7 @@ public class VentanaAgregarCasilla extends JFrame {
 				cargarCasillas();
 			}
 		});
-		btnListarCasilla.setBounds(466, 37, 72, 23);
+		btnListarCasilla.setBounds(394, 36, 72, 23);
 		panelCasilla.add(btnListarCasilla);
 		
 		JLabel lblCasillas = new JLabel("Casillas");
@@ -159,7 +168,7 @@ public class VentanaAgregarCasilla extends JFrame {
 		
 		txtBusqueda = new JTextField();
 		txtBusqueda.setColumns(10);
-		txtBusqueda.setBounds(566, 38, 103, 20);
+		txtBusqueda.setBounds(494, 37, 103, 20);
 		panelCasilla.add(txtBusqueda);
 		
 		JButton btnAgregar = new JButton("Agregar");
@@ -168,7 +177,7 @@ public class VentanaAgregarCasilla extends JFrame {
 				
 			}
 		});
-		btnAgregar.setBounds(499, 437, 89, 23);
+		btnAgregar.setBounds(525, 365, 89, 23);
 		panelCasilla.add(btnAgregar);
 		
 		

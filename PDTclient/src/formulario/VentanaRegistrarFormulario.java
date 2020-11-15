@@ -28,6 +28,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class VentanaRegistrarFormulario extends JFrame {
 
@@ -39,24 +42,20 @@ public class VentanaRegistrarFormulario extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaRegistrarFormulario(Usuario usuario) {
+		setTitle("Nuevo Formulario");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaRegistrarFormulario.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panelFormulario = new JPanel();
-		panelFormulario.setBackground(UIManager.getColor("Button.disabledShadow"));
-		panelFormulario.setBounds(0, 90, 784, 471);
+		panelFormulario.setBackground(new Color(204, 255, 204));
+		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
-		
-		JLabel lblNuevoFormulario = new JLabel("Nuevo Formulario");
-		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNuevoFormulario.setBounds(200, 33, 174, 42);
-		panelFormulario.add(lblNuevoFormulario);
 		
 		txtNombreFormulario = new JTextField();
 		txtNombreFormulario.setText("Nombre de Formulario");
@@ -118,7 +117,7 @@ public class VentanaRegistrarFormulario extends JFrame {
 			}
 		});
 		btnCrearFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearFormulario.setBounds(303, 336, 174, 42);
+		btnCrearFormulario.setBounds(219, 339, 174, 42);
 		panelFormulario.add(btnCrearFormulario);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -130,36 +129,43 @@ public class VentanaRegistrarFormulario extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(534, 348, 89, 23);
+		btnVolver.setBounds(450, 351, 89, 23);
 		panelFormulario.add(btnVolver);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
 						UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBackground(new Color(0, 102, 0));
+		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setBounds(340, 41, 46, 14);
 		panelUsuario.add(lblTipoUser);
 		
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setBounds(287, 16, 118, 14);
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(714, 16, 60, 23);
+		btnSalir.setBounds(542, 26, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setBounds(444, 26, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
-		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
-		panelUsuario.add(lblNombreSistema);
+		JLabel lblNuevoFormulario = new JLabel("Nuevo Formulario");
+		lblNuevoFormulario.setForeground(new Color(255, 255, 255));
+		lblNuevoFormulario.setBounds(10, 41, 174, 42);
+		panelUsuario.add(lblNuevoFormulario);
+		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblNewLabel_1);
 	}
 }

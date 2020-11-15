@@ -133,7 +133,7 @@ public class VentanaEditarUsuario extends JFrame {
 				
 			
 		btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnModificar.setBounds(154, 437, 134, 23);
+		btnModificar.setBounds(86, 437, 134, 23);
 		contentPane.add(btnModificar);
 		
 		
@@ -155,7 +155,7 @@ public class VentanaEditarUsuario extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(322, 437, 143, 23);
+		btnNewButton.setBounds(254, 437, 143, 23);
 		contentPane.add(btnNewButton);
 
 		txtCedula = new JTextField();
@@ -284,7 +284,7 @@ public class VentanaEditarUsuario extends JFrame {
 		});
 		btnBorrar.setForeground(new Color(0, 128, 0));
 		btnBorrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBorrar.setBounds(490, 437, 134, 23);
+		btnBorrar.setBounds(422, 437, 134, 23);
 		contentPane.add(btnBorrar);
 
 	}

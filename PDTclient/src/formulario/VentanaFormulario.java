@@ -37,6 +37,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
+import java.awt.Toolkit;
 
 public class VentanaFormulario extends JFrame {
 
@@ -45,16 +47,18 @@ public class VentanaFormulario extends JFrame {
 	private JTable tableFormulario;
 
 	public VentanaFormulario(Usuario usuario) {
+		setTitle("Crear Formulario");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaFormulario.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panelFormulario = new JPanel();
-		panelFormulario.setBackground(UIManager.getColor("Button.disabledShadow"));
-		panelFormulario.setBounds(0, 90, 784, 471);
+		panelFormulario.setBackground(new Color(204, 255, 204));
+		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
@@ -67,12 +71,12 @@ public class VentanaFormulario extends JFrame {
 				dispose();	
 			}
 		});
-		btnCrearFormulario.setBounds(44, 66, 123, 34);
+		btnCrearFormulario.setBounds(10, 59, 123, 34);
 		panelFormulario.add(btnCrearFormulario);
 		
 		JComboBox comboFiltro = new JComboBox();
 		comboFiltro.setModel(new DefaultComboBoxModel(new String[] {"Formularios", "Casillas"}));
-		comboFiltro.setBounds(401, 72, 103, 22);
+		comboFiltro.setBounds(283, 65, 103, 22);
 		panelFormulario.add(comboFiltro);
 		
 		JButton btnListarFormulario = new JButton("Listar");
@@ -91,18 +95,18 @@ public class VentanaFormulario extends JFrame {
 			
 			}
 		});
-		btnListarFormulario.setBounds(514, 72, 72, 23);
+		btnListarFormulario.setBounds(396, 65, 72, 23);
 		panelFormulario.add(btnListarFormulario);
 		
 		txtBusqueda = new JTextField();
-		txtBusqueda.setBounds(596, 73, 103, 20);
+		txtBusqueda.setBounds(478, 66, 103, 20);
 		panelFormulario.add(txtBusqueda);
 		txtBusqueda.setColumns(10);
 		
 		
 		JButton btnRefrescar = new JButton("");
 		btnRefrescar.setIcon(new ImageIcon("C:\\Users\\Usuario\\Downloads\\rsz_1refreshicon.png"));
-		btnRefrescar.setBounds(709, 72, 20, 23);
+		btnRefrescar.setBounds(591, 65, 20, 23);
 		panelFormulario.add(btnRefrescar);
 		
 		JLabel lblTituloFormulario = new JLabel("Formularios");
@@ -120,7 +124,7 @@ public class VentanaFormulario extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(24, 425, 89, 23);
+		btnVolver.setBounds(0, 358, 89, 23);
 		panelFormulario.add(btnVolver);
 		
 		tableFormulario = new JTable();
@@ -153,7 +157,7 @@ public class VentanaFormulario extends JFrame {
 			}
 		});	
 		tableFormulario.setBackground(SystemColor.controlHighlight);
-		tableFormulario.setBounds(123, 111, 601, 356);
+		tableFormulario.setBounds(89, 104, 531, 277);
 		panelFormulario.add(tableFormulario);
 		
 		JButton btnCrearCasilla = new JButton("Crear Casilla");
@@ -165,26 +169,26 @@ public class VentanaFormulario extends JFrame {
 			}
 		});
 		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
-		btnCrearCasilla.setBounds(196, 66, 132, 34);
+		btnCrearCasilla.setBounds(143, 59, 132, 34);
 		panelFormulario.add(btnCrearCasilla);
 		
 		JLabel lblFiltrar = new JLabel("Filtro por:");
-		lblFiltrar.setBounds(401, 47, 103, 14);
+		lblFiltrar.setBounds(283, 40, 103, 14);
 		panelFormulario.add(lblFiltrar);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"), UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBackground(new Color(0, 102, 0));
+		panelUsuario.setBounds(0, 0, 624, 89);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setBounds(382, 45, 46, 14);
 		panelUsuario.add(lblTipoUser);
 		
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setBounds(329, 20, 118, 14);
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -196,17 +200,22 @@ public class VentanaFormulario extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(714, 16, 60, 23);
+		btnSalir.setBounds(555, 16, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setBounds(457, 16, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
 		JLabel lblNombreSistema = new JLabel("Nombre App");
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-98, 0, 722, 86);
+		panelUsuario.add(lblNewLabel_1);
 	}
 	private void cargarCasillas() {
 		try {

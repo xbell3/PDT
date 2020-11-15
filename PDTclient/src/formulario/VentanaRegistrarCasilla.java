@@ -30,6 +30,8 @@ import com.servicios.FormulariosBeanRemote;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButtonMenuItem;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class VentanaRegistrarCasilla extends JFrame {
 
@@ -44,15 +46,15 @@ public class VentanaRegistrarCasilla extends JFrame {
 	 */
 	public VentanaRegistrarCasilla(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panelFormulario = new JPanel();
-		panelFormulario.setBackground(UIManager.getColor("Button.disabledShadow"));
-		panelFormulario.setBounds(0, 90, 784, 471);
+		panelFormulario.setBackground(new Color(204, 255, 204));
+		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
@@ -86,7 +88,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 			}
 		});
 		btnCrearCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearCasilla.setBounds(349, 336, 174, 42);
+		btnCrearCasilla.setBounds(257, 333, 174, 42);
 		panelFormulario.add(btnCrearCasilla);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -98,7 +100,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(580, 348, 89, 23);
+		btnVolver.setBounds(488, 345, 89, 23);
 		panelFormulario.add(btnVolver);
 		
 		txtDescripcion = new JTextField();
@@ -127,30 +129,35 @@ public class VentanaRegistrarCasilla extends JFrame {
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
 
 						UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(SystemColor.activeCaption);
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBackground(new Color(0, 102, 0));
+		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(541, 45, 46, 14);
+		lblTipoUser.setBounds(382, 51, 46, 14);
 		panelUsuario.add(lblTipoUser);
 		
 		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(488, 20, 118, 14);
+		lblNewLabel.setBounds(329, 26, 118, 14);
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(714, 16, 60, 23);
+		btnSalir.setBounds(555, 22, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(616, 16, 88, 23);
+		btnNewButton.setBounds(457, 22, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
 		JLabel lblNombreSistema = new JLabel("Nombre App");
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaRegistrarCasilla.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-102, 0, 726, 90);
+		panelUsuario.add(lblNewLabel_1);
 	}
 	private void crearCasilla() {
 
