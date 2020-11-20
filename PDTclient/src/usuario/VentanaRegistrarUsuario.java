@@ -1,14 +1,12 @@
 package usuario;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.naming.NamingException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -16,12 +14,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
-import com.cliente.VentanaInicio;
-import usuario.VentanaUsuario;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
-import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
 import javax.swing.JLabel;
@@ -31,17 +26,16 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 //import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.Box;
 import java.awt.Toolkit;
 import java.awt.Cursor;
+
 import javax.swing.ImageIcon;
-import javax.swing.DropMode;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaRegistrarUsuario extends JFrame {
-	
-	
+
 //Declaramos todos parametros y componentes que vamos a usar...
 	private JPanel contentPane;
 	private JTextField txtNombre;
@@ -51,7 +45,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 	private JTextField txtContrasena;
 	private JFrame frame;
 	private JButton btnNewButton;
-	private JTextField txtCedula;
+	private JFormattedTextField txtCedula;
 	private JTextField txtInstituto;
 	private JTextField txtProfesion;
 	private JTextField txtContrasea;
@@ -66,6 +60,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 	private Rol rol = new Rol();
 	private JLabel lblNewLabel;
 	private JComboBox comboRol;
+
 	public VentanaRegistrarUsuario(Usuario usuario) {
 		/*
 		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
@@ -85,8 +80,10 @@ public class VentanaRegistrarUsuario extends JFrame {
 		comboRol = new JComboBox();
 		comboRol.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			/*A continuacion llamamos al metodo evaluarComboBox 
-			 * al activar el comboBox al escuchar con el ActionListener*/
+				/*
+				 * A continuacion llamamos al metodo evaluarComboBox al activar el comboBox al
+				 * escuchar con el ActionListener
+				 */
 				evaluarComboBox();
 			}
 		});
@@ -150,23 +147,25 @@ public class VentanaRegistrarUsuario extends JFrame {
 		btnRegistrarme.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarme.setForeground(new Color(0, 102, 0));
 		btnRegistrarme.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				/*Nuevamente llamamos a un metodo, en este caso
-				 * crearUsuario, al activar el boton "Registrarme"*/
+				/*
+				 * Nuevamente llamamos a un metodo, en este caso crearUsuario, al activar el
+				 * boton "Registrarme"
+				 */
 				crearUsuario();
 			}
 		});
 		btnRegistrarme.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRegistrarme.setBounds(92, 437, 143, 23);
 		contentPane.add(btnRegistrarme);
-		
-		
-		/*El boton "Volver" es para regresar a la pestaña de VentanaUsuario
-		 * si bien la ventana registro se accede desde el inicio, esto solo
-		 * sucede para facilitar el desarrollo de la app, pero a futuro no 
-		 * habra un boton Registro en la sesion del usuario.*/
-		
+
+		/*
+		 * El boton "Volver" es para regresar a la pestaña de VentanaUsuario si bien la
+		 * ventana registro se accede desde el inicio, esto solo sucede para facilitar
+		 * el desarrollo de la app, pero a futuro no habra un boton Registro en la
+		 * sesion del usuario.
+		 */
+
 		btnNewButton = new JButton("Volver");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -183,7 +182,22 @@ public class VentanaRegistrarUsuario extends JFrame {
 		btnNewButton.setBounds(360, 437, 143, 23);
 		contentPane.add(btnNewButton);
 
-		txtCedula = new JTextField();
+		txtCedula = new JFormattedTextField();
+		txtCedula.addKeyListener(new KeyAdapter() {
+			/*
+			 * El siguiente keyTyped valida las teclas presionadas y solo escribe las teclas
+			 * numericas, para el campo txtCedula correspondiente a la Cedula del usuario
+			 */
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter = e.getKeyChar();
+
+				// Verificar si la tecla pulsada no es un digito
+				if (((caracter < '0') || (caracter > '9')) && (caracter != '\b' /* corresponde a BACK_SPACE */)) {
+					e.consume(); // ignorar el evento de teclado
+				}
+			}
+		});
 		txtCedula.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCedula.setForeground(new Color(0, 102, 0));
 		txtCedula.setToolTipText("Ingrese c\u00E9dula de identidad");
@@ -318,11 +332,13 @@ public class VentanaRegistrarUsuario extends JFrame {
 		contentPane.add(panel);
 
 	}
-	/* El siguiente metodo evaluarComboBox evalua el item seleccionado en el comboBox y establece
-	 * que se vean y habiliten los parametros segun el item seleccionado.
+
+	/*
+	 * El siguiente metodo evaluarComboBox evalua el item seleccionado en el
+	 * comboBox y establece que se vean y habiliten los parametros segun el item
+	 * seleccionado.
 	 */
 	private void evaluarComboBox() {
-		
 
 		if (comboRol.getSelectedItem() == "Común") {
 			txtCedula2.setVisible(false);
@@ -337,8 +353,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 			txtInstituto.setEnabled(false);
 			txtProfesion.setVisible(false);
 			txtProfesion.setEnabled(false);
-			
-		
+
 		} else if (comboRol.getSelectedItem() == "Experto") {
 			txtCedula2.setVisible(true);
 			txtCedula2.setEnabled(true);
@@ -366,25 +381,28 @@ public class VentanaRegistrarUsuario extends JFrame {
 			txtProfesion1.setEnabled(false);
 			txtProfesion.setVisible(false);
 			txtProfesion.setEnabled(false);
-		
+
 		}
 
-	
 	}
-	/*El metodo crearUsuario, llama al EJBLocator para localizar los Beans y 
-	 * consigo cada metodo de persistencia que vamos requerir a traves de su 
-	 * interfaz remota UsuariosBeanRemote, de donde sacaremos las funciones para
-	 * dar de alta un usuario en este caso la funcion se llama "crear" y le 
-	 * pasamos por parametro el objeto Usuario, al que le vamos a insertar todos los
-	 * campos descritos a continuacion. */
+
+	/*
+	 * El metodo crearUsuario, llama al EJBLocator para localizar los Beans y
+	 * consigo cada metodo de persistencia que vamos requerir a traves de su
+	 * interfaz remota UsuariosBeanRemote, de donde sacaremos las funciones para dar
+	 * de alta un usuario en este caso la funcion se llama "crear" y le pasamos por
+	 * parametro el objeto Usuario, al que le vamos a insertar todos los campos
+	 * descritos a continuacion.
+	 */
 	private void crearUsuario() {
-		/*Se enlazan los parametros escritos en cada campo de texto 
-		 * con cada parametro de la entidad Usuario
-		 * i.e: txtNombreUsuario obtiene el texto del campo (getText();)
-		 * y lo "setea" al campo nombreUsuario de la entidad Usuario*/
+
+		/*
+		 * Se enlazan los parametros escritos en cada campo de texto con cada parametro
+		 * de la entidad Usuario i.e: txtNombreUsuario obtiene el texto del campo
+		 * (getText();) y lo "setea" al campo nombreUsuario de la entidad Usuario
+		 */
 		UsuariosBeanRemote usuariosBeanRemote;
-		RolBeanRemote rolBeanRemote;
-		Usuario usuario =  new Usuario();
+		Usuario usuario = new Usuario();
 		usuario.setNombreUsuario(txtNombreUsuario.getText());
 		usuario.setContrasena(txtContrasena.getText());
 		usuario.setApellido(txtApellido.getText());
@@ -395,48 +413,64 @@ public class VentanaRegistrarUsuario extends JFrame {
 		usuario.setProfesion(txtProfesion.getText());
 		usuario.setRol(rol);
 		/*
-		 * La siguiente condicion establece el nombreRol segun el
-		 * itemSeleccionado, e instancia un Usuario con su Rol relacionado.
-		 *(Administrador, Experto o Comun)  */
+		 * La siguiente condicion establece el nombreRol segun el itemSeleccionado, e
+		 * instancia un Usuario con su Rol relacionado. (Administrador, Experto o Comun)
+		 */
 
 		if (txtInstituto.isEnabled()) {
 			rol.setNombreRol("Administrador");
 		}
-	 
+
 		if (txtProfesion.isEnabled()) {
 			rol.setNombreRol("Experto");
 		}
-		if(txtCedula.isEnabled() == false)
+		if (txtCedula.isEnabled() == false)
 			rol.setNombreRol("Común");
 		try {
 			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
-			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
-			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un mensaje de informacion
-			 * indicando que debe completar los campos*/
-			if (txtNombreUsuario.getText().isEmpty() || txtCorreo.getText().isEmpty()
-					|| txtApellido.getText().isEmpty() || txtContrasena.getText().isEmpty()
-					|| txtNombre.getText().isEmpty()) {
+			/*
+			 * La siguiente condicion if, evalua que los campos de textos no se encuentren
+			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un
+			 * mensaje de informacion indicando que debe completar los campos
+			 */
+			if (txtNombreUsuario.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtApellido.getText().isEmpty()
+					|| txtContrasena.getText().isEmpty() || txtNombre.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-						JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.ERROR_MESSAGE);
 
 				return;
-				/*El siguiente else if, llama al metodo "registro", el cual evalua que el usuario
-				 * no se encuentre en la base de datos ya registrado, de esta manera evitaremos
-				 * que los usuarios no accedan a cuentas agenas.*/
+				/*
+				 * El siguiente else if, llama al metodo "registro", el cual evalua que el
+				 * usuario no se encuentre en la base de datos ya registrado, de esta manera
+				 * evitaremos que los usuarios no accedan a cuentas agenas.
+				 */
 			} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
-				JOptionPane.showMessageDialog(frame,
-						"El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
+				JOptionPane.showMessageDialog(frame, "El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
 						"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
-				/*Por ultimo ya teniendo todos los parametros de la entidad Usuario enlazados
-				 * la condicion termina en un else, aqui es cuando el usuario pasa
-				 * todas las "pruebas", es decir condiciones requeridas, y finalmente se da
-				 * el alta del usuario, mas un dialogo indicando que se registro con exito. Redireccionamos a la ventana VentanaGeneral donde 
-				 * hallaremos la aplicacion y el resto de sus funciones.*/
-			} else {
+				/*
+				 * Por ultimo ya teniendo todos los parametros de la entidad Usuario enlazados
+				 * la condicion termina en un else, aqui es cuando el usuario pasa todas las
+				 * "pruebas", es decir condiciones requeridas, y finalmente se da el alta del
+				 * usuario, mas un dialogo indicando que se registro con exito. Redireccionamos
+				 * a la ventana VentanaGeneral donde hallaremos la aplicacion y el resto de sus
+				 * funciones.
+				 */
+				return;
+			} else if (txtCedula.getText().length() != 8) {
+				/*
+				 * Aqui validamos que la cedula sea de 8 caracteres, de otra forma se enviara un
+				 * mensaje de error indicando el formato de cedula.
+				 */
+				JOptionPane.showMessageDialog(frame, "Cedula identidad incorrecta. Debe contener 8 caracteres.",
+						"Cedula incorrecta!", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			else {
 				usuariosBeanRemote.crear(usuario);
 
-				JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.",
-						"Usuario Registrado!", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.", "Usuario Registrado!",
+						JOptionPane.INFORMATION_MESSAGE);
 				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
 				ventanaGeneral.setVisible(true);
 				ventanaGeneral.setLocation(400, 150);
@@ -449,6 +483,6 @@ public class VentanaRegistrarUsuario extends JFrame {
 			e1.printStackTrace();
 		}
 
-	
 	}
+
 }
