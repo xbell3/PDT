@@ -24,7 +24,8 @@ public class Formulario implements Serializable {
 	@Column(length = 150)
 	private String resumen;
 	
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	//@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany
 	private List<Casilla> casillas;
 	
 	public List<Casilla> getCasillas() {

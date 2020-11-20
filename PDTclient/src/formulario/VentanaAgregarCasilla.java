@@ -175,6 +175,7 @@ public class VentanaAgregarCasilla extends JFrame {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				
 			}
 		});
 		btnAgregar.setBounds(525, 365, 89, 23);
@@ -182,11 +183,11 @@ public class VentanaAgregarCasilla extends JFrame {
 		
 		
 	}
-	private void agregarCasilla(String nombreFormulario, Long idCasilla) throws ServiciosException {
+	private void agregarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException {
 		try {
 			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
-			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);			
-//			formulariosBeanRemote.asignarCasilla(nombreFormulario, idCasilla);
+	//		CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);			
+			formulariosBeanRemote.asignarCasilla(idFormulario, idCasilla);
 			
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

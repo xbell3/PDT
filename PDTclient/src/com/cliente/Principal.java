@@ -30,20 +30,20 @@ public class Principal {
 	Usuario usuario = new Usuario();
 	Rol rol = new Rol();
 	//---------------------------------------
-//	formulario1.setNombreFormulario("Clima");
-//	formulario1.setResumen("Este formulario sera para todo el manejo del Clima");
-//	formulariosBeanRemote.crear(formulario1);
-//	System.out.println("Se creó exitosamente el formulario");
-//
-//	//---------------------------------------
-//	
-//	casilla.setParametro("Longitud");
-//	casilla.setDescripcion("a");
-//	casillasBeanRemote.crear(casilla);
-//	System.out.println("Se creó exitosamente la casilla");
+	formulario1.setNombreFormulario("Clima");
+	formulario1.setResumen("Este formulario sera para todo el manejo del Clima");
+	formulariosBeanRemote.crear(formulario1);
+	System.out.println("Se creó exitosamente el formulario");
 
 	//---------------------------------------
-	//formulariosBeanRemote.asignarCasilla(17L, 18L);
+	
+	casilla.setParametro("Longitud");
+	casilla.setDescripcion("a");
+	casillasBeanRemote.crear(casilla);
+	System.out.println("Se creó exitosamente la casilla");
+
+	//---------------------------------------
+	formulariosBeanRemote.asignarCasilla(17L, 18L);
 	
 	List<Formulario> formularios;
 	formularios = formulariosBeanRemote.obtenerTodos();
