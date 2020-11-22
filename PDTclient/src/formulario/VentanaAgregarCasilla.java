@@ -130,19 +130,14 @@ public class VentanaAgregarCasilla extends JFrame {
 				Long idCasilla = (Long) tableCasilla.getModel().getValueAt(row, 0);
 				Casilla casilla = new Casilla();
 				casilla.setIdCasilla(idCasilla);
-				
+			//	List<Casilla> casillas = formulario.getCasillas();
 				try {
 
 					FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 
-					formulariosBeanRemote.asignarCasilla(formulario.getIdFormulario(), idCasilla );
-
 				} catch (NamingException ex) {
 					// TODO Auto-generated catch block
 					ex.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 			
 			}
@@ -183,11 +178,10 @@ public class VentanaAgregarCasilla extends JFrame {
 		
 		
 	}
-	private void agregarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException {
+	private void agregarCasilla(Long idFormulario, List<Casilla> casillas) throws ServiciosException {
 		try {
 			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 	//		CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);			
-			formulariosBeanRemote.asignarCasilla(idFormulario, idCasilla);
 			
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

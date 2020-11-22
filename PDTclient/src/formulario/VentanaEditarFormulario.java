@@ -94,17 +94,17 @@ public class VentanaEditarFormulario extends JFrame {
 		panelFormulario.add(lblModificar);
 		
 		txtNombreFormulario = new JTextField();
-		txtNombreFormulario.setText("Nombre de Formulario");
 		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNombreFormulario.setText(formulario.getNombreFormulario());
 		txtNombreFormulario.setColumns(10);
 		txtNombreFormulario.setBounds(65, 171, 168, 42);
 		panelFormulario.add(txtNombreFormulario);
 		
 		txtResumen = new JTextField();
-		txtResumen.setText("Resumen");
 		txtResumen.setHorizontalAlignment(SwingConstants.CENTER);
 		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtResumen.setText(formulario.getResumen());
 		txtResumen.setColumns(10);
 		txtResumen.setBounds(281, 171, 168, 42);
 		panelFormulario.add(txtResumen);
@@ -127,6 +127,18 @@ public class VentanaEditarFormulario extends JFrame {
 		});
 		btnVolver.setBounds(429, 355, 89, 23);
 		panelFormulario.add(btnVolver);
+		
+		JButton btnAgregarCasilla = new JButton("Agregar Casilla");
+		btnAgregarCasilla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario, formulario);
+				ventanaRegistrarCasilla.setLocation(400, 150);
+				ventanaRegistrarCasilla.setVisible(true);
+			}
+		});
+		btnAgregarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnAgregarCasilla.setBounds(245, 290, 174, 42);
+		panelFormulario.add(btnAgregarCasilla);
 
 	}
 	/*El metodo modificarFormulRio, llama al EJBLocator para localizar los Beans y 

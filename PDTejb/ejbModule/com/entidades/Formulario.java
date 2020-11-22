@@ -13,34 +13,27 @@ public class Formulario implements Serializable {
 	public Formulario() {
 		super();
 	}
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idFormulario;
-
-	@Column(length = 40)
+	
+	@Column(length = 40, nullable=false, unique = true)
 	private String nombreFormulario;
-
+	
 	@Column(length = 150)
 	private String resumen;
 	
-	//@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@OneToMany
-	private List<Casilla> casillas;
-	
-	public List<Casilla> getCasillas() {
-		return casillas;
-	}
-
-	public void setCasillas(List<Casilla> casillas) {
-		this.casillas = casillas;
-	}
-
-	public String getNombreFormulario() {
-		return nombreFormulario;
-	}
-
-
+//	//@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "formulario")
+//	private List<Casilla> casillas;
+//	
+//	public List<Casilla> getCasillas() {
+//		return casillas;
+//	}
+//
+//	public void setCasillas(List<Casilla> casillas) {
+//		this.casillas = casillas;
+//	}
 
 	public Long getIdFormulario() {
 		return idFormulario;
@@ -48,6 +41,10 @@ public class Formulario implements Serializable {
 
 	public void setIdFormulario(Long idFormulario) {
 		this.idFormulario = idFormulario;
+	}
+
+	public String getNombreFormulario() {
+		return nombreFormulario;
 	}
 
 	public void setNombreFormulario(String nombreFormulario) {

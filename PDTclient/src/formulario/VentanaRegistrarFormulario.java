@@ -101,10 +101,7 @@ public class VentanaRegistrarFormulario extends JFrame {
 						formulariosBeanRemote.crear(formulario);
 
 						JOptionPane.showMessageDialog(frame, "El Formulario ha sido registrado con éxito.",
-								"Formulario Registrado!", JOptionPane.INFORMATION_MESSAGE);
-						VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-						ventanaFormulario.setVisible(true);
-						ventanaFormulario.setLocation(400, 150);
+								"Formulario Registrado!", JOptionPane.INFORMATION_MESSAGE);						
 						dispose();
 					}
 
@@ -123,9 +120,6 @@ public class VentanaRegistrarFormulario extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {			
-				VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-				ventanaFormulario.setVisible(true);
-				ventanaFormulario.setLocation(400, 150);
 				dispose();
 			}
 		});

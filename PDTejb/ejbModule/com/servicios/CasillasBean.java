@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entidades.Casilla;
+import com.entidades.Formulario;
 import com.exception.ServiciosException;
 
 /**
@@ -28,8 +29,12 @@ public class CasillasBean implements CasillasBeanRemote {
 	}
 
 	@Override
-	public void crear(Casilla casilla) throws ServiciosException {
+	public void crear(Casilla casilla, String nombreFormulario) throws ServiciosException {
 		try {
+			Formulario formulario = em.createQuery(
+			"SELECT f from Formulario f WHERE f.nombreFormulario = :nombreFormulario", Formulario.class).
+			setParameter("nombreFormulario", nombreFormulario).getSingleResult();
+			casilla.setFormulario(formulario);
 			em.persist(casilla);
 			em.flush();
 		} catch (PersistenceException e) {

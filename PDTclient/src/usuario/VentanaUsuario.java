@@ -165,7 +165,7 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		tableUsuario.setBackground(SystemColor.controlHighlight);
-		tableUsuario.setBounds(127, 161, 493, 316);
+		tableUsuario.setBounds(87, 206, 492, 231);
 		contentPane.add(tableUsuario);
 
 		JButton btnListar = new JButton("Listar");
@@ -199,7 +199,7 @@ public class VentanaUsuario extends JFrame {
 				
 			}
 		});
-		btnRegistrar.setBounds(1, 246, 121, 23);
+		btnRegistrar.setBounds(20, 184, 121, 23);
 		contentPane.add(btnRegistrar);
 			
 				JButton btnRefrescar = new JButton("");

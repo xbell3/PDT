@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Casilla")
 public class Casilla implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,12 +17,12 @@ public class Casilla implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCasilla;
 
 	@Column(length = 40)
 	private String parametro;
-
+	
 	@Column(length = 40)
 	private String unidadMedida;
 
@@ -30,18 +31,19 @@ public class Casilla implements Serializable {
 	
 	@Column(length = 40)
 	private String tipoUnidad;
+	
+	@ManyToOne
+	@JoinColumn(name = "idFormulario", nullable=false)
+	private Formulario formulario;
+	
 
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	private Formulario formulario; 
-//
-//	
-//	public Formulario getFormulario() {
-//		return formulario;
-//	}
-//
-//	public void setFormulario(Formulario formulario) {
-//		this.formulario = formulario;
-//	}
+	public Formulario getFormulario() {
+		return formulario;
+	}
+
+	public void setFormulario(Formulario formulario) {
+		this.formulario = formulario;
+	}
 
 	public String getTipoUnidad() {
 		return tipoUnidad;

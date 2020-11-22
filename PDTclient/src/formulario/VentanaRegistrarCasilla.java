@@ -41,10 +41,11 @@ public class VentanaRegistrarCasilla extends JFrame {
 	public JFrame frame;
 	private JTextField txtDescripcion;
 	private JTextField txtTipoDeValor;
+	private JTextField txtNombreFormulario;
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistrarCasilla(Usuario usuario) {
+	public VentanaRegistrarCasilla(Usuario usuario, Formulario formulario) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
@@ -83,7 +84,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 		JButton btnCrearCasilla = new JButton("Crear Casilla");
 		btnCrearCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				crearCasilla();
+				crearCasilla(formulario);
 				
 			}
 		});
@@ -94,9 +95,6 @@ public class VentanaRegistrarCasilla extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {			
-				VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
-				ventanaFormulario.setVisible(true);
-				ventanaFormulario.setLocation(400, 150);
 				dispose();
 			}
 		});
@@ -123,6 +121,15 @@ public class VentanaRegistrarCasilla extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Numero entero", "Numero decimal", "Texto", "Boolean"}));
 		comboBox.setBounds(339, 238, 113, 22);
 		panelFormulario.add(comboBox);
+		
+		txtNombreFormulario = new JTextField();
+		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNombreFormulario.setText(formulario.getNombreFormulario());
+		txtNombreFormulario.setColumns(10);
+		txtNombreFormulario.setEditable(false);
+		txtNombreFormulario.setBounds(123, 279, 168, 42);
+		panelFormulario.add(txtNombreFormulario);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -159,7 +166,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 		lblNewLabel_1.setBounds(-102, 0, 726, 90);
 		panelUsuario.add(lblNewLabel_1);
 	}
-	private void crearCasilla() {
+	private void crearCasilla(Formulario formulario) {
 
 		CasillasBeanRemote casillasBeanRemote;
 		Casilla casilla = new Casilla ();
@@ -180,7 +187,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 				return;
 
 			}else {
-				casillasBeanRemote.crear(casilla);
+				casillasBeanRemote.crear(casilla, txtNombreFormulario.getText());
 
 				JOptionPane.showMessageDialog(frame, "La casilla ha sido creada con éxito.",
 						"Casilla Registrado!", JOptionPane.INFORMATION_MESSAGE);

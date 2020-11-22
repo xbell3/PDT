@@ -66,13 +66,13 @@ public class UsuariosBean implements UsuariosBeanRemote {
 
 	@Override
 	public List<Usuario> obtenerTodos() {
-		TypedQuery<Usuario> query = em.createQuery("SELECT m FROM Usuario m", Usuario.class);
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Usuario> obtenerPorNombre(String filtro) {
-		TypedQuery<Usuario> query = em.createQuery("SELECT m FROM Usuario m WHERE m.nombre LIKE :nombre", Usuario.class)
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.nombre LIKE :nombre", Usuario.class)
 				.setParameter("nombre", filtro);
 		return query.getResultList();
 	}

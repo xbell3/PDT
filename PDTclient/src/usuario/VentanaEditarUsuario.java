@@ -148,9 +148,6 @@ public class VentanaEditarUsuario extends JFrame {
 		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaUsuario ventanaUsuario = new VentanaUsuario(usuario);
-				ventanaUsuario.setLocation(400, 150);
-				ventanaUsuario.setVisible(true);
 				dispose();
 
 			}

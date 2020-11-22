@@ -1,15 +1,11 @@
 package com.cliente;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entidades.Casilla;
 import com.entidades.Formulario;
-import com.entidades.Rol;
-import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
@@ -25,33 +21,81 @@ public class Principal {
 		FormulariosBeanRemote formulariosBeanRemote = (FormulariosBeanRemote) InitialContext.doLookup("PDTejb/FormulariosBean!com.servicios.FormulariosBeanRemote");
 		CasillasBeanRemote casillasBeanRemote = (CasillasBeanRemote) InitialContext.doLookup("PDTejb/CasillasBean!com.servicios.CasillasBeanRemote");
 
-	Casilla casilla = new Casilla();
-	Formulario formulario1 = new Formulario();	
-	Usuario usuario = new Usuario();
-	Rol rol = new Rol();
-	//---------------------------------------
-	formulario1.setNombreFormulario("Clima");
-	formulario1.setResumen("Este formulario sera para todo el manejo del Clima");
-	formulariosBeanRemote.crear(formulario1);
-	System.out.println("Se creó exitosamente el formulario");
+		
+//		Formulario formulario4 = new Formulario();
+//		formulario4.setNombreFormulario("Clima");
+//		formulario4.setResumen("Este formulario sera para todo el manejo del Clima");
+//		formulariosBeanRemote.crear(formulario4);
+//		System.out.println("Se creó exitosamente el formulario");
+//		
+		//---------------------------------------
+		
+//			Formulario f5 = new Formulario();
+//			f5.setNombreFormulario("Prueba de form 5");
+//			formulariosBeanRemote.crear(f5);		
+//			System.out.println("Se creo formulario existosamente");
+//			
+		//---------------------------------------
+		Casilla casilla1 = new Casilla();
 
-	//---------------------------------------
-	
-	casilla.setParametro("Longitud");
-	casilla.setDescripcion("a");
-	casillasBeanRemote.crear(casilla);
-	System.out.println("Se creó exitosamente la casilla");
+		Formulario formulario = new Formulario();
+		
+		formulario.setNombreFormulario("Uno21");
+		formulariosBeanRemote.crear(formulario);
+		System.out.println("Se creó exitosamente el formulario1");
+		
+		//---------------------------------------
+		Formulario formulario2 = new Formulario();
+		
+		formulario2.setNombreFormulario("Dos123");
+		formulariosBeanRemote.crear(formulario2);
+		System.out.println("Se creó exitosamente el formulario2");
+		
+		//---------------------------------------
+		Formulario formulario3 = new Formulario();
+		
+		formulario3.setNombreFormulario("Tres123");
+		formulariosBeanRemote.crear(formulario3);
+		System.out.println("Se creó exitosamente el formulario3");
+		
+		//---------------------------------------
+		casilla1.setDescripcion("Nueva casilla 600");
+		casillasBeanRemote.crear(casilla1 , "Uno1");
+		System.out.println("Se creó exitosamente la casilla");
 
-	//---------------------------------------
-	formulariosBeanRemote.asignarCasilla(17L, 18L);
-	
-	List<Formulario> formularios;
-	formularios = formulariosBeanRemote.obtenerTodos();
-	for(Formulario formulario : formularios){
-		System.out.println(formulario+" Se asigno exitosamente la casilla la formulario");
+    	//---------------------------------------
+		Casilla casilla2 = new Casilla();
+		casilla2.setDescripcion("Nueva casilla 1600");
+		casillasBeanRemote.crear(casilla2 , "Uno1");
+		System.out.println("Se creó exitosamente la casilla");
+    	//---------------------------------------
+		Casilla casilla3 = new Casilla();
+		casilla3.setDescripcion("Nueva casilla 2600");
+		casillasBeanRemote.crear(casilla3 , "Uno1");
+		System.out.println("Se creó exitosamente la casilla");
+    	//---------------------------------------
+		Casilla casilla4 = new Casilla();
+		casilla4.setDescripcion("Nueva casilla 3600");
+		casillasBeanRemote.crear(casilla4 , "Uno1" );
+		System.out.println("Se creó exitosamente la casilla");
+    	//---------------------------------------
+//	    List<Casilla> casillas = new ArrayList<>();
+//    	casillasBeanRemote.crear(casillas);
+//    	System.out.println("Hasta aca llegue 1");
+//	    for(Casilla c : casillas){
+//	    	System.out.println("Hasta aca llegue 2");
+//	    	c.setFormulario(formulario4);
+//	    	c.setUnidadMedida("Grados");
+//	    	c.setTipoUnidad("numerico");
+//	    	c.setParametro("Longitud");
+//	    	c.setDescripcion("a");
+//	    	casillas.add(c);    	
+//	    	System.out.println("Se creó exitosamente la casilla");
+//	    }	
 
-	}
-	System.out.println("Se asigno exitosamente la casilla la formulario");
+//	formulariosBeanRemote.obtenerPorNombreFormulario("Prueba");
+//	
+//	System.out.println("Se listo exitosamente");
 
 
 }

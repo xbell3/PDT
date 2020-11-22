@@ -62,22 +62,16 @@ public class VentanaFormulario extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
-		JButton btnCrearFormulario = new JButton("Crear Formulario");
+		JButton btnCrearFormulario = new JButton("Crear ");
 		btnCrearFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarFormulario ventanaRegistrarFormulario = new VentanaRegistrarFormulario(usuario);
 				ventanaRegistrarFormulario.setVisible(true);
 				ventanaRegistrarFormulario.setLocation(400, 150);
-				dispose();	
 			}
 		});
-		btnCrearFormulario.setBounds(10, 59, 123, 34);
+		btnCrearFormulario.setBounds(0, 99, 89, 23);
 		panelFormulario.add(btnCrearFormulario);
-		
-		JComboBox comboFiltro = new JComboBox();
-		comboFiltro.setModel(new DefaultComboBoxModel(new String[] {"Formularios", "Casillas"}));
-		comboFiltro.setBounds(283, 65, 103, 22);
-		panelFormulario.add(comboFiltro);
 		
 		JButton btnListarFormulario = new JButton("Listar");
 		btnListarFormulario.addActionListener(new ActionListener() {
@@ -86,12 +80,13 @@ public class VentanaFormulario extends JFrame {
 				 * Filtros del comboBox, evalua el item elegido, y elije la funcion de listar
 				 * segun se desee.
 				 */
-				if (comboFiltro.getSelectedItem() == "Formularios") {
-					cargarFormularios();
-				} else if (comboFiltro.getSelectedItem() == "Casillas") {
-					cargarCasillas();
-			
-			}
+				cargarFormularios();
+//				if (comboFiltro.getSelectedItem() == "Formularios") {
+//					cargarFormularios();
+//				} else if (comboFiltro.getSelectedItem() == "Casillas") {
+//					cargarCasillas();
+//			
+//			}
 			
 			}
 		});
@@ -109,9 +104,10 @@ public class VentanaFormulario extends JFrame {
 		btnRefrescar.setBounds(591, 65, 20, 23);
 		panelFormulario.add(btnRefrescar);
 		
-		JLabel lblTituloFormulario = new JLabel("Formularios");
+		JLabel lblTituloFormulario = new JLabel("    Formularios");
+		lblTituloFormulario.setIcon(new ImageIcon(VentanaFormulario.class.getResource("/Imagenes/formulario_v2.png")));
 		lblTituloFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloFormulario.setBounds(10, 11, 157, 39);
+		lblTituloFormulario.setBounds(10, 11, 198, 77);
 		panelFormulario.add(lblTituloFormulario);
 		lblTituloFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
@@ -157,24 +153,21 @@ public class VentanaFormulario extends JFrame {
 			}
 		});	
 		tableFormulario.setBackground(SystemColor.controlHighlight);
-		tableFormulario.setBounds(89, 104, 531, 277);
+		tableFormulario.setBounds(97, 104, 484, 231);
 		panelFormulario.add(tableFormulario);
 		
-		JButton btnCrearCasilla = new JButton("Crear Casilla");
-		btnCrearCasilla.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario);
-				ventanaRegistrarCasilla.setUndecorated(false);
-				ventanaRegistrarCasilla.setVisible(true);
-			}
-		});
-		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
-		btnCrearCasilla.setBounds(143, 59, 132, 34);
-		panelFormulario.add(btnCrearCasilla);
-		
-		JLabel lblFiltrar = new JLabel("Filtro por:");
-		lblFiltrar.setBounds(283, 40, 103, 14);
-		panelFormulario.add(lblFiltrar);
+//		JButton btnCrearCasilla = new JButton("Crear Casilla");
+//		btnCrearCasilla.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				
+//				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario, formulario);
+//				ventanaRegistrarCasilla.setUndecorated(false);
+//				ventanaRegistrarCasilla.setVisible(true);
+//			}
+//		});
+//		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
+//		btnCrearCasilla.setBounds(143, 59, 132, 34);
+//		panelFormulario.add(btnCrearCasilla);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -248,9 +241,9 @@ public class VentanaFormulario extends JFrame {
 			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
 			List<Formulario> formularios = new ArrayList<>();
 	
-			formularios = formulariosBeanRemote.obtenerTodos();
+			formularios = formulariosBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
 
-			String[] columnNames = {"nombreFormulario", "resumen"};
+			String[] columnNames = {"nombreFormulario","resumen"};
 			DefaultTableModel model = new DefaultTableModel();
 			tableFormulario.setModel(model);
 
@@ -259,6 +252,7 @@ public class VentanaFormulario extends JFrame {
 				Object[] fila = new Object[2];
 				fila[0] = formulario.getNombreFormulario();
 				fila[1] = formulario.getResumen();
+				
 				model.addRow(fila);
 			}		
 		} catch (NamingException e) {

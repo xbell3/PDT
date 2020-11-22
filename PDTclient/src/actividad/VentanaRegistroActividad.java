@@ -24,20 +24,20 @@ import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
-public class VentanaActividad extends JFrame {
+public class VentanaRegistroActividad extends JFrame {
 
 	private JPanel contentPane;
+	private JTable tableActividad;
+	private JTextField txtBusquedaActividad;
 	/**
 	 * Create the frame.
 	 */
-	public VentanaActividad(Usuario usuario) {
-		
+	public VentanaRegistroActividad(Usuario usuario) {
 		setTitle("Actividad");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaActividad.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,58 +94,57 @@ public class VentanaActividad extends JFrame {
 		panelActividad.setBounds(0, 90, 624, 392);
 		contentPane.add(panelActividad);
 		
-		JLabel lblTituloFormulario = new JLabel("Actividad de campo");
-		lblTituloFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTituloFormulario.setBounds(10, 11, 171, 39);
-		panelActividad.add(lblTituloFormulario);
+		tableActividad = new JTable();
+		tableActividad.setBackground(SystemColor.controlHighlight);
+		tableActividad.setBounds(89, 104, 492, 231);
+		panelActividad.add(tableActividad);
+		
+		JButton btnBuscarActividad = new JButton("Buscar");
+		btnBuscarActividad.setBounds(385, 70, 72, 23);
+		panelActividad.add(btnBuscarActividad);
+		
+		txtBusquedaActividad = new JTextField();
+		txtBusquedaActividad.setColumns(10);
+		txtBusquedaActividad.setBounds(467, 71, 103, 20);
+		panelActividad.add(txtBusquedaActividad);
+		
+		JButton btnRefrescar = new JButton("R");
+		btnRefrescar.setBounds(580, 70, 31, 23);
+		panelActividad.add(btnRefrescar);
+		
+		JLabel lblTituloInicioActividad = new JLabel("Actividad de campo");
+		lblTituloInicioActividad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloInicioActividad.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTituloInicioActividad.setBounds(10, 11, 171, 39);
+		panelActividad.add(lblTituloInicioActividad);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-				ventanaGeneral.setVisible(true);
-				ventanaGeneral.setLocation(400, 150);
+				VentanaActividad ventanaActividad = new VentanaActividad(usuario);
+				ventanaActividad.setVisible(true);
+				ventanaActividad.setLocation(400, 150);
 				dispose();
 			}
 		});
 		btnVolver.setBounds(0, 358, 89, 23);
 		panelActividad.add(btnVolver);
 		
-		JButton btnIniciar = new JButton("Iniciar");
-		btnIniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			VentanaIniciarActividad ventanaIniciarActividad = new VentanaIniciarActividad(usuario);
-			ventanaIniciarActividad.setVisible(true);
-			ventanaIniciarActividad.setLocation(400, 150);
-			dispose();
-			}
-		});
-		btnIniciar.setForeground(Color.WHITE);
-		btnIniciar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnIniciar.setBackground(new Color(0, 102, 0));
-		btnIniciar.setBounds(10, 173, 300, 120);
-		panelActividad.add(btnIniciar);
+		JLabel lblSeleccioneUnFormulario = new JLabel("Listado de actividades.");
+		lblSeleccioneUnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSeleccioneUnFormulario.setBounds(20, 60, 164, 39);
+		panelActividad.add(lblSeleccioneUnFormulario);
 		
-		JButton btnRegistro = new JButton("Historial de Registros");
-		btnRegistro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaRegistroActividad ventanaRegistroActividad = new VentanaRegistroActividad(usuario);
-				ventanaRegistroActividad.setVisible(true);
-				ventanaRegistroActividad.setLocation(400, 150);
-				dispose();
-			}
-		});
-		btnRegistro.setForeground(Color.WHITE);
-		btnRegistro.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnRegistro.setBackground(new Color(0, 102, 0));
-		btnRegistro.setBounds(320, 173, 300, 120);
-		panelActividad.add(btnRegistro);
+		JComboBox combofiltro = new JComboBox();
+		combofiltro.setModel(new DefaultComboBoxModel(new String[] {"Rago de fechas", "Estacion de muestreo", "Usuario Experto"}));
+		combofiltro.setBounds(246, 70, 129, 22);
+		panelActividad.add(combofiltro);
 		
-		JLabel lblBienvenido = new JLabel("Bienvenido al centro de actividad de campo.");
-		lblBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBienvenido.setBounds(20, 49, 391, 39);
-		panelActividad.add(lblBienvenido);
+		JLabel lblFiltroActividad = new JLabel("Filtro:");
+		lblFiltroActividad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFiltroActividad.setBounds(190, 74, 46, 14);
+		panelActividad.add(lblFiltroActividad);
 		
 	}
 }
+

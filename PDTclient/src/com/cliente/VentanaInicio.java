@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
 
+import actividad.VentanaActividad;
 import usuario.VentanaRegistrarUsuario;
 
 import javax.swing.JLabel;
@@ -107,6 +108,7 @@ public class VentanaInicio extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 ingresar();
+				 
 			}
 		});
 
@@ -161,15 +163,16 @@ public class VentanaInicio extends JFrame {
 			 * el usuario tiene permisos de ingresar a la aplicacion*/
 			if (usuariosBeanRemote.login(txtNombreUsuario.getText(), txtContrasena.getText())) {
 				usuario = usuariosBeanRemote.obtenerPorNombreUsuario(txtNombreUsuario.getText()).get(0);
-				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-				//ventanaGeneral.lblNombreUsuario.setText(usuario.getNombreUsuario());
-				ventanaGeneral.setVisible(true);
-				ventanaGeneral.setLocation(450, 150);
-				dispose();
+				 VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+					ventanaGeneral.setVisible(true);
+					ventanaGeneral.setLocation(450, 150);
+					
+			
 			}
 			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
 			 * vacios al momento de iniciar sesion, en caso de que se hallen vacios envia un mensaje de informacion
-			 * indicando que debe completar los campos*/
+			 * indicando que debe completar los campos
+			 * */
 			else if (txtNombreUsuario.getText().isEmpty() || txtContrasena.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
 						JOptionPane.ERROR_MESSAGE);

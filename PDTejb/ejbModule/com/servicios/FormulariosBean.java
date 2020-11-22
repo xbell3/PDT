@@ -38,18 +38,6 @@ public class FormulariosBean implements FormulariosBeanRemote {
 			throw new ServiciosException("No se pudo crear el formulario");
 		}
 	} 
-	//EL siguiente metodo, por lo pronto no esta funcionando apropiadamente
-	//con la parte de la GUI, pero una ves activo el ManyToOne de Formularios Hardcodeado funciona sin problemas.
-	@Override
-	public void asignarCasilla(Long idFormulario, Long idCasilla) throws ServiciosException {
-		try{
-			Formulario formulario = em.find(Formulario.class, idFormulario);
-			formulario.getCasillas().add(em.find(Casilla.class, idCasilla));
-			em.flush();
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo asignar la casilla a el formulario");
-		}
-	}
 
 	@Override
 	public void actualizar(Formulario formulario) throws ServiciosException {
@@ -75,7 +63,6 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	@Override
 	public List<Formulario> obtenerTodos() {
 		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f", Formulario.class);
-		query.setMaxResults(10);
 		return query.getResultList();
 	}
 
