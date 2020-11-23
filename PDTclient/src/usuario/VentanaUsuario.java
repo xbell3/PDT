@@ -50,7 +50,7 @@ public class VentanaUsuario extends JFrame {
 	public JComboBox combofiltro;
 	public String seleccionar = "";
 	private JFrame frame;
-
+ 
 	public VentanaUsuario(Usuario usuario) {
 		setTitle("Usuarios");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaUsuario.class.getResource("/Imagenes/iAGRO_V04.png")));
@@ -189,7 +189,10 @@ public class VentanaUsuario extends JFrame {
 		});
 		btnListar.setBounds(246, 130, 72, 23);
 		contentPane.add(btnListar);
-
+		/*Con el boton btnRegistrar, inmediatamente accedemos a la ventana
+		 * de registro de usuario, en donde se podra registrar un usuario
+		 * en la aplicacion ingresando cada uno de sus datos y el rol que va 
+		 * a ocupar en ella.*/	
 		JButton btnRegistrar = new JButton("Registrar usuario");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

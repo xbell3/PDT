@@ -7,7 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import com.entidades.Rol;
 import com.entidades.Usuario;
+import com.exception.ServiciosException;
 import com.servicios.UsuariosBeanRemote;
 
 import actividad.VentanaActividad;
@@ -18,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -46,17 +50,59 @@ public class VentanaInicio extends JFrame {
 	 * la aplicacion. Aqui es donde inicia el flujo de la aplicaicon.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+		try {
+			UsuariosBeanRemote usuariosBeanRemote;
+			Rol rol = new Rol();
+			Usuario usuario = new Usuario();
+			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			 if(usuariosBeanRemote.registro("admin") == false) {
+				usuario.setNombreUsuario("admin");
+				usuario.setContrasena("admin");
+				usuario.setApellido("admin");
+				usuario.setCorreo("admin");
+				usuario.setNombre("admin");
+				usuario.setRol(rol);
+				rol.setNombreRol("Administrador");
 				try {
-					VentanaInicio frame = new VentanaInicio(new Usuario());
-					frame.setLocation(400, 150);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+					usuariosBeanRemote.crear(usuario);
+					JFrame frame1 = null;
+					JOptionPane.showMessageDialog(frame1, "Inicie sesion de administrador", "Usuario Registrado!",
+							JOptionPane.INFORMATION_MESSAGE);
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								VentanaInicio frame = new VentanaInicio(new Usuario());
+								frame.setLocation(400, 150);
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				} catch (ServiciosException e1) {
+					e1.printStackTrace();
 				}
+				
+				
+			}else {	EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						VentanaInicio frame = new VentanaInicio(new Usuario());
+						frame.setLocation(400, 150);
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+				
 			}
-		});
+			
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 	/*Al iniciar la ventana ya le pasamos por parametro el usuario.*/
 	public VentanaInicio(Usuario usuario) {
@@ -115,26 +161,6 @@ public class VentanaInicio extends JFrame {
 		btnIngresar.setBounds(239, 403, 150, 23);
 		contentPane.add(btnIngresar);
 
-		
-		/*Con el boton btnRegistrarme, inmediatamente accedemos a la ventana
-		 * de registro de usuario, en donde el usuario podra registrarse 
-		 * en la aplicacion ingresando cada uno de sus datos y el rol qeu va 
-		 * a ocupar en ella.*/
-		JButton btnRegistrarme = new JButton("Registrarme");
-		btnRegistrarme.setForeground(new Color(0, 102, 0));
-		btnRegistrarme.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRegistrarme.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				VentanaRegistrarUsuario ventanaRegistrarUsuario = new VentanaRegistrarUsuario(usuario);
-				ventanaRegistrarUsuario.setLocation(400, 150);
-				ventanaRegistrarUsuario.setVisible(true);
-				dispose();
-			}
-		});
-		btnRegistrarme.setBounds(239, 447, 150, 23);
-		contentPane.add(btnRegistrarme);
-		
 		textField = new JTextField();
 		textField.setText("Iniciar Sesi\u00F3n");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,7 +176,10 @@ public class VentanaInicio extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(VentanaInicio.class.getResource("/Imagenes/USycon_v03.png")));
 		lblNewLabel.setBounds(168, 299, 32, 92);
 		contentPane.add(lblNewLabel);
+	
 	}
+	
+	
 	private void ingresar() {
 
 		UsuariosBeanRemote usuariosBeanRemote;
@@ -166,7 +195,7 @@ public class VentanaInicio extends JFrame {
 				 VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
 					ventanaGeneral.setVisible(true);
 					ventanaGeneral.setLocation(450, 150);
-					
+					dispose();
 			
 			}
 			/*La siguiente condicion if, evalua que los campos de textos no se encuentren
