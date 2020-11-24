@@ -40,8 +40,8 @@ public class VentanaInicio extends JFrame {
 	// Declaramos todos parametros y componentes que vamos a usar...
 
 	private JPanel contentPane;
-	private JTextField txtNombreUsuario;
-	private JTextField txtContrasena;
+	public static JTextField txtNombreUsuario;
+	public static JTextField txtContrasena;
 	private JFrame frame;
 	private JTextField textField;
 

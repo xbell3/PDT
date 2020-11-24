@@ -43,7 +43,7 @@ public class VentanaGeneral extends JFrame {
 
 	public JPanel panelUsuario;
 	private JPanel contentPane;
-	public JLabel lblNombreUsuario;
+	public static JLabel lblNombreUsuario;
 
 	public VentanaGeneral(Usuario usuario) {
 
@@ -69,13 +69,6 @@ public class VentanaGeneral extends JFrame {
 		contentPane.add(panelUsuario);
 		panelUsuario.setLayout(null);
 
-		lblNombreUsuario = new JLabel();
-		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNombreUsuario.setForeground(Color.WHITE);
-		lblNombreUsuario.setText("(Nombre de usuario)");
-		lblNombreUsuario.setBounds(31, 90, 119, 14);
-		panelUsuario.add(lblNombreUsuario);
-
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
 		lblNewLabel_1.setBounds(10, 74, 24, 39);
@@ -92,6 +85,12 @@ public class VentanaGeneral extends JFrame {
 		lblNewLabel.setBounds(-67, 0, 784, 113);
 		panelUsuario.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/klipartz.com.png")));
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(35, 90, 119, 14);
+		panelUsuario.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNombreUsuario.setForeground(Color.WHITE);
 		/*
 		 * Dividimos el panel, para tener una parte movil y otra estatica de esta
 		 * manera, por ejemplo el usuario va a poder visualiar parte de su informacion
@@ -200,6 +199,7 @@ public class VentanaGeneral extends JFrame {
 		btnSalir.setBounds(546, 340, 70, 20);
 		panel.add(btnSalir);
 		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaInicio ventanaInicio = new VentanaInicio(usuario);

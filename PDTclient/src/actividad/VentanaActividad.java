@@ -127,7 +127,7 @@ public class VentanaActividad extends JFrame {
 		btnIniciar.setBounds(10, 173, 300, 120);
 		panelActividad.add(btnIniciar);
 		
-		JButton btnRegistro = new JButton("Historial de Registros");
+		JButton btnRegistro = new JButton("Analisis de muestreos");
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistroActividad ventanaRegistroActividad = new VentanaRegistroActividad(usuario);

@@ -3,8 +3,19 @@
 		<entity-name>com.entidades.Usuario</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>286</entity-height>
-		<entity-X-Coordinate>430</entity-X-Coordinate>
-		<entity-Y-Coordinate>243</entity-Y-Coordinate>
+		<entity-X-Coordinate>710</entity-X-Coordinate>
+		<entity-Y-Coordinate>208</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.entidades.Actividad</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>246</entity-height>
+		<entity-X-Coordinate>458</entity-X-Coordinate>
+		<entity-Y-Coordinate>229</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -13,7 +24,7 @@
 	<entity>
 		<entity-name>com.entidades.Formulario</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>166</entity-height>
+		<entity-height>128</entity-height>
 		<entity-X-Coordinate>172</entity-X-Coordinate>
 		<entity-Y-Coordinate>62</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
@@ -25,8 +36,8 @@
 		<entity-name>com.entidades.Rol</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>108</entity-height>
-		<entity-X-Coordinate>730</entity-X-Coordinate>
-		<entity-Y-Coordinate>243</entity-Y-Coordinate>
+		<entity-X-Coordinate>643</entity-X-Coordinate>
+		<entity-Y-Coordinate>20</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -36,19 +47,8 @@
 		<entity-name>com.entidades.Casilla</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>206</entity-height>
-		<entity-X-Coordinate>450</entity-X-Coordinate>
-		<entity-Y-Coordinate>15</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.entidades.Actividad</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>70</entity-height>
-		<entity-X-Coordinate>160</entity-X-Coordinate>
-		<entity-Y-Coordinate>351</entity-Y-Coordinate>
+		<entity-X-Coordinate>201</entity-X-Coordinate>
+		<entity-Y-Coordinate>285</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

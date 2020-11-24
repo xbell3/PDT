@@ -128,7 +128,7 @@ public class VentanaIniciarActividad extends JFrame {
 					VentanaMuestreo ventanaMuestreo = new VentanaMuestreo(usuario, formulario);
 					ventanaMuestreo.setUndecorated(false);
 					ventanaMuestreo.setVisible(true);
-				
+					dispose();
 				
 			
 			}

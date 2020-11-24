@@ -32,7 +32,7 @@ import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
-public class VentanaMuestreo extends JFrame {
+public class VentanaEditarActividad extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtDepartamento;
@@ -47,7 +47,7 @@ public class VentanaMuestreo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaMuestreo(Usuario usuario, Formulario formulario) {
+	public VentanaEditarActividad(Usuario usuario, Actividad actividad) {
 
 		setTitle("Actividad");
 		setIconImage(
@@ -114,9 +114,9 @@ public class VentanaMuestreo extends JFrame {
 		btnVolver.setBounds(10, 346, 89, 23);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaIniciarActividad ventanaIniciarActividad = new VentanaIniciarActividad(usuario);
-				ventanaIniciarActividad.setVisible(true);
-				ventanaIniciarActividad.setLocation(400, 150);
+				VentanaRegistroActividad ventanaRegistroActividad = new VentanaRegistroActividad(usuario);
+				ventanaRegistroActividad.setVisible(true);
+				ventanaRegistroActividad.setLocation(400, 150);
 				dispose();
 			}
 		});
@@ -130,32 +130,30 @@ public class VentanaMuestreo extends JFrame {
 		panelActividad.add(lblBienvenido);
 		panelActividad.add(btnVolver);
 
-		JButton btnInicio = new JButton("Iniciar");
+		JButton btnInicio = new JButton("Modificar");
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				try {
-					crearActividad(usuario, formulario);
-				} catch (ServiciosException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				modificarActividad(actividad);
+
 			}
 		});
 		btnInicio.setBounds(417, 363, 157, 38);
 		panelActividad.add(btnInicio);
 
 		txtDepartamento = new JTextField();
+	//	txtDepartamento.setText(actividad.getDepartamento());
 		txtDepartamento.setColumns(10);
 		txtDepartamento.setBounds(488, 286, 86, 20);
 		panelActividad.add(txtDepartamento);
 
 		txtEstacionMuestreo = new JTextField();
+	//	txtEstacionMuestreo.setText(actividad.getEstacionMuestreo());
 		txtEstacionMuestreo.setColumns(10);
 		txtEstacionMuestreo.setBounds(488, 255, 86, 20);
 		panelActividad.add(txtEstacionMuestreo);
 
 		txtMetodoMuestreo = new JTextField();
+	//	txtMetodoMuestreo.setText(actividad.getMetodoMuestreo());
 		txtMetodoMuestreo.setColumns(10);
 		txtMetodoMuestreo.setBounds(488, 224, 86, 20);
 		panelActividad.add(txtMetodoMuestreo);
@@ -191,21 +189,21 @@ public class VentanaMuestreo extends JFrame {
 		panelActividad.add(lblFechaFin);
 
 		txtFormulario = new JTextField();
-		txtFormulario.setText(formulario.getNombreFormulario());
+		txtFormulario.setText(actividad.getNombreFormulario());
 		txtFormulario.setEditable(false);
 		txtFormulario.setColumns(10);
 		txtFormulario.setBounds(177, 131, 86, 20);
 		panelActividad.add(txtFormulario);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setText(usuario.getNombreUsuario());
+		txtUsuario.setText(actividad.getNombreUsuario());
 		txtUsuario.setEditable(false);
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(177, 169, 86, 20);
 		panelActividad.add(txtUsuario);
 
 		txtRol = new JTextField();
-		txtRol.setText(usuario.getRol().getNombreRol());
+		txtRol.setText(actividad.getRol());
 		txtRol.setEditable(false);
 		txtRol.setColumns(10);
 		txtRol.setBounds(177, 207, 86, 20);
@@ -225,7 +223,7 @@ public class VentanaMuestreo extends JFrame {
 
 	}
 
-	private void crearActividad(Usuario usuario, Formulario formulario) throws ServiciosException {
+	private void modificarActividad(Actividad actividad)  {
 
 		/*
 		 * Se enlazan los parametros escritos en cada campo de texto con cada parametro
@@ -233,19 +231,21 @@ public class VentanaMuestreo extends JFrame {
 		 * (getText();) y lo "setea" al campo nombreUsuario de la entidad Usuario
 		 */
 		ActividadesBeanRemote actividadesBeanRemote;
-		Actividad actividad = new Actividad();
-//		actividad.setFechaInicio(txtFechaInicio.getText());
-//		actividad.setFechaFin(txtFechaFin.getText());
+		actividad.setFechaInicio(txtFechaInicio.getText());
+		actividad.setFechaFin(txtFechaFin.getText());
 		actividad.setMetodoMuestreo(txtMetodoMuestreo.getText());
 		actividad.setEstacionMuestreo(txtEstacionMuestreo.getText());
 		actividad.setNombreFormulario(txtFormulario.getText());
 		actividad.setNombreUsuario(txtUsuario.getText());
-		actividad.setRol(txtRol.getText());
 		actividad.setDepartamento(txtDepartamento.getText());
+		actividad.setRol(txtRol.getText());
 		try {
 			actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
-			actividadesBeanRemote.crear(actividad);
+			actividadesBeanRemote.actualizar(actividad);
 		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiciosException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
