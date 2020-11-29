@@ -33,6 +33,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
 
 public class VentanaEditarFormulario extends JFrame {
 
@@ -40,12 +42,14 @@ public class VentanaEditarFormulario extends JFrame {
 	private JFrame frame;
 	private JTextField txtNombreFormulario;
 	private JTextField txtResumen;
+	private JTextField txtNombreDeFormulario;
+	private JTextField txtDescripcinDeFormulario;
 	/**
 	 * Create the frame.
 	 */
 	public VentanaEditarFormulario(Usuario usuario, Formulario formulario) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaEditarFormulario.class.getResource("/Imagenes/iAGRO_V04.png")));
-		setTitle("Modificar Formulario");
+		setTitle("Editar Formulario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
@@ -57,7 +61,7 @@ public class VentanaEditarFormulario extends JFrame {
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),		UIManager.getColor("Button.shadow"), null, null));
 		panelUsuario.setBackground(new Color(0, 102, 0));
-		panelUsuario.setBounds(0, 0, 784, 90);
+		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
 		JLabel lblTipoUser = new JLabel("TipoUser");
@@ -69,17 +73,27 @@ public class VentanaEditarFormulario extends JFrame {
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.setBounds(541, 7, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.setBounds(443, 7, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaEditarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-76, 0, 700, 90);
+		panelUsuario.add(lblNewLabel_1);
 		
 		JPanel panelFormulario = new JPanel();
 		panelFormulario.setLayout(null);
@@ -87,48 +101,52 @@ public class VentanaEditarFormulario extends JFrame {
 		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		
-		JLabel lblModificar = new JLabel("Modificar Formlario");
-		lblModificar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModificar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblModificar.setBounds(65, 35, 226, 42);
-		panelFormulario.add(lblModificar);
-		
 		txtNombreFormulario = new JTextField();
+		txtNombreFormulario.setToolTipText("Modificar nombre de formulario");
 		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNombreFormulario.setText(formulario.getNombreFormulario());
 		txtNombreFormulario.setColumns(10);
-		txtNombreFormulario.setBounds(65, 171, 168, 42);
+		txtNombreFormulario.setBounds(10, 93, 196, 23);
 		panelFormulario.add(txtNombreFormulario);
 		
 		txtResumen = new JTextField();
+		txtResumen.setToolTipText("Modificar descripci\u00F3n de formulario");
 		txtResumen.setHorizontalAlignment(SwingConstants.CENTER);
 		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResumen.setText(formulario.getResumen());
 		txtResumen.setColumns(10);
-		txtResumen.setBounds(281, 171, 168, 42);
+		txtResumen.setBounds(10, 184, 406, 69);
 		panelFormulario.add(txtResumen);
 		
 		JButton btnModificarFormulario = new JButton("Modificar Formulario");
+		btnModificarFormulario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnModificarFormulario.setForeground(new Color(255, 255, 255));
+		btnModificarFormulario.setBackground(new Color(0, 102, 0));
 		btnModificarFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				modificarFormulario(formulario);
 			}
 		});
-		btnModificarFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnModificarFormulario.setBounds(245, 343, 174, 42);
+		btnModificarFormulario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnModificarFormulario.setBounds(21, 343, 155, 42);
 		panelFormulario.add(btnModificarFormulario);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {							
 					dispose();
 				}
 		});
-		btnVolver.setBounds(429, 355, 89, 23);
+		btnVolver.setBounds(525, 355, 89, 23);
 		panelFormulario.add(btnVolver);
 		
 		JButton btnAgregarCasilla = new JButton("Agregar Casilla");
+		btnAgregarCasilla.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAgregarCasilla.setBackground(new Color(0, 102, 0));
+		btnAgregarCasilla.setForeground(new Color(255, 255, 255));
 		btnAgregarCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario, formulario);
@@ -136,9 +154,39 @@ public class VentanaEditarFormulario extends JFrame {
 				ventanaRegistrarCasilla.setVisible(true);
 			}
 		});
-		btnAgregarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAgregarCasilla.setBounds(245, 290, 174, 42);
+		btnAgregarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAgregarCasilla.setBounds(210, 343, 167, 42);
 		panelFormulario.add(btnAgregarCasilla);
+		
+		txtNombreDeFormulario = new JTextField();
+		txtNombreDeFormulario.setText("Nombre de Formulario");
+		txtNombreDeFormulario.setForeground(Color.WHITE);
+		txtNombreDeFormulario.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtNombreDeFormulario.setEditable(false);
+		txtNombreDeFormulario.setColumns(10);
+		txtNombreDeFormulario.setBackground(new Color(0, 102, 0));
+		txtNombreDeFormulario.setBounds(10, 80, 196, 14);
+		panelFormulario.add(txtNombreDeFormulario);
+		
+		txtDescripcinDeFormulario = new JTextField();
+		txtDescripcinDeFormulario.setText("Descripci\u00F3n de formulario");
+		txtDescripcinDeFormulario.setForeground(Color.WHITE);
+		txtDescripcinDeFormulario.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtDescripcinDeFormulario.setEditable(false);
+		txtDescripcinDeFormulario.setColumns(10);
+		txtDescripcinDeFormulario.setBackground(new Color(0, 102, 0));
+		txtDescripcinDeFormulario.setBounds(10, 171, 406, 14);
+		panelFormulario.add(txtDescripcinDeFormulario);
+		
+		JLabel lblNuevaCasilla_1 = new JLabel("Modificar Formlario");
+		lblNuevaCasilla_1.setOpaque(true);
+		lblNuevaCasilla_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setForeground(Color.WHITE);
+		lblNuevaCasilla_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNuevaCasilla_1.setBackground(new Color(60, 179, 113));
+		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
+		panelFormulario.add(lblNuevaCasilla_1);
 
 	}
 	/*El metodo modificarFormulRio, llama al EJBLocator para localizar los Beans y 

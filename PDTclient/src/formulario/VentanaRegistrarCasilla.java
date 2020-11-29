@@ -32,6 +32,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import java.awt.Cursor;
 
 public class VentanaRegistrarCasilla extends JFrame {
 
@@ -42,10 +44,16 @@ public class VentanaRegistrarCasilla extends JFrame {
 	private JTextField txtDescripcion;
 	private JTextField txtTipoDeValor;
 	private JTextField txtNombreFormulario;
+	private JTextField txtParmetro;
+	private JTextField txtUnidadDeMedida;
+	private JTextField txtDescripcinDeCasilla;
+	private JTextField txtTipoDeValor_1;
 	/**
 	 * Create the frame.
 	 */
 	public VentanaRegistrarCasilla(Usuario usuario, Formulario formulario) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaRegistrarCasilla.class.getResource("/Imagenes/iAGRO_V04.png")));
+		setTitle("Nueva casilla");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
@@ -59,29 +67,25 @@ public class VentanaRegistrarCasilla extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
-		JLabel lblNuevaCasilla = new JLabel("Nueva Casilla");
-		lblNuevaCasilla.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNuevaCasilla.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNuevaCasilla.setBounds(200, 33, 174, 42);
-		panelFormulario.add(lblNuevaCasilla);
-		
 		txtParametro = new JTextField();
-		txtParametro.setText("Parametro");
+		txtParametro.setToolTipText("Ingrese par\u00E1metro");
 		txtParametro.setHorizontalAlignment(SwingConstants.CENTER);
 		txtParametro.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtParametro.setColumns(10);
-		txtParametro.setBounds(123, 164, 168, 42);
+		txtParametro.setBounds(10, 85, 196, 26);
 		panelFormulario.add(txtParametro);
 		
 		txtUnidadMedida = new JTextField();
-		txtUnidadMedida.setText("Unidad de Medida");
 		txtUnidadMedida.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUnidadMedida.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtUnidadMedida.setColumns(10);
-		txtUnidadMedida.setBounds(339, 164, 168, 42);
+		txtUnidadMedida.setBounds(257, 85, 196, 26);
 		panelFormulario.add(txtUnidadMedida);
 		
 		JButton btnCrearCasilla = new JButton("Crear Casilla");
+		btnCrearCasilla.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCrearCasilla.setBackground(new Color(0, 102, 0));
+		btnCrearCasilla.setForeground(new Color(255, 255, 255));
 		btnCrearCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				crearCasilla(formulario);
@@ -89,24 +93,25 @@ public class VentanaRegistrarCasilla extends JFrame {
 			}
 		});
 		btnCrearCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearCasilla.setBounds(257, 333, 174, 42);
+		btnCrearCasilla.setBounds(20, 341, 174, 40);
 		panelFormulario.add(btnCrearCasilla);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(51, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {			
 				dispose();
 			}
 		});
-		btnVolver.setBounds(488, 345, 89, 23);
+		btnVolver.setBounds(488, 352, 89, 23);
 		panelFormulario.add(btnVolver);
 		
 		txtDescripcion = new JTextField();
-		txtDescripcion.setText("Descripcion");
 		txtDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(123, 226, 168, 42);
+		txtDescripcion.setBounds(10, 218, 377, 42);
 		panelFormulario.add(txtDescripcion);
 		
 		txtTipoDeValor = new JTextField();
@@ -114,12 +119,14 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtTipoDeValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTipoDeValor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTipoDeValor.setColumns(10);
-		txtTipoDeValor.setBounds(455, 236, 168, 42);
+		txtTipoDeValor.setBounds(227, 283, 168, 42);
 		panelFormulario.add(txtTipoDeValor);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setForeground(new Color(0, 102, 0));
+		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Numero entero", "Numero decimal", "Texto", "Boolean"}));
-		comboBox.setBounds(339, 238, 113, 22);
+		comboBox.setBounds(10, 154, 196, 22);
 		panelFormulario.add(comboBox);
 		
 		txtNombreFormulario = new JTextField();
@@ -128,8 +135,58 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtNombreFormulario.setText(formulario.getNombreFormulario());
 		txtNombreFormulario.setColumns(10);
 		txtNombreFormulario.setEditable(false);
-		txtNombreFormulario.setBounds(123, 279, 168, 42);
+		txtNombreFormulario.setBounds(10, 283, 196, 42);
 		panelFormulario.add(txtNombreFormulario);
+		
+		txtParmetro = new JTextField();
+		txtParmetro.setText("Par\u00E1metro");
+		txtParmetro.setForeground(Color.WHITE);
+		txtParmetro.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtParmetro.setEditable(false);
+		txtParmetro.setColumns(10);
+		txtParmetro.setBackground(new Color(0, 102, 0));
+		txtParmetro.setBounds(10, 73, 196, 14);
+		panelFormulario.add(txtParmetro);
+		
+		txtUnidadDeMedida = new JTextField();
+		txtUnidadDeMedida.setText("Unidad de medida");
+		txtUnidadDeMedida.setForeground(Color.WHITE);
+		txtUnidadDeMedida.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtUnidadDeMedida.setEditable(false);
+		txtUnidadDeMedida.setColumns(10);
+		txtUnidadDeMedida.setBackground(new Color(0, 102, 0));
+		txtUnidadDeMedida.setBounds(257, 73, 196, 14);
+		panelFormulario.add(txtUnidadDeMedida);
+		
+		txtDescripcinDeCasilla = new JTextField();
+		txtDescripcinDeCasilla.setText("Descripci\u00F3n de casilla");
+		txtDescripcinDeCasilla.setForeground(Color.WHITE);
+		txtDescripcinDeCasilla.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtDescripcinDeCasilla.setEditable(false);
+		txtDescripcinDeCasilla.setColumns(10);
+		txtDescripcinDeCasilla.setBackground(new Color(0, 102, 0));
+		txtDescripcinDeCasilla.setBounds(10, 205, 377, 14);
+		panelFormulario.add(txtDescripcinDeCasilla);
+		
+		txtTipoDeValor_1 = new JTextField();
+		txtTipoDeValor_1.setText("Tipo de valor");
+		txtTipoDeValor_1.setForeground(Color.WHITE);
+		txtTipoDeValor_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtTipoDeValor_1.setEditable(false);
+		txtTipoDeValor_1.setColumns(10);
+		txtTipoDeValor_1.setBackground(new Color(0, 102, 0));
+		txtTipoDeValor_1.setBounds(10, 140, 196, 14);
+		panelFormulario.add(txtTipoDeValor_1);
+		
+		JLabel lblNuevaCasilla_1 = new JLabel("Nueva Casilla");
+		lblNuevaCasilla_1.setOpaque(true);
+		lblNuevaCasilla_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setForeground(Color.WHITE);
+		lblNuevaCasilla_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNuevaCasilla_1.setBackground(new Color(60, 179, 113));
+		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
+		panelFormulario.add(lblNuevaCasilla_1);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -149,14 +206,19 @@ public class VentanaRegistrarCasilla extends JFrame {
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(0, 102, 0));
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSalir.setBounds(555, 22, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setForeground(new Color(0, 102, 0));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setBounds(457, 22, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);

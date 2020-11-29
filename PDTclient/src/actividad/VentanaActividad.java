@@ -29,6 +29,7 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import java.awt.Cursor;
 
 public class VentanaActividad extends JFrame {
 
@@ -75,10 +76,13 @@ public class VentanaActividad extends JFrame {
 		});
 		
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setForeground(new Color(0, 102, 0));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setBounds(528, 16, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
@@ -94,13 +98,9 @@ public class VentanaActividad extends JFrame {
 		panelActividad.setBounds(0, 90, 624, 392);
 		contentPane.add(panelActividad);
 		
-		JLabel lblTituloFormulario = new JLabel("Actividad de campo");
-		lblTituloFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTituloFormulario.setBounds(10, 11, 171, 39);
-		panelActividad.add(lblTituloFormulario);
-		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(0, 102, 0));
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
@@ -109,10 +109,20 @@ public class VentanaActividad extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(0, 358, 89, 23);
+		
+		JLabel lblBienvenido_1 = new JLabel("Bienvenido al centro de actividad de campo");
+		lblBienvenido_1.setOpaque(true);
+		lblBienvenido_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenido_1.setForeground(Color.WHITE);
+		lblBienvenido_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblBienvenido_1.setBackground(new Color(0, 102, 0));
+		lblBienvenido_1.setBounds(123, 75, 387, 39);
+		panelActividad.add(lblBienvenido_1);
+		btnVolver.setBounds(531, 358, 89, 23);
 		panelActividad.add(btnVolver);
 		
 		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			VentanaIniciarActividad ventanaIniciarActividad = new VentanaIniciarActividad(usuario);
@@ -128,6 +138,7 @@ public class VentanaActividad extends JFrame {
 		panelActividad.add(btnIniciar);
 		
 		JButton btnRegistro = new JButton("Analisis de muestreos");
+		btnRegistro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistroActividad ventanaRegistroActividad = new VentanaRegistroActividad(usuario);
@@ -142,10 +153,15 @@ public class VentanaActividad extends JFrame {
 		btnRegistro.setBounds(320, 173, 300, 120);
 		panelActividad.add(btnRegistro);
 		
-		JLabel lblBienvenido = new JLabel("Bienvenido al centro de actividad de campo.");
-		lblBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBienvenido.setBounds(20, 49, 391, 39);
-		panelActividad.add(lblBienvenido);
+		JLabel lblActividadDeCampo = new JLabel("Actividad de campo");
+		lblActividadDeCampo.setOpaque(true);
+		lblActividadDeCampo.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblActividadDeCampo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActividadDeCampo.setForeground(Color.WHITE);
+		lblActividadDeCampo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblActividadDeCampo.setBackground(new Color(60, 179, 113));
+		lblActividadDeCampo.setBounds(0, 11, 624, 23);
+		panelActividad.add(lblActividadDeCampo);
 		
 	}
 }

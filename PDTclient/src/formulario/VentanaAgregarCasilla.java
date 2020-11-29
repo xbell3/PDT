@@ -42,6 +42,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import java.awt.Cursor;
 
 public class VentanaAgregarCasilla extends JFrame {
 
@@ -93,7 +94,8 @@ public class VentanaAgregarCasilla extends JFrame {
 		btnNewButton.setBounds(450, 11, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
@@ -143,38 +145,61 @@ public class VentanaAgregarCasilla extends JFrame {
 			}
 		});
 		tableCasilla.setBackground(SystemColor.controlHighlight);
-		tableCasilla.setBounds(55, 70, 559, 284);
+		tableCasilla.setBounds(10, 90, 604, 253);
 		panelCasilla.add(tableCasilla);
 		
 		JButton btnListarCasilla = new JButton("Listar");
+		btnListarCasilla.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnListarCasilla.setForeground(new Color(0, 102, 0));
 		btnListarCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cargarCasillas();
 			}
 		});
-		btnListarCasilla.setBounds(394, 36, 72, 23);
+		btnListarCasilla.setBounds(394, 56, 72, 23);
 		panelCasilla.add(btnListarCasilla);
-		
-		JLabel lblCasillas = new JLabel("Casillas");
-		lblCasillas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCasillas.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCasillas.setBounds(95, 18, 226, 42);
-		panelCasilla.add(lblCasillas);
 		
 		txtBusqueda = new JTextField();
 		txtBusqueda.setColumns(10);
-		txtBusqueda.setBounds(494, 37, 103, 20);
+		txtBusqueda.setBounds(494, 57, 103, 20);
 		panelCasilla.add(txtBusqueda);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		JButton btnAgregar = new JButton("Agregar casilla");
+		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAgregar.setBackground(new Color(0, 102, 0));
+		btnAgregar.setForeground(new Color(255, 255, 255));
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
 			}
 		});
-		btnAgregar.setBounds(525, 365, 89, 23);
+		btnAgregar.setBounds(10, 354, 120, 32);
 		panelCasilla.add(btnAgregar);
+		
+		JButton btnVolver_1 = new JButton("Volver");
+		btnVolver_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
+				ventanaGeneral.setVisible(true);
+				ventanaGeneral.setLocation(400, 150);
+				dispose();
+			}
+		});
+		btnVolver_1.setForeground(new Color(0, 102, 0));
+		btnVolver_1.setBounds(514, 359, 89, 23);
+		panelCasilla.add(btnVolver_1);
+		
+		JLabel lblNuevaCasilla_1 = new JLabel("Agregar casillas");
+		lblNuevaCasilla_1.setOpaque(true);
+		lblNuevaCasilla_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setForeground(Color.WHITE);
+		lblNuevaCasilla_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNuevaCasilla_1.setBackground(new Color(60, 179, 113));
+		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
+		panelCasilla.add(lblNuevaCasilla_1);
 		
 		
 	}

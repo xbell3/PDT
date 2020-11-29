@@ -33,6 +33,8 @@ import java.awt.Cursor;
 import javax.swing.ImageIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VentanaRegistrarUsuario extends JFrame {
 
@@ -60,6 +62,8 @@ public class VentanaRegistrarUsuario extends JFrame {
 	private Rol rol = new Rol();
 	private JLabel lblNewLabel;
 	private JComboBox comboRol;
+	private JLabel lblRegistroDeUsuario;
+
 
 	public VentanaRegistrarUsuario(Usuario usuario) {
 		/*
@@ -88,22 +92,15 @@ public class VentanaRegistrarUsuario extends JFrame {
 			}
 		});
 		comboRol.setModel(new DefaultComboBoxModel(new String[] { "Administrador", "Experto", "Común" }));
-		comboRol.setBounds(336, 124, 196, 23);
+		comboRol.setBounds(331, 180, 196, 23);
 		contentPane.add(comboRol);
-
-		JLabel lblRegistro = new JLabel("Registro de usuario");
-		lblRegistro.setForeground(new Color(255, 255, 255));
-		lblRegistro.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistro.setBounds(0, 56, 183, 42);
-		contentPane.add(lblRegistro);
 
 		txtNombre = new JTextField();
 		txtNombre.setForeground(new Color(0, 102, 0));
 		txtNombre.setToolTipText("Ingrese nombre");
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombre.setBounds(38, 186, 196, 23);
+		txtNombre.setBounds(33, 234, 196, 23);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -113,7 +110,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtApellido.setHorizontalAlignment(SwingConstants.CENTER);
 		txtApellido.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(38, 250, 196, 23);
+		txtApellido.setBounds(33, 294, 196, 23);
 		contentPane.add(txtApellido);
 
 		txtNombreUsuario = new JTextField();
@@ -122,7 +119,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombreUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNombreUsuario.setColumns(10);
-		txtNombreUsuario.setBounds(38, 121, 196, 25);
+		txtNombreUsuario.setBounds(33, 177, 196, 25);
 		contentPane.add(txtNombreUsuario);
 
 		txtCorreo = new JTextField();
@@ -131,7 +128,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtCorreo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCorreo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(336, 186, 196, 23);
+		txtCorreo.setBounds(331, 234, 196, 23);
 		contentPane.add(txtCorreo);
 
 		txtContrasena = new JPasswordField();
@@ -140,12 +137,13 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtContrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		txtContrasena.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtContrasena.setColumns(10);
-		txtContrasena.setBounds(38, 318, 196, 26);
+		txtContrasena.setBounds(33, 352, 196, 26);
 		contentPane.add(txtContrasena);
 
-		JButton btnRegistrarme = new JButton("Registrarme");
+		JButton btnRegistrarme = new JButton("Registrar");
+		btnRegistrarme.setBackground(new Color(34, 139, 34));
 		btnRegistrarme.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRegistrarme.setForeground(new Color(0, 102, 0));
+		btnRegistrarme.setForeground(new Color(255, 255, 255));
 		btnRegistrarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/*
@@ -156,7 +154,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 			}
 		});
 		btnRegistrarme.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnRegistrarme.setBounds(92, 437, 143, 23);
+		btnRegistrarme.setBounds(93, 448, 143, 23);
 		contentPane.add(btnRegistrarme);
 
 		/*
@@ -176,7 +174,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(360, 437, 143, 23);
+		btnNewButton.setBounds(420, 448, 143, 23);
 		contentPane.add(btnNewButton);
 
 		txtCedula = new JFormattedTextField();
@@ -199,7 +197,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtCedula.setForeground(new Color(0, 102, 0));
 		txtCedula.setToolTipText("Ingrese c\u00E9dula de identidad");
 		txtCedula.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtCedula.setBounds(38, 380, 196, 24);
+		txtCedula.setBounds(33, 402, 196, 24);
 		contentPane.add(txtCedula);
 		txtCedula.setColumns(10);
 
@@ -208,7 +206,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtInstituto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtInstituto.setHorizontalAlignment(SwingConstants.CENTER);
 		txtInstituto.setToolTipText("Ingrese instituto");
-		txtInstituto.setBounds(336, 250, 196, 23);
+		txtInstituto.setBounds(331, 294, 196, 23);
 		contentPane.add(txtInstituto);
 		txtInstituto.setColumns(10);
 
@@ -217,7 +215,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtProfesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtProfesion.setHorizontalAlignment(SwingConstants.CENTER);
 		txtProfesion.setToolTipText("Ingrese profesi\u00F3n");
-		txtProfesion.setBounds(336, 318, 196, 26);
+		txtProfesion.setBounds(331, 352, 196, 26);
 		txtProfesion.setVisible(false);
 		txtProfesion.setEnabled(false);
 		txtProfesion.setVisible(false);
@@ -231,7 +229,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtContrasea.setText("Contrase\u00F1a");
 		txtContrasea.setEditable(false);
 		txtContrasea.setBackground(new Color(0, 102, 0));
-		txtContrasea.setBounds(38, 305, 196, 14);
+		txtContrasea.setBounds(33, 339, 196, 14);
 		contentPane.add(txtContrasea);
 		txtContrasea.setColumns(10);
 
@@ -242,7 +240,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtApellido_1.setEditable(false);
 		txtApellido_1.setColumns(10);
 		txtApellido_1.setBackground(new Color(0, 102, 0));
-		txtApellido_1.setBounds(38, 238, 196, 14);
+		txtApellido_1.setBounds(33, 282, 196, 14);
 		contentPane.add(txtApellido_1);
 
 		txtNombre_1 = new JTextField();
@@ -252,7 +250,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtNombre_1.setEditable(false);
 		txtNombre_1.setColumns(10);
 		txtNombre_1.setBackground(new Color(0, 102, 0));
-		txtNombre_1.setBounds(38, 173, 196, 14);
+		txtNombre_1.setBounds(33, 221, 196, 14);
 		contentPane.add(txtNombre_1);
 
 		txtNombreDeUsuario = new JTextField();
@@ -262,7 +260,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtNombreDeUsuario.setEditable(false);
 		txtNombreDeUsuario.setColumns(10);
 		txtNombreDeUsuario.setBackground(new Color(0, 102, 0));
-		txtNombreDeUsuario.setBounds(38, 109, 196, 14);
+		txtNombreDeUsuario.setBounds(33, 165, 196, 14);
 		contentPane.add(txtNombreDeUsuario);
 
 		txtCedula2 = new JTextField();
@@ -272,7 +270,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtCedula2.setEditable(false);
 		txtCedula2.setColumns(10);
 		txtCedula2.setBackground(new Color(0, 102, 0));
-		txtCedula2.setBounds(38, 367, 196, 14);
+		txtCedula2.setBounds(33, 389, 196, 14);
 		contentPane.add(txtCedula2);
 
 		txtCorreoElectrnico = new JTextField();
@@ -282,7 +280,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtCorreoElectrnico.setEditable(false);
 		txtCorreoElectrnico.setColumns(10);
 		txtCorreoElectrnico.setBackground(new Color(0, 102, 0));
-		txtCorreoElectrnico.setBounds(336, 173, 196, 14);
+		txtCorreoElectrnico.setBounds(331, 221, 196, 14);
 		contentPane.add(txtCorreoElectrnico);
 
 		txtInstituto1 = new JTextField();
@@ -292,7 +290,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtInstituto1.setEditable(false);
 		txtInstituto1.setColumns(10);
 		txtInstituto1.setBackground(new Color(0, 102, 0));
-		txtInstituto1.setBounds(336, 238, 196, 14);
+		txtInstituto1.setBounds(331, 282, 196, 14);
 		contentPane.add(txtInstituto1);
 
 		txtProfesion1 = new JTextField();
@@ -302,7 +300,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtProfesion1.setEditable(false);
 		txtProfesion1.setColumns(10);
 		txtProfesion1.setBackground(new Color(0, 102, 0));
-		txtProfesion1.setBounds(336, 305, 196, 14);
+		txtProfesion1.setBounds(331, 339, 196, 14);
 		txtProfesion1.setVisible(false);
 		txtProfesion1.setEnabled(false);
 		contentPane.add(txtProfesion1);
@@ -314,7 +312,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtRol.setEditable(false);
 		txtRol.setColumns(10);
 		txtRol.setBackground(new Color(0, 102, 0));
-		txtRol.setBounds(336, 109, 196, 14);
+		txtRol.setBounds(331, 165, 196, 14);
 		contentPane.add(txtRol);
 
 		lblNewLabel = new JLabel("New label");
@@ -327,6 +325,16 @@ public class VentanaRegistrarUsuario extends JFrame {
 		panel.setBackground(new Color(0, 102, 0));
 		panel.setBounds(0, 0, 624, 98);
 		contentPane.add(panel);
+		
+		lblRegistroDeUsuario = new JLabel("Registro de usuario");
+		lblRegistroDeUsuario.setOpaque(true);
+		lblRegistroDeUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblRegistroDeUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistroDeUsuario.setForeground(Color.WHITE);
+		lblRegistroDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblRegistroDeUsuario.setBackground(new Color(60, 179, 113));
+		lblRegistroDeUsuario.setBounds(0, 109, 624, 23);
+		contentPane.add(lblRegistroDeUsuario);
 
 	}
 
@@ -441,6 +449,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 				 * usuario no se encuentre en la base de datos ya registrado, de esta manera
 				 * evitaremos que los usuarios no accedan a cuentas agenas.
 				 */
+				
 			} else if (usuariosBeanRemote.registro(txtNombreUsuario.getText())) {
 				JOptionPane.showMessageDialog(frame, "El nombre de usuario ya se encuentra en uso. Intente Nuevamente",
 						"Nombre de usuario en uso!", JOptionPane.ERROR_MESSAGE);
@@ -453,6 +462,14 @@ public class VentanaRegistrarUsuario extends JFrame {
 				 * funciones.
 				 */
 				return;
+				
+			} else if (contieneNumeros(txtNombreUsuario.getText()) || txtNombreUsuario.getText().length() < 8) {
+				
+				JOptionPane.showMessageDialog(frame, "El nombre de usuario debe contener al menos 8 caracteres no numéricos",
+						"Nombre de usuario incorrecto!", JOptionPane.ERROR_MESSAGE);
+				return;
+				
+				
 			} else if (txtCedula.isEnabled() == true && txtCedula.getText().length() != 8) {
 				/*
 				 * Aqui validamos que la cedula sea de 8 caracteres, de otra forma se enviara un
@@ -461,16 +478,38 @@ public class VentanaRegistrarUsuario extends JFrame {
 				JOptionPane.showMessageDialog(frame, "Cedula identidad incorrecta. Debe contener 8 caracteres.",
 						"Cedula incorrecta!", JOptionPane.ERROR_MESSAGE);
 				return;
-			}
+				
+			} else if (contieneNumeros(txtNombre.getText()) || contieneNumeros(txtApellido.getText())) {
+				
+				/*Aquí llamamos a la función contieneNumeros, para comprobar que el nombre y apellido no los contengan
+				 */
+				JOptionPane.showMessageDialog(frame, "El nombre y apellido no deben contener caracteres numéricos",
+						"Nombre/Apellido incorrecto!", JOptionPane.ERROR_MESSAGE);
+				return;
+				
+			} else if (verificarMail(txtCorreo.getText()) == false) {
+				
+				/*Aquí llamamos a la función verificarCorreo, para comprobar que el mail contiene @ y .com
+				 */
+				JOptionPane.showMessageDialog(frame, "El correo formato ingresado de correo electrónico es incorrecto",
+						"Correo incorrecto!", JOptionPane.ERROR_MESSAGE);
+				return;
+				
+			} else if (contieneNumeros(txtContrasena.getText()) == false || contieneLetras(txtContrasena.getText()) == false 
+					|| txtContrasena.getText().length() < 8) {
+				
+				
+				JOptionPane.showMessageDialog(frame, "La contraseña debe contener números, letras y tener al menos 8 caracteres",
+						"Contraseña incorrecta!", JOptionPane.ERROR_MESSAGE);
+				return;
+				
+			} 
 
 			else {
 				usuariosBeanRemote.crear(usuario);
 
 				JOptionPane.showMessageDialog(frame, "El Usuario ha sido registrado con éxito.", "Usuario Registrado!",
 						JOptionPane.INFORMATION_MESSAGE);
-				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-				ventanaGeneral.setVisible(true);
-				ventanaGeneral.setLocation(400, 150);
 				dispose();
 			}
 
@@ -480,6 +519,58 @@ public class VentanaRegistrarUsuario extends JFrame {
 			e1.printStackTrace();
 		}
 
+	} // cierre crearUsuario
+	
+	
+	
+	// Esta función busca que que la cadena de texto que se pase contenga números. Para esto utilizamos una expresión
+	//regular que busca números, y se devuelve true en caso de que se los encuentre, y false en caso contrario
+	private boolean contieneNumeros(String texto) {
+		
+		//Una expresión regular es una secuencia de caracteres que conforma un patrón de búsqueda. Para que funcione se necesita
+		// un pattern y un matcher. El pattern contiene lo que se desea buscar, en este caso los números del 0 al 9, y el matcher
+		// lo que se desea comparar con éste.
+		
+		Pattern pat = Pattern.compile("[0-9]");
+		Matcher mat = pat.matcher(texto);
+		
+		if (mat.find()) {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
+	}
+	
+	//Esta función verifica que el mail contenga @ y .com
+	private boolean verificarMail(String texto) {
+		
+		Pattern pat1 = Pattern.compile("[@]");
+		Pattern pat2 = Pattern.compile(".com");
+		Matcher mat1 = pat1.matcher(texto);
+		Matcher mat2 = pat2.matcher(texto);
+		
+		if (mat1.find() && mat2.find()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean contieneLetras(String texto) {
+		
+		Pattern pat = Pattern.compile("[a-zA-Z]");
+		Matcher mat = pat.matcher(texto);
+		
+		if (mat.find()) {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
 	}
 
 }

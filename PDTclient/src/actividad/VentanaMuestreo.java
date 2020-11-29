@@ -31,6 +31,7 @@ import javax.swing.SwingConstants;
 import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.Cursor;
 
 public class VentanaMuestreo extends JFrame {
 
@@ -43,17 +44,26 @@ public class VentanaMuestreo extends JFrame {
 	private JTextField txtFormulario;
 	private JTextField txtUsuario;
 	private JTextField txtRol;
+	private JTextField txtFormulario_1;
+	private JTextField txtUsuario_1;
+	private JTextField txtRol_1;
+	private JTextField txtFechaDeInicio;
+	private JTextField txtFechaDeFin;
+	private JTextField txtMtodoDeMuestreo;
+	private JTextField txtFechadeMuestreo;
+	private JTextField txtDepartamento_1;
+	private JLabel lblNuevaCasilla;
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaMuestreo(Usuario usuario, Formulario formulario) {
 
-		setTitle("Actividad");
+		setTitle("Actividad de campo");
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage(VentanaActividad.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 600);
+		setBounds (100, 100, 640, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -87,10 +97,13 @@ public class VentanaMuestreo extends JFrame {
 		});
 
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.setBounds(528, 16, 88, 23);
 		panelUsuario.add(btnNewButton);
 
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
@@ -101,17 +114,15 @@ public class VentanaMuestreo extends JFrame {
 		panelUsuario.add(lblNewLabel_1);
 
 		JPanel panelActividad = new JPanel();
+		panelActividad.setToolTipText("Ingrese departamento");
 		panelActividad.setBackground(new Color(204, 255, 204));
 		panelActividad.setBounds(0, 89, 624, 472);
 		contentPane.add(panelActividad);
 
-		JLabel lblTituloFormulario = new JLabel("Actividad de campo");
-		lblTituloFormulario.setBounds(10, 11, 171, 39);
-		lblTituloFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 346, 89, 23);
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(0, 102, 0));
+		btnVolver.setBounds(510, 362, 89, 23);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaIniciarActividad ventanaIniciarActividad = new VentanaIniciarActividad(usuario);
@@ -120,17 +131,30 @@ public class VentanaMuestreo extends JFrame {
 				dispose();
 			}
 		});
-
-		JLabel lblBienvenido = new JLabel(
-				"Bienvenido al centro de actividad de campo. Para iniciar complete los campos de texto");
-		lblBienvenido.setBounds(20, 57, 503, 39);
-		lblBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panelActividad.setLayout(null);
-		panelActividad.add(lblTituloFormulario);
-		panelActividad.add(lblBienvenido);
+				
+				JLabel lblBienvenido_1 = new JLabel(" Para iniciar complete los campos de texto");
+				lblBienvenido_1.setForeground(new Color(0, 0, 0));
+				lblBienvenido_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblBienvenido_1.setBackground(new Color(0, 102, 0));
+				lblBienvenido_1.setBounds(171, 101, 242, 31);
+				panelActividad.add(lblBienvenido_1);
+		
+				JLabel lblBienvenido = new JLabel(
+						"Bienvenido al centro de actividad de campo");
+				lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+				lblBienvenido.setOpaque(true);
+				lblBienvenido.setForeground(new Color(255, 255, 255));
+				lblBienvenido.setBackground(new Color(0, 102, 0));
+				lblBienvenido.setBounds(124, 62, 358, 39);
+				lblBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				panelActividad.add(lblBienvenido);
 		panelActividad.add(btnVolver);
 
 		JButton btnInicio = new JButton("Iniciar");
+		btnInicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnInicio.setBackground(new Color(0, 102, 0));
+		btnInicio.setForeground(new Color(255, 255, 255));
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -142,86 +166,151 @@ public class VentanaMuestreo extends JFrame {
 				}
 			}
 		});
-		btnInicio.setBounds(417, 363, 157, 38);
+		btnInicio.setBounds(24, 347, 157, 38);
 		panelActividad.add(btnInicio);
 
 		txtDepartamento = new JTextField();
 		txtDepartamento.setColumns(10);
-		txtDepartamento.setBounds(488, 286, 86, 20);
+		txtDepartamento.setBounds(195, 289, 130, 20);
 		panelActividad.add(txtDepartamento);
 
 		txtEstacionMuestreo = new JTextField();
 		txtEstacionMuestreo.setColumns(10);
-		txtEstacionMuestreo.setBounds(488, 255, 86, 20);
+		txtEstacionMuestreo.setBounds(358, 233, 130, 20);
 		panelActividad.add(txtEstacionMuestreo);
 
 		txtMetodoMuestreo = new JTextField();
+		txtMetodoMuestreo.setToolTipText("Ingrese m\u00E9todo de muestreo");
 		txtMetodoMuestreo.setColumns(10);
-		txtMetodoMuestreo.setBounds(488, 224, 86, 20);
+		txtMetodoMuestreo.setBounds(24, 288, 130, 20);
 		panelActividad.add(txtMetodoMuestreo);
 
-		JLabel lblMetodoMuestreo = new JLabel("Metodo Muestreo");
-		lblMetodoMuestreo.setBounds(386, 227, 84, 14);
-		panelActividad.add(lblMetodoMuestreo);
-
-		JLabel lblEstacionDeMuestreo = new JLabel("Estacion de muestreo");
-		lblEstacionDeMuestreo.setBounds(367, 258, 103, 14);
-		panelActividad.add(lblEstacionDeMuestreo);
-
-		JLabel lblDepartamento = new JLabel("Departamento");
-		lblDepartamento.setBounds(401, 289, 69, 14);
-		panelActividad.add(lblDepartamento);
-
 		txtFechaFin = new JTextField();
+		txtFechaFin.setToolTipText("Ingrese fecha de fin");
 		txtFechaFin.setColumns(10);
-		txtFechaFin.setBounds(421, 169, 86, 20);
+		txtFechaFin.setBounds(195, 233, 130, 20);
 		panelActividad.add(txtFechaFin);
 
 		txtFechaInicio = new JTextField();
+		txtFechaInicio.setToolTipText("Ingrese fecha de inicio");
 		txtFechaInicio.setColumns(10);
-		txtFechaInicio.setBounds(421, 131, 86, 20);
+		txtFechaInicio.setBounds(24, 233, 130, 20);
 		panelActividad.add(txtFechaInicio);
 
-		JLabel lblFechaInicio = new JLabel("Fecha inicio");
-		lblFechaInicio.setBounds(348, 134, 55, 14);
-		panelActividad.add(lblFechaInicio);
-
-		JLabel lblFechaFin = new JLabel("Fecha fin");
-		lblFechaFin.setBounds(348, 172, 55, 14);
-		panelActividad.add(lblFechaFin);
-
 		txtFormulario = new JTextField();
+		txtFormulario.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtFormulario.setText(formulario.getNombreFormulario());
 		txtFormulario.setEditable(false);
 		txtFormulario.setColumns(10);
-		txtFormulario.setBounds(177, 131, 86, 20);
+		txtFormulario.setBounds(20, 156, 134, 20);
 		panelActividad.add(txtFormulario);
 
 		txtUsuario = new JTextField();
+		txtUsuario.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtUsuario.setText(usuario.getNombreUsuario());
 		txtUsuario.setEditable(false);
 		txtUsuario.setColumns(10);
-		txtUsuario.setBounds(177, 169, 86, 20);
+		txtUsuario.setBounds(195, 156, 130, 20);
 		panelActividad.add(txtUsuario);
 
 		txtRol = new JTextField();
+		txtRol.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtRol.setText(usuario.getRol().getNombreRol());
 		txtRol.setEditable(false);
 		txtRol.setColumns(10);
-		txtRol.setBounds(177, 207, 86, 20);
+		txtRol.setBounds(358, 156, 130, 20);
 		panelActividad.add(txtRol);
-
-		JLabel lblRol = new JLabel("Rol");
-		lblRol.setBounds(123, 210, 36, 14);
-		panelActividad.add(lblRol);
-
-		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(123, 172, 36, 14);
-		panelActividad.add(lblUsuario);
-
-		JLabel lblNombreFormulario = new JLabel("Formulario");
-		lblNombreFormulario.setBounds(109, 134, 50, 14);
-		panelActividad.add(lblNombreFormulario);
+		
+		txtFormulario_1 = new JTextField();
+		txtFormulario_1.setText("Formulario");
+		txtFormulario_1.setForeground(Color.WHITE);
+		txtFormulario_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtFormulario_1.setEditable(false);
+		txtFormulario_1.setColumns(10);
+		txtFormulario_1.setBackground(new Color(0, 102, 0));
+		txtFormulario_1.setBounds(20, 143, 134, 14);
+		panelActividad.add(txtFormulario_1);
+		
+		txtUsuario_1 = new JTextField();
+		txtUsuario_1.setText("Usuario");
+		txtUsuario_1.setForeground(Color.WHITE);
+		txtUsuario_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtUsuario_1.setEditable(false);
+		txtUsuario_1.setColumns(10);
+		txtUsuario_1.setBackground(new Color(0, 102, 0));
+		txtUsuario_1.setBounds(195, 143, 130, 14);
+		panelActividad.add(txtUsuario_1);
+		
+		txtRol_1 = new JTextField();
+		txtRol_1.setText("Rol");
+		txtRol_1.setForeground(Color.WHITE);
+		txtRol_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtRol_1.setEditable(false);
+		txtRol_1.setColumns(10);
+		txtRol_1.setBackground(new Color(0, 102, 0));
+		txtRol_1.setBounds(358, 142, 130, 14);
+		panelActividad.add(txtRol_1);
+		
+		txtFechaDeInicio = new JTextField();
+		txtFechaDeInicio.setText("Fecha de inicio");
+		txtFechaDeInicio.setForeground(Color.WHITE);
+		txtFechaDeInicio.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtFechaDeInicio.setEditable(false);
+		txtFechaDeInicio.setColumns(10);
+		txtFechaDeInicio.setBackground(new Color(0, 153, 0));
+		txtFechaDeInicio.setBounds(24, 220, 130, 14);
+		panelActividad.add(txtFechaDeInicio);
+		
+		txtFechaDeFin = new JTextField();
+		txtFechaDeFin.setText("Fecha de fin");
+		txtFechaDeFin.setForeground(Color.WHITE);
+		txtFechaDeFin.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtFechaDeFin.setEditable(false);
+		txtFechaDeFin.setColumns(10);
+		txtFechaDeFin.setBackground(new Color(0, 153, 0));
+		txtFechaDeFin.setBounds(195, 219, 130, 14);
+		panelActividad.add(txtFechaDeFin);
+		
+		txtMtodoDeMuestreo = new JTextField();
+		txtMtodoDeMuestreo.setText("M\u00E9todo de muestreo");
+		txtMtodoDeMuestreo.setForeground(Color.WHITE);
+		txtMtodoDeMuestreo.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtMtodoDeMuestreo.setEditable(false);
+		txtMtodoDeMuestreo.setColumns(10);
+		txtMtodoDeMuestreo.setBackground(new Color(0, 153, 0));
+		txtMtodoDeMuestreo.setBounds(24, 275, 130, 14);
+		panelActividad.add(txtMtodoDeMuestreo);
+		
+		txtFechadeMuestreo = new JTextField();
+		txtFechadeMuestreo.setToolTipText("Ingrese fecha de muestreo");
+		txtFechadeMuestreo.setText("Estaci\u00F3n de muestreo");
+		txtFechadeMuestreo.setForeground(Color.WHITE);
+		txtFechadeMuestreo.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtFechadeMuestreo.setEditable(false);
+		txtFechadeMuestreo.setColumns(10);
+		txtFechadeMuestreo.setBackground(new Color(0, 153, 0));
+		txtFechadeMuestreo.setBounds(358, 220, 130, 14);
+		panelActividad.add(txtFechadeMuestreo);
+		
+		txtDepartamento_1 = new JTextField();
+		txtDepartamento_1.setText("Departamento");
+		txtDepartamento_1.setForeground(Color.WHITE);
+		txtDepartamento_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtDepartamento_1.setEditable(false);
+		txtDepartamento_1.setColumns(10);
+		txtDepartamento_1.setBackground(new Color(0, 153, 0));
+		txtDepartamento_1.setBounds(195, 275, 130, 14);
+		panelActividad.add(txtDepartamento_1);
+		
+		lblNuevaCasilla = new JLabel("Actividad de campo");
+		lblNuevaCasilla.setOpaque(true);
+		lblNuevaCasilla.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevaCasilla.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla.setForeground(Color.WHITE);
+		lblNuevaCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNuevaCasilla.setBackground(new Color(60, 179, 113));
+		lblNuevaCasilla.setBounds(0, 11, 624, 23);
+		panelActividad.add(lblNuevaCasilla);
 
 	}
 

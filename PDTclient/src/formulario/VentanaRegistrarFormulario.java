@@ -38,6 +38,8 @@ public class VentanaRegistrarFormulario extends JFrame {
 	private JTextField txtNombreFormulario;
 	private JTextField txtResumen;
 	public JFrame frame;
+	private JTextField txtNombreDeFormulario;
+	private JTextField txtDescripcinDeFormulario;
 	/**
 	 * Create the frame.
 	 */
@@ -58,22 +60,24 @@ public class VentanaRegistrarFormulario extends JFrame {
 		panelFormulario.setLayout(null);
 		
 		txtNombreFormulario = new JTextField();
-		txtNombreFormulario.setText("Nombre de Formulario");
+		txtNombreFormulario.setToolTipText("Ingrese nombre de formulario");
 		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNombreFormulario.setColumns(10);
-		txtNombreFormulario.setBounds(123, 164, 168, 42);
+		txtNombreFormulario.setBounds(43, 68, 196, 29);
 		panelFormulario.add(txtNombreFormulario);
 		
 		txtResumen = new JTextField();
-		txtResumen.setText("Resumen");
+		txtResumen.setToolTipText("Ingrese una descripic\u00F3n del formulario a crear");
 		txtResumen.setHorizontalAlignment(SwingConstants.CENTER);
 		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResumen.setColumns(10);
-		txtResumen.setBounds(339, 164, 168, 42);
+		txtResumen.setBounds(43, 160, 462, 94);
 		panelFormulario.add(txtResumen);
 		
 		JButton btnCrearFormulario = new JButton("Crear formulario");
+		btnCrearFormulario.setBackground(new Color(0, 102, 0));
+		btnCrearFormulario.setForeground(new Color(255, 255, 255));
 		btnCrearFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FormulariosBeanRemote formulariosBeanRemote;
@@ -114,17 +118,48 @@ public class VentanaRegistrarFormulario extends JFrame {
 			}
 		});
 		btnCrearFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearFormulario.setBounds(219, 339, 174, 42);
+		btnCrearFormulario.setBounds(43, 346, 159, 29);
 		panelFormulario.add(btnCrearFormulario);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {			
 				dispose();
 			}
 		});
-		btnVolver.setBounds(450, 351, 89, 23);
+		btnVolver.setBounds(513, 351, 89, 23);
 		panelFormulario.add(btnVolver);
+		
+		txtNombreDeFormulario = new JTextField();
+		txtNombreDeFormulario.setText("Nombre de formulario");
+		txtNombreDeFormulario.setForeground(Color.WHITE);
+		txtNombreDeFormulario.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtNombreDeFormulario.setEditable(false);
+		txtNombreDeFormulario.setColumns(10);
+		txtNombreDeFormulario.setBackground(new Color(0, 102, 0));
+		txtNombreDeFormulario.setBounds(43, 55, 196, 14);
+		panelFormulario.add(txtNombreDeFormulario);
+		
+		txtDescripcinDeFormulario = new JTextField();
+		txtDescripcinDeFormulario.setText("Descripci\u00F3n de formulario");
+		txtDescripcinDeFormulario.setForeground(Color.WHITE);
+		txtDescripcinDeFormulario.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtDescripcinDeFormulario.setEditable(false);
+		txtDescripcinDeFormulario.setColumns(10);
+		txtDescripcinDeFormulario.setBackground(new Color(0, 102, 0));
+		txtDescripcinDeFormulario.setBounds(43, 147, 462, 14);
+		panelFormulario.add(txtDescripcinDeFormulario);
+		
+		JLabel lblNuevoFormulario = new JLabel("Nuevo Formulario");
+		lblNuevoFormulario.setBounds(0, 11, 624, 23);
+		panelFormulario.add(lblNuevoFormulario);
+		lblNuevoFormulario.setOpaque(true);
+		lblNuevoFormulario.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevoFormulario.setBackground(new Color(60, 179, 113));
+		lblNuevoFormulario.setForeground(Color.WHITE);
+		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -143,19 +178,14 @@ public class VentanaRegistrarFormulario extends JFrame {
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.setBounds(542, 26, 60, 23);
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.setBounds(444, 26, 88, 23);
 		panelUsuario.add(btnNewButton);
-		
-		JLabel lblNuevoFormulario = new JLabel("Nuevo Formulario");
-		lblNuevoFormulario.setForeground(new Color(255, 255, 255));
-		lblNuevoFormulario.setBounds(10, 41, 174, 42);
-		panelUsuario.add(lblNuevoFormulario);
-		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));

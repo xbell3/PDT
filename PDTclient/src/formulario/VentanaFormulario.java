@@ -39,6 +39,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.Cursor;
+import javax.swing.JTextPane;
 
 public class VentanaFormulario extends JFrame {
 
@@ -62,7 +64,10 @@ public class VentanaFormulario extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
-		JButton btnCrearFormulario = new JButton("Crear ");
+		JButton btnCrearFormulario = new JButton("Crear formulario");
+		btnCrearFormulario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCrearFormulario.setBackground(new Color(0, 102, 0));
+		btnCrearFormulario.setForeground(new Color(255, 255, 255));
 		btnCrearFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarFormulario ventanaRegistrarFormulario = new VentanaRegistrarFormulario(usuario);
@@ -70,10 +75,12 @@ public class VentanaFormulario extends JFrame {
 				ventanaRegistrarFormulario.setLocation(400, 150);
 			}
 		});
-		btnCrearFormulario.setBounds(0, 99, 89, 23);
+		btnCrearFormulario.setBounds(20, 363, 149, 23);
 		panelFormulario.add(btnCrearFormulario);
 		
 		JButton btnListarFormulario = new JButton("Listar");
+		btnListarFormulario.setForeground(new Color(0, 102, 0));
+		btnListarFormulario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnListarFormulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
 				/*
@@ -100,7 +107,8 @@ public class VentanaFormulario extends JFrame {
 		
 		
 		JButton btnRefrescar = new JButton("");
-		btnRefrescar.setIcon(new ImageIcon("C:\\Users\\Usuario\\Downloads\\rsz_1refreshicon.png"));
+		btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRefrescar.setIcon(new ImageIcon(VentanaFormulario.class.getResource("/Imagenes/refrescar4.png")));
 		btnRefrescar.setBounds(591, 65, 20, 23);
 		panelFormulario.add(btnRefrescar);
 		
@@ -112,6 +120,8 @@ public class VentanaFormulario extends JFrame {
 		lblTituloFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
@@ -120,7 +130,7 @@ public class VentanaFormulario extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(0, 358, 89, 23);
+		btnVolver.setBounds(522, 363, 89, 23);
 		panelFormulario.add(btnVolver);
 		
 		tableFormulario = new JTable();
@@ -153,8 +163,19 @@ public class VentanaFormulario extends JFrame {
 			}
 		});	
 		tableFormulario.setBackground(SystemColor.controlHighlight);
-		tableFormulario.setBounds(97, 104, 484, 231);
+		tableFormulario.setBounds(10, 123, 604, 229);
+		
+		
 		panelFormulario.add(tableFormulario);
+		
+		JTextPane txtpnNombreDeFormulario = new JTextPane();
+		txtpnNombreDeFormulario.setText("Nombre de formulario        \t\t\t   | Descripci\u00F3n");
+		txtpnNombreDeFormulario.setForeground(Color.WHITE);
+		txtpnNombreDeFormulario.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtpnNombreDeFormulario.setEditable(false);
+		txtpnNombreDeFormulario.setBackground(new Color(34, 139, 34));
+		txtpnNombreDeFormulario.setBounds(10, 101, 604, 22);
+		panelFormulario.add(txtpnNombreDeFormulario);
 		
 //		JButton btnCrearCasilla = new JButton("Crear Casilla");
 //		btnCrearCasilla.addActionListener(new ActionListener() {
@@ -185,6 +206,7 @@ public class VentanaFormulario extends JFrame {
 		panelUsuario.add(lblNewLabel);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
@@ -197,10 +219,12 @@ public class VentanaFormulario extends JFrame {
 		panelUsuario.add(btnSalir);
 		
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setForeground(new Color(0, 102, 0));
 		btnNewButton.setBounds(457, 16, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
@@ -209,18 +233,21 @@ public class VentanaFormulario extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(VentanaFormulario.class.getResource("/Imagenes/klipartz.com.png")));
 		lblNewLabel_1.setBounds(-98, 0, 722, 86);
 		panelUsuario.add(lblNewLabel_1);
+		
 	}
 	private void cargarCasillas() {
 		try {
 			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
 			List<Casilla> casillas = new ArrayList<>();
+			DefaultTableModel model = new DefaultTableModel();
 	
 			casillas = casillasBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
 
 			String[] columnNames = {  "parametro", "descripcion", "unidadMedida", "tipoUnidad" };
-			DefaultTableModel model = new DefaultTableModel();
+					
+			
 			tableFormulario.setModel(model);
-
+			
 			model.setColumnIdentifiers(columnNames);
 			for (Casilla casilla : casillas) {
 				Object[] fila = new Object[4];

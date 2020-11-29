@@ -38,6 +38,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Cursor;
+import javax.swing.JTextPane;
 
 public class VentanaIniciarActividad extends JFrame {
 
@@ -48,7 +50,7 @@ public class VentanaIniciarActividad extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaIniciarActividad(Usuario usuario) {
-		setTitle("Actividad");
+		setTitle("Actividad de campo");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaActividad.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 520);
@@ -85,10 +87,13 @@ public class VentanaIniciarActividad extends JFrame {
 		});
 		
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setForeground(new Color(0, 102, 0));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setBounds(528, 16, 88, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARCD");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(10, 16, 152, 34);
 		panelUsuario.add(lblNombreSistema);
@@ -134,16 +139,18 @@ public class VentanaIniciarActividad extends JFrame {
 			}
 		});
 		tableActividad.setBackground(SystemColor.controlHighlight);
-		tableActividad.setBounds(46, 104, 568, 243);
+		tableActividad.setBounds(10, 119, 604, 233);
 		panelActividad.add(tableActividad);
 		
 		JButton btnBuscarActividad = new JButton("Buscar");
+		btnBuscarActividad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarActividad.setForeground(new Color(0, 102, 0));
 		btnBuscarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cargarFormularios();
 			}
 		});
-		btnBuscarActividad.setBounds(385, 70, 72, 23);
+		btnBuscarActividad.setBounds(373, 70, 84, 23);
 		panelActividad.add(btnBuscarActividad);
 		
 		txtBusquedaActividad = new JTextField();
@@ -151,17 +158,15 @@ public class VentanaIniciarActividad extends JFrame {
 		txtBusquedaActividad.setBounds(467, 71, 103, 20);
 		panelActividad.add(txtBusquedaActividad);
 		
-		JButton btnRefrescar = new JButton("R");
+		JButton btnRefrescar = new JButton("");
+		btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRefrescar.setIcon(new ImageIcon(VentanaIniciarActividad.class.getResource("/Imagenes/refrescar4.png")));
 		btnRefrescar.setBounds(580, 70, 31, 23);
 		panelActividad.add(btnRefrescar);
 		
-		JLabel lblTituloInicioActividad = new JLabel("Actividad de campo");
-		lblTituloInicioActividad.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloInicioActividad.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTituloInicioActividad.setBounds(10, 11, 171, 39);
-		panelActividad.add(lblTituloInicioActividad);
-		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaActividad ventanaActividad = new VentanaActividad(usuario);
@@ -170,14 +175,33 @@ public class VentanaIniciarActividad extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(0, 358, 89, 23);
+		btnVolver.setBounds(525, 363, 89, 23);
 		panelActividad.add(btnVolver);
 		
-		JLabel lblSeleccioneUnFormulario = new JLabel("Seleccione un formulario para iniciar.");
+		JLabel lblSeleccioneUnFormulario = new JLabel("Seleccione un formulario para iniciar");
 		lblSeleccioneUnFormulario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeleccioneUnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSeleccioneUnFormulario.setBounds(20, 54, 311, 39);
+		lblSeleccioneUnFormulario.setBounds(20, 54, 274, 39);
 		panelActividad.add(lblSeleccioneUnFormulario);
+		
+		JLabel lblNuevaCasilla = new JLabel("Actividad de campo");
+		lblNuevaCasilla.setOpaque(true);
+		lblNuevaCasilla.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevaCasilla.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla.setForeground(Color.WHITE);
+		lblNuevaCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNuevaCasilla.setBackground(new Color(60, 179, 113));
+		lblNuevaCasilla.setBounds(0, 11, 624, 23);
+		panelActividad.add(lblNuevaCasilla);
+		
+		JTextPane txtpnNombreDeFormulario = new JTextPane();
+		txtpnNombreDeFormulario.setText("Nombre de formulario        \t\t\t   | Descripci\u00F3n");
+		txtpnNombreDeFormulario.setForeground(Color.WHITE);
+		txtpnNombreDeFormulario.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtpnNombreDeFormulario.setEditable(false);
+		txtpnNombreDeFormulario.setBackground(new Color(34, 139, 34));
+		txtpnNombreDeFormulario.setBounds(10, 102, 604, 22);
+		panelActividad.add(txtpnNombreDeFormulario);
 		
 	}
 	private void cargarFormularios() {

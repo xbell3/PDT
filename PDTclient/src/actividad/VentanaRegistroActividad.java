@@ -41,6 +41,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Cursor;
+import javax.swing.JTextPane;
 
 public class VentanaRegistroActividad extends JFrame {
 
@@ -51,7 +53,7 @@ public class VentanaRegistroActividad extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaRegistroActividad(Usuario usuario) {
-		setTitle("Actividad");
+		setTitle("Actividad de campo");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaActividad.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 520);
@@ -88,17 +90,20 @@ public class VentanaRegistroActividad extends JFrame {
 		});
 		
 		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setBounds(528, 16, 88, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnNewButton.setForeground(new Color(0, 102, 0));
+		btnNewButton.setBounds(537, 16, 79, 23);
 		panelUsuario.add(btnNewButton);
 		
-		JLabel lblNombreSistema = new JLabel("Nombre App");
+		JLabel lblNombreSistema = new JLabel("ARDC");
+		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
+		lblNombreSistema.setBounds(10, 16, 54, 34);
 		panelUsuario.add(lblNombreSistema);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_1.setBounds(-94, 0, 718, 90);
+		lblNewLabel_1.setBounds(-70, 0, 718, 90);
 		panelUsuario.add(lblNewLabel_1);
 		
 		JPanel panelActividad = new JPanel();
@@ -108,11 +113,15 @@ public class VentanaRegistroActividad extends JFrame {
 		contentPane.add(panelActividad);
 		
 		JComboBox combofiltro = new JComboBox();
+		combofiltro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		combofiltro.setForeground(new Color(0, 102, 0));
 		combofiltro.setModel(new DefaultComboBoxModel(new String[] {"Rago de fechas", "Estacion de muestreo", "Usuario Experto"}));
 		combofiltro.setBounds(246, 70, 129, 22);
 		panelActividad.add(combofiltro);
 		
 		JLabel lblFiltroActividad = new JLabel("Filtro:");
+		lblFiltroActividad.setForeground(new Color(0, 102, 0));
+		lblFiltroActividad.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblFiltroActividad.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltroActividad.setBounds(190, 74, 46, 14);
 		panelActividad.add(lblFiltroActividad);
@@ -148,10 +157,13 @@ public class VentanaRegistroActividad extends JFrame {
 			}
 		});
 		tableActividad.setBackground(SystemColor.controlHighlight);
-		tableActividad.setBounds(89, 104, 492, 231);
+		tableActividad.setBounds (10, 125, 604, 222);
 		panelActividad.add(tableActividad);
 		
 		JButton btnBuscarActividad = new JButton("Buscar");
+		btnBuscarActividad.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnBuscarActividad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarActividad.setForeground(new Color(0, 102, 0));
 		btnBuscarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/*
@@ -175,17 +187,15 @@ public class VentanaRegistroActividad extends JFrame {
 		txtBusquedaActividad.setBounds(467, 71, 103, 20);
 		panelActividad.add(txtBusquedaActividad);
 		
-		JButton btnRefrescar = new JButton("R");
+		JButton btnRefrescar = new JButton("");
+		btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRefrescar.setIcon(new ImageIcon(VentanaRegistroActividad.class.getResource("/Imagenes/refrescar4.png")));
 		btnRefrescar.setBounds(580, 70, 31, 23);
 		panelActividad.add(btnRefrescar);
 		
-		JLabel lblTituloInicioActividad = new JLabel("Actividad de campo");
-		lblTituloInicioActividad.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloInicioActividad.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTituloInicioActividad.setBounds(10, 11, 171, 39);
-		panelActividad.add(lblTituloInicioActividad);
-		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaActividad ventanaActividad = new VentanaActividad(usuario);
@@ -194,13 +204,32 @@ public class VentanaRegistroActividad extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(0, 358, 89, 23);
+		btnVolver.setBounds(513, 358, 89, 23);
 		panelActividad.add(btnVolver);
 		
-		JLabel lblSeleccioneUnFormulario = new JLabel("Listado de actividades.");
+		JLabel lblSeleccioneUnFormulario = new JLabel("Listado de actividades");
 		lblSeleccioneUnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSeleccioneUnFormulario.setBounds(20, 60, 164, 39);
 		panelActividad.add(lblSeleccioneUnFormulario);
+		
+		JLabel lblNuevaCasilla_1 = new JLabel("Actividad de campo");
+		lblNuevaCasilla_1.setOpaque(true);
+		lblNuevaCasilla_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNuevaCasilla_1.setForeground(Color.WHITE);
+		lblNuevaCasilla_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNuevaCasilla_1.setBackground(new Color(60, 179, 113));
+		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
+		panelActividad.add(lblNuevaCasilla_1);
+		
+		JTextPane txtpnNombreDeFormulario = new JTextPane();
+		txtpnNombreDeFormulario.setText("Nombre de formulario        \t\t\t   | Descripci\u00F3n");
+		txtpnNombreDeFormulario.setForeground(Color.WHITE);
+		txtpnNombreDeFormulario.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtpnNombreDeFormulario.setEditable(false);
+		txtpnNombreDeFormulario.setBackground(new Color(34, 139, 34));
+		txtpnNombreDeFormulario.setBounds(10, 103, 604, 22);
+		panelActividad.add(txtpnNombreDeFormulario);
 			
 		
 	}

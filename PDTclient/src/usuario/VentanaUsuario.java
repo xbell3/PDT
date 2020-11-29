@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
-import usuario.VentanaRegistrarUsuario;
+//import com.cliente.VentanaRegistrarUsuario;
 import com.cliente.VentanaInicio;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
@@ -41,6 +41,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Cursor;
+import javax.swing.JTextPane;
 
 public class VentanaUsuario extends JFrame {
 
@@ -76,6 +77,8 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(panelUsuario);
 
 		JComboBox combofiltro = new JComboBox();
+		combofiltro.setForeground(new Color(0, 102, 0));
+		combofiltro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		combofiltro.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Usuario", "Rol" }));
 		combofiltro.setBounds(353, 130, 81, 22);
 		contentPane.add(combofiltro);
@@ -106,6 +109,7 @@ public class VentanaUsuario extends JFrame {
 		panelUsuario.add(btnSalir);
 
 		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,10 +169,11 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		tableUsuario.setBackground(SystemColor.controlHighlight);
-		tableUsuario.setBounds(87, 206, 492, 231);
+		tableUsuario.setBounds(10, 208, 604, 229);
 		contentPane.add(tableUsuario);
 
 		JButton btnListar = new JButton("Listar");
+		btnListar.setForeground(new Color(0, 102, 0));
 		btnListar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -194,6 +199,9 @@ public class VentanaUsuario extends JFrame {
 		 * en la aplicacion ingresando cada uno de sus datos y el rol que va 
 		 * a ocupar en ella.*/	
 		JButton btnRegistrar = new JButton("Registrar usuario");
+		btnRegistrar.setBackground(new Color(0, 102, 0));
+		btnRegistrar.setForeground(new Color(255, 255, 255));
+		btnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaRegistrarUsuario ventanaRegistrarUsuario = new VentanaRegistrarUsuario(usuario);
@@ -202,17 +210,19 @@ public class VentanaUsuario extends JFrame {
 				
 			}
 		});
-		btnRegistrar.setBounds(20, 184, 121, 23);
+		btnRegistrar.setBounds(10, 448, 135, 25);
 		contentPane.add(btnRegistrar);
 			
 				JButton btnRefrescar = new JButton("");
+				btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRefrescar.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/refrescar4.png")));
 				btnRefrescar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						refrescarTabla();
 					}
 				});
-				btnRefrescar.setBounds(596, 130, 21, 23);
+				btnRefrescar.setBounds(589, 130, 28, 23);
 				contentPane.add(btnRefrescar);
 
 				JButton btnVolver = new JButton("Volver");
@@ -227,8 +237,17 @@ public class VentanaUsuario extends JFrame {
 
 			}
 		});
-		btnVolver.setBounds(20, 448, 89, 23);
+		btnVolver.setBounds(492, 449, 122, 23);
 		contentPane.add(btnVolver);
+		
+		JTextPane txtpnNombreDeUsuario = new JTextPane();
+		txtpnNombreDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtpnNombreDeUsuario.setEditable(false);
+		txtpnNombreDeUsuario.setForeground(new Color(255, 255, 255));
+		txtpnNombreDeUsuario.setBackground(new Color(34, 139, 34));
+		txtpnNombreDeUsuario.setText("Nombre de Usuario         | Nombre                         | Apellido                          | Correo                           | Rol");
+		txtpnNombreDeUsuario.setBounds(10, 186, 604, 22);
+		contentPane.add(txtpnNombreDeUsuario);
 	}
 	
 	

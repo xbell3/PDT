@@ -14,7 +14,6 @@ import com.exception.ServiciosException;
 import com.servicios.UsuariosBeanRemote;
 
 import actividad.VentanaActividad;
-import usuario.VentanaRegistrarUsuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -44,6 +43,8 @@ public class VentanaInicio extends JFrame {
 	public static JTextField txtContrasena;
 	private JFrame frame;
 	private JTextField textField;
+	public static String nombreRol;
+	private JLabel lblNewLabel_1;
 
 	/**
 	 * El siguiente es un metodo main, que nos permite "arrancar" 
@@ -66,8 +67,8 @@ public class VentanaInicio extends JFrame {
 				try {
 					usuariosBeanRemote.crear(usuario);
 					JFrame frame1 = null;
-					JOptionPane.showMessageDialog(frame1, "Inicie sesion de administrador", "Usuario Registrado!",
-							JOptionPane.INFORMATION_MESSAGE);
+					//JOptionPane.showMessageDialog(frame1, "Inicie sesion de administrador", "Usuario Registrado!",
+					//		JOptionPane.INFORMATION_MESSAGE);
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
@@ -97,6 +98,7 @@ public class VentanaInicio extends JFrame {
 			});
 				
 			}
+			 
 			
 		} catch (NamingException e1) {
 			// TODO Auto-generated catch block
@@ -110,6 +112,9 @@ public class VentanaInicio extends JFrame {
 		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
 		 * parametro declarado.
 		 */
+		
+		
+		
 		setTitle("Login");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicio.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,6 +181,11 @@ public class VentanaInicio extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(VentanaInicio.class.getResource("/Imagenes/USycon_v03.png")));
 		lblNewLabel.setBounds(168, 299, 32, 92);
 		contentPane.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaInicio.class.getResource("/Imagenes/Logo2.png")));
+		lblNewLabel_1.setBounds(441, 347, 188, 212);
+		contentPane.add(lblNewLabel_1);
 	
 	}
 	
@@ -192,6 +202,8 @@ public class VentanaInicio extends JFrame {
 			 * el usuario tiene permisos de ingresar a la aplicacion*/
 			if (usuariosBeanRemote.login(txtNombreUsuario.getText(), txtContrasena.getText())) {
 				usuario = usuariosBeanRemote.obtenerPorNombreUsuario(txtNombreUsuario.getText()).get(0);
+				
+				
 				 VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
 					ventanaGeneral.setVisible(true);
 					ventanaGeneral.setLocation(450, 150);

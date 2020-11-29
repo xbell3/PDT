@@ -54,6 +54,7 @@ public class VentanaEditarUsuario extends JFrame {
 	private Rol rol = new Rol();
 	private JLabel lblNewLabel;
 	private JComboBox comboRol;
+	private JLabel lblModificacinDeUsuario;
 	public VentanaEditarUsuario(Usuario usuario) {
 		
 		setIconImage(Toolkit.getDefaultToolkit()
@@ -68,6 +69,7 @@ public class VentanaEditarUsuario extends JFrame {
 		contentPane.setLayout(null);
 
 		comboRol = new JComboBox();
+		comboRol.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		comboRol.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			/*A continuacion llamamos al metodo evaluarComboBox 
@@ -78,15 +80,8 @@ public class VentanaEditarUsuario extends JFrame {
 			}
 		});
 		comboRol.setModel(new DefaultComboBoxModel(new String[] { "Administrador", "Experto", "Comun" }));
-		comboRol.setBounds(336, 124, 196, 23);
+		comboRol.setBounds(336, 161, 196, 23);
 		contentPane.add(comboRol);
-
-		JLabel lblRegistro = new JLabel("Modificaci\u00F3n de usuario");
-		lblRegistro.setForeground(new Color(255, 255, 255));
-		lblRegistro.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistro.setBounds(0, 56, 217, 42);
-		contentPane.add(lblRegistro);
 
 		txtNombre = new JTextField();
 		txtNombre.setForeground(new Color(0, 102, 0));
@@ -94,7 +89,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNombre.setText(usuario.getNombre());
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombre.setBounds(38, 186, 196, 23);
+		txtNombre.setBounds(38, 205, 196, 23);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
@@ -105,7 +100,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtApellido.setHorizontalAlignment(SwingConstants.CENTER);
 		txtApellido.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(38, 250, 196, 23);
+		txtApellido.setBounds(38, 269, 196, 23);
 		contentPane.add(txtApellido);
 
 		txtCorreo = new JTextField();
@@ -115,12 +110,14 @@ public class VentanaEditarUsuario extends JFrame {
 		txtCorreo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCorreo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(336, 186, 196, 23);
+		txtCorreo.setBounds(336, 223, 196, 23);
 		contentPane.add(txtCorreo);
 
 
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setForeground(new Color(0, 128, 0));
+		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnModificar.setBackground(new Color(0, 102, 0));
+		btnModificar.setForeground(new Color(255, 255, 255));
 		btnModificar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
@@ -133,7 +130,7 @@ public class VentanaEditarUsuario extends JFrame {
 				
 			
 		btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnModificar.setBounds(86, 437, 134, 23);
+		btnModificar.setBounds(38, 437, 134, 23);
 		contentPane.add(btnModificar);
 		
 		
@@ -152,7 +149,7 @@ public class VentanaEditarUsuario extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(254, 437, 143, 23);
+		btnNewButton.setBounds(446, 437, 134, 23);
 		contentPane.add(btnNewButton);
 
 		txtCedula = new JTextField();
@@ -171,7 +168,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtInstituto.setText(usuario.getInstituto());
 		txtInstituto.setHorizontalAlignment(SwingConstants.CENTER);
 		txtInstituto.setToolTipText("Ingrese instituto");
-		txtInstituto.setBounds(336, 250, 196, 23);
+		txtInstituto.setBounds(336, 287, 196, 23);
 		contentPane.add(txtInstituto);
 		txtInstituto.setColumns(10);
 
@@ -181,7 +178,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtProfesion.setText(usuario.getProfesion());
 		txtProfesion.setHorizontalAlignment(SwingConstants.CENTER);
 		txtProfesion.setToolTipText("Ingrese profesi\u00F3n");
-		txtProfesion.setBounds(336, 318, 196, 26);
+		txtProfesion.setBounds(336, 355, 196, 26);
 		contentPane.add(txtProfesion);
 		txtProfesion.setColumns(10);
 
@@ -193,7 +190,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtApellido_1.setEditable(false);
 		txtApellido_1.setColumns(10);
 		txtApellido_1.setBackground(new Color(0, 102, 0));
-		txtApellido_1.setBounds(38, 238, 196, 14);
+		txtApellido_1.setBounds(38, 257, 196, 14);
 		contentPane.add(txtApellido_1);
 
 		txtNombre_1 = new JTextField();
@@ -203,7 +200,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtNombre_1.setEditable(false);
 		txtNombre_1.setColumns(10);
 		txtNombre_1.setBackground(new Color(0, 102, 0));
-		txtNombre_1.setBounds(38, 173, 196, 14);
+		txtNombre_1.setBounds(38, 192, 196, 14);
 		contentPane.add(txtNombre_1);;
 
 		txtCedula2 = new JTextField();
@@ -223,7 +220,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtCorreoElectrnico.setEditable(false);
 		txtCorreoElectrnico.setColumns(10);
 		txtCorreoElectrnico.setBackground(new Color(0, 102, 0));
-		txtCorreoElectrnico.setBounds(336, 173, 196, 14);
+		txtCorreoElectrnico.setBounds(336, 210, 196, 14);
 		contentPane.add(txtCorreoElectrnico);
 
 		txtInstituto1 = new JTextField();
@@ -233,7 +230,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtInstituto1.setEditable(false);
 		txtInstituto1.setColumns(10);
 		txtInstituto1.setBackground(new Color(0, 102, 0));
-		txtInstituto1.setBounds(336, 238, 196, 14);
+		txtInstituto1.setBounds(336, 275, 196, 14);
 		contentPane.add(txtInstituto1);
 
 		txtProfesion1 = new JTextField();
@@ -243,7 +240,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtProfesion1.setEditable(false);
 		txtProfesion1.setColumns(10);
 		txtProfesion1.setBackground(new Color(0, 102, 0));
-		txtProfesion1.setBounds(336, 305, 196, 14);
+		txtProfesion1.setBounds(336, 342, 196, 14);
 		contentPane.add(txtProfesion1);
 
 		txtRol = new JTextField();
@@ -253,7 +250,7 @@ public class VentanaEditarUsuario extends JFrame {
 		txtRol.setEditable(false);
 		txtRol.setColumns(10);
 		txtRol.setBackground(new Color(0, 102, 0));
-		txtRol.setBounds(336, 109, 196, 14);
+		txtRol.setBounds(336, 146, 196, 14);
 		contentPane.add(txtRol);
 
 		lblNewLabel = new JLabel("New label");
@@ -268,6 +265,8 @@ public class VentanaEditarUsuario extends JFrame {
 		contentPane.add(panel);
 		
 		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBorrar.setBackground(new Color(0, 102, 0));
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
@@ -279,10 +278,20 @@ public class VentanaEditarUsuario extends JFrame {
 				}
 			}
 		});
-		btnBorrar.setForeground(new Color(0, 128, 0));
+		btnBorrar.setForeground(new Color(255, 255, 255));
 		btnBorrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnBorrar.setBounds(422, 437, 134, 23);
+		btnBorrar.setBounds(243, 437, 134, 23);
 		contentPane.add(btnBorrar);
+		
+		lblModificacinDeUsuario = new JLabel("Modificaci\u00F3n de usuario");
+		lblModificacinDeUsuario.setOpaque(true);
+		lblModificacinDeUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblModificacinDeUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModificacinDeUsuario.setForeground(Color.WHITE);
+		lblModificacinDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblModificacinDeUsuario.setBackground(new Color(60, 179, 113));
+		lblModificacinDeUsuario.setBounds(0, 109, 624, 23);
+		contentPane.add(lblModificacinDeUsuario);
 
 	}
 	/* El siguiente metodo evaluarComboBox evalua el item seleccionado en el comboBox y establece

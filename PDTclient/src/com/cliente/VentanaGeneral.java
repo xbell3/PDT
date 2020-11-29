@@ -44,6 +44,7 @@ public class VentanaGeneral extends JFrame {
 	public JPanel panelUsuario;
 	private JPanel contentPane;
 	public static JLabel lblNombreUsuario;
+	public static JLabel lblTipoUser;
 
 	public VentanaGeneral(Usuario usuario) {
 
@@ -68,6 +69,30 @@ public class VentanaGeneral extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 115);
 		contentPane.add(panelUsuario);
 		panelUsuario.setLayout(null);
+		
+				JButton btnSalir = new JButton("Salir");
+				btnSalir.setBounds(544, 11, 70, 20);
+				panelUsuario.add(btnSalir);
+				btnSalir.setForeground(new Color(0, 102, 0));
+				btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnSalir.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+						ventanaInicio.setLocation(400, 150);
+						ventanaInicio.setVisible(true);
+						dispose();
+					}
+				});
+		
+				JButton btnAyuda = new JButton("Ayuda");
+				btnAyuda.setBounds(456, 11, 70, 20);
+				panelUsuario.add(btnAyuda);
+				btnAyuda.setForeground(new Color(0, 102, 0));
+				btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnAyuda.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
@@ -75,6 +100,7 @@ public class VentanaGeneral extends JFrame {
 		panelUsuario.add(lblNewLabel_1);
 
 		JLabel lblTipoUser = new JLabel();
+		//VentanaGeneral.lblTipoUser.setText(VentanaInicio.nombreRol);
 		lblTipoUser.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblTipoUser.setForeground(new Color(255, 255, 255));
 		lblTipoUser.setBounds(10, 65, 100, 14);
@@ -108,7 +134,7 @@ public class VentanaGeneral extends JFrame {
 		 * El boton btnAdministracion nos lleva a la seccion de la aplicacion donde se
 		 * manejara el alta/baja/modificacion del usuario.
 		 */
-		if (usuario.getRol().getNombreRol().equals("Administrador")) {
+//		if (usuario.getRol().getNombreRol().equals("Administrador")) {
 			JButton btnAdministracion = new JButton("Administraci\u00F3n");
 			btnAdministracion.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Admin_BD.png")));
 			btnAdministracion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -127,7 +153,7 @@ public class VentanaGeneral extends JFrame {
 			btnAdministracion.setBounds(10, 207, 300, 120);
 			panel.add(btnAdministracion);
 
-		}
+//		}
 
 		/*
 		 * El boton btnActividad nos lleva a la seccion de la aplicacion donde se
@@ -160,8 +186,8 @@ public class VentanaGeneral extends JFrame {
 		 * asignar casillas a los formularios creados, y listarlos.
 		 */
 
-		if (usuario.getRol().getNombreRol().equals("Administrador")
-				|| usuario.getRol().getNombreRol().equals("Experto")) {
+//		if (usuario.getRol().getNombreRol().equals("Administrador")
+//				|| usuario.getRol().getNombreRol().equals("Experto")) {
 
 			JButton btnFormulario = new JButton("  Formularios");
 			btnFormulario.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/formulario_v3.png")));
@@ -180,37 +206,13 @@ public class VentanaGeneral extends JFrame {
 			btnFormulario.setBounds(10, 76, 300, 120);
 			panel.add(btnFormulario);
 
-		}
-
-		JButton btnAyuda = new JButton("Ayuda");
-		btnAyuda.setForeground(new Color(0, 102, 0));
-		btnAyuda.setBounds(458, 340, 70, 20);
-		panel.add(btnAyuda);
-		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		}
 
 		/*
 		 * El boton btnSalir, nos sirve para volver al punto de inicio de la aplicacion
 		 * sin tener que cerrarla por completo. De esta manera se mantiene el flujo de
 		 * la aplicacion.
 		 */
-
-		JButton btnSalir = new JButton("Salir");
-		btnSalir.setForeground(new Color(0, 102, 0));
-		btnSalir.setBounds(546, 340, 70, 20);
-		panel.add(btnSalir);
-		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
-				ventanaInicio.setLocation(400, 150);
-				ventanaInicio.setVisible(true);
-				dispose();
-			}
-		});
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 	}
 }
