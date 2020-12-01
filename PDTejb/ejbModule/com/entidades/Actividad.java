@@ -1,7 +1,9 @@
 package com.entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.*;
 
@@ -25,19 +27,16 @@ public class Actividad implements Serializable {
 	private Long idActividad;
 	
 	@Column(length = 20)
-	private String fechaInicio;
+	private GregorianCalendar fechaInicio;
 	
 	@Column(length = 20)
-	private String fechaFin;
+	private GregorianCalendar fechaFin;
 	
 	@Column(length = 40)
 	private String nombreFormulario;
    
 	@Column(length = 40)
 	private String nombreUsuario;
-	
-	@Column(length = 40)
-	private String rol;
 	
 	@Column(length = 40)
 	private String metodoMuestreo;
@@ -47,6 +46,41 @@ public class Actividad implements Serializable {
 	
 	@Column(length = 40)
 	private String departamento;
+	
+	@OneToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinColumn(name = "rolUsuario")
+	private Rol rol;
+
+	@Column(length = 40)
+	private String casilla1;
+	
+	@Column(length = 40)
+	private String casilla2;
+
+	@Column(length = 40)
+	private String casilla3;
+
+	@Column(length = 40)
+	private String casilla4;
+
+	@Column(length = 40)
+	private String casilla5;
+
+	@Column(length = 40)
+	private String casilla6;
+
+	@Column(length = 40)
+	private String casilla7;
+
+	@Column(length = 40)
+	private String casilla8;
+
+	@Column(length = 40)
+	private String casilla9;
+
+	@Column(length = 40)
+	private String casilla10;
+
 
 	public Long getIdActividad() {
 		return idActividad;
@@ -56,21 +90,19 @@ public class Actividad implements Serializable {
 		this.idActividad = idActividad;
 	}
 
-
-
-	public String getFechaInicio() {
+	public GregorianCalendar getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(String fechaInicio) {
+	public void setFechaInicio(GregorianCalendar fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public String getFechaFin() {
+	public GregorianCalendar getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(String fechaFin) {
+	public void setFechaFin(GregorianCalendar fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -114,14 +146,13 @@ public class Actividad implements Serializable {
 		this.departamento = departamento;
 	}
 
-	public String getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(String rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-
 
 
 	

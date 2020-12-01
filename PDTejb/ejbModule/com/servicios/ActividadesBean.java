@@ -1,6 +1,6 @@
 package com.servicios;
 
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import com.entidades.Actividad;
-import com.entidades.Casilla;
+import com.entidades.Usuario;
 import com.exception.ServiciosException;
 
 /**
@@ -63,21 +63,23 @@ public class ActividadesBean implements ActividadesBeanRemote {
 	}
 
 	@Override
-	public List<Actividad> obtenerRangoFechas(Calendar startFecha, Calendar endFecha) {
-		List<Actividad> query = em
-				.createQuery("SELECT e FROM Events e WHERE e.eventsDate BETWEEN :startFecha AND :endFecha",
+	public List<Actividad> obtenerRangoFechas(GregorianCalendar startFecha, GregorianCalendar endFecha) {
+		TypedQuery<Actividad> query = em
+				.createQuery("SELECT e FROM Actividad e WHERE e.fechaInicio BETWEEN :fechaInicio AND :fechaFin ORDERBY departamento",
 						Actividad.class)
-				.setParameter("startFecha", startFecha, TemporalType.TIMESTAMP)
-				.setParameter("endFecha", endFecha, TemporalType.TIMESTAMP).getResultList();
-		return query;
+				.setParameter("fechaInicio", startFecha, TemporalType.TIMESTAMP)
+				.setParameter("fechaFin", endFecha, TemporalType.TIMESTAMP);
+		return query.getResultList();
 
 	}
 
 	@Override
-	public List<Actividad> obtenerPorMetodoMuestreo(String filtro) {
+	public List<Actividad> obtenerPorUsuarioExperto(String filtro) {
 		TypedQuery<Actividad> query = em
-				.createQuery("SELECT m FROM Actividad m WHERE m.metodoMuestreo LIKE :metodoMuestreo", Actividad.class)
-				.setParameter("metodoMuestreo", filtro);
+				.createQuery(
+						"SELECT m FROM Actividad m WHERE m.rol.nombreRol LIKE : nombreRol",
+						Actividad.class)
+				.setParameter("nombreRol", filtro);
 		return query.getResultList();
 	}
 

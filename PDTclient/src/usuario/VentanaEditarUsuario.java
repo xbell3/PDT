@@ -134,7 +134,7 @@ public class VentanaEditarUsuario extends JFrame {
 		contentPane.add(btnModificar);
 		
 		
-		/*El boton "Volver" es para regresar a la pestaña de VentanaUsuario
+		/*El boton "Cancelar" es para regresar a la pestaña de VentanaUsuario
 		 * si bien la ventana registro se accede desde el inicio, esto solo
 		 * sucede para facilitar el desarrollo de la app, pero a futuro no 
 		 * habra un boton Registro en la sesion del usuario.*/

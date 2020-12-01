@@ -110,8 +110,10 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	}
 	@Override
 	public List<Usuario> obtenerPorRol(String filtro) {
-		TypedQuery<Usuario> query = em.createQuery("SELECT ROL.NOMBREROL,USUARIO.NOMBREUSUARIO,USUARIO.NOMBRE FROM ROL INNER JOIN USUARIO ON ROL.IDROL = USUARIO.NOMBREROL", Usuario.class)
-				.setParameter("NOMBREROL", filtro);
+		TypedQuery<Usuario> query = em.createQuery(
+				"SELECT m FROM Usuario m WHERE m.rol.nombreRol LIKE :nombreRol",
+				Usuario.class)
+				.setParameter("nombreRol", filtro);
 			
 		return query.getResultList();
 	}

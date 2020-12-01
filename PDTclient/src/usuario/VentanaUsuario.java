@@ -256,7 +256,7 @@ public class VentanaUsuario extends JFrame {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
 			List<Usuario> usuarios = new ArrayList<>();
-			usuarios = usuariosBeanRemote.obtenerTodos();
+			usuarios = usuariosBeanRemote.obtenerPorRol(txtBusqueda.getText() + "%");
 
 			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
 			DefaultTableModel model = new DefaultTableModel();

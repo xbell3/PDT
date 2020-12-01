@@ -134,7 +134,7 @@ public class VentanaGeneral extends JFrame {
 		 * El boton btnAdministracion nos lleva a la seccion de la aplicacion donde se
 		 * manejara el alta/baja/modificacion del usuario.
 		 */
-//		if (usuario.getRol().getNombreRol().equals("Administrador")) {
+		if (usuario.getRol().getNombreRol().equals("Administrador")) {
 			JButton btnAdministracion = new JButton("Administraci\u00F3n");
 			btnAdministracion.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Admin_BD.png")));
 			btnAdministracion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -153,7 +153,7 @@ public class VentanaGeneral extends JFrame {
 			btnAdministracion.setBounds(10, 207, 300, 120);
 			panel.add(btnAdministracion);
 
-//		}
+		}
 
 		/*
 		 * El boton btnActividad nos lleva a la seccion de la aplicacion donde se
@@ -186,8 +186,8 @@ public class VentanaGeneral extends JFrame {
 		 * asignar casillas a los formularios creados, y listarlos.
 		 */
 
-//		if (usuario.getRol().getNombreRol().equals("Administrador")
-//				|| usuario.getRol().getNombreRol().equals("Experto")) {
+		if (usuario.getRol().getNombreRol().equals("Administrador")
+				|| usuario.getRol().getNombreRol().equals("Experto")) {
 
 			JButton btnFormulario = new JButton("  Formularios");
 			btnFormulario.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/formulario_v3.png")));
@@ -205,8 +205,7 @@ public class VentanaGeneral extends JFrame {
 			btnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			btnFormulario.setBounds(10, 76, 300, 120);
 			panel.add(btnFormulario);
-
-//		}
+		}
 
 		/*
 		 * El boton btnSalir, nos sirve para volver al punto de inicio de la aplicacion

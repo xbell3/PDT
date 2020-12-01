@@ -11,6 +11,7 @@ import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
 import com.entidades.Actividad;
+import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.servicios.ActividadesBeanRemote;
 import com.servicios.UsuariosBeanRemote;
@@ -40,15 +41,21 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.awt.Cursor;
 import javax.swing.JTextPane;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 public class VentanaRegistroActividad extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableActividad;
 	private JTextField txtBusquedaActividad;
+	private JDateChooser dateChooserFin = new JDateChooser();
+	private JDateChooser dateChooserInicio = new JDateChooser();
+
 	/**
 	 * Create the frame.
 	 */
@@ -132,16 +139,18 @@ public class VentanaRegistroActividad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				int row = tableActividad.getSelectedRow();
-				String metodoMuestreo = (String) tableActividad.getModel().getValueAt(row, 0);
+				String nombreRol = (String) tableActividad.getModel().getValueAt(row, 0);
 				Actividad actividad = new Actividad();
-				actividad.setMetodoMuestreo(metodoMuestreo);
+				Rol rol = new Rol();
+				actividad.setRol(rol);
+				rol.setNombreRol(nombreRol);
 				List<Actividad> actividades = new ArrayList<>();
 
 				try {
 
 					ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
 
-					actividades = actividadesBeanRemote.obtenerPorMetodoMuestreo(metodoMuestreo);
+					actividades = actividadesBeanRemote.obtenerPorUsuarioExperto(nombreRol);
 					actividad = actividades.get(0);
 
 				} catch (NamingException ex) {
@@ -157,7 +166,7 @@ public class VentanaRegistroActividad extends JFrame {
 			}
 		});
 		tableActividad.setBackground(SystemColor.controlHighlight);
-		tableActividad.setBounds (10, 125, 604, 222);
+		tableActividad.setBounds (10, 219, 604, 128);
 		panelActividad.add(tableActividad);
 		
 		JButton btnBuscarActividad = new JButton("Buscar");
@@ -228,8 +237,22 @@ public class VentanaRegistroActividad extends JFrame {
 		txtpnNombreDeFormulario.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtpnNombreDeFormulario.setEditable(false);
 		txtpnNombreDeFormulario.setBackground(new Color(34, 139, 34));
-		txtpnNombreDeFormulario.setBounds(10, 103, 604, 22);
+		txtpnNombreDeFormulario.setBounds(10, 197, 604, 150);
 		panelActividad.add(txtpnNombreDeFormulario);
+		
+		dateChooserInicio.setBounds(246, 103, 70, 20);
+		panelActividad.add(dateChooserInicio);
+		
+		dateChooserFin.setBounds(246, 134, 70, 20);
+		panelActividad.add(dateChooserFin);
+		
+		JLabel lblFechaInicio = new JLabel("Fecha Inicio");
+		lblFechaInicio.setBounds(170, 110, 66, 14);
+		panelActividad.add(lblFechaInicio);
+		
+		JLabel lblFechaFin = new JLabel("Fecha Fin");
+		lblFechaFin.setBounds(170, 140, 66, 14);
+		panelActividad.add(lblFechaFin);
 			
 		
 	}
@@ -263,9 +286,65 @@ public class VentanaRegistroActividad extends JFrame {
 		
 	}
 	private void cargarActividadUsuario() {
+		try {
+			ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
+			List<Actividad> actividades = new ArrayList<>();
+			
+			actividades = actividadesBeanRemote.obtenerPorUsuarioExperto(txtBusquedaActividad.getText() + "%");
+
+			String[] columnNames = { "Estacion de Muestreo", "Metodo de muestreo", "Nombre de usuario", "Departamento" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableActividad.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Actividad actividad : actividades) {
+				Object[] fila = new Object[4];
+				fila[0] = actividad.getEstacionMuestreo();
+				fila[1] = actividad.getMetodoMuestreo();
+				fila[2] = actividad.getNombreUsuario();
+				fila[3] = actividad.getDepartamento();
+				model.addRow(fila);
+			}
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
 		
 	}
 	private void cargarActividadRangoFecha() {
+		try {
+			ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
+			List<Actividad> actividades = new ArrayList<>();
+
+			actividades = actividadesBeanRemote.obtenerRangoFechas((GregorianCalendar)dateChooserInicio.getCalendar(), (GregorianCalendar)dateChooserFin.getCalendar());
+
+			String[] columnNames = { "Estacion de Muestreo", "Metodo de muestreo", "Nombre de usuario", "Departamento","Fecha Inicio", "Fecha fin" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableActividad.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Actividad actividad : actividades) {
+				Object[] fila = new Object[6];
+				fila[0] = actividad.getEstacionMuestreo();
+				fila[1] = actividad.getMetodoMuestreo();
+				fila[2] = actividad.getNombreUsuario();
+				fila[3] = actividad.getDepartamento();
+				fila[4] = actividad.getFechaInicio();
+				fila[5] = actividad.getFechaFin();
+				model.addRow(fila);
+			}
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+		
+	
 		
 	}
 }

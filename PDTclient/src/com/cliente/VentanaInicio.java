@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
 import actividad.VentanaActividad;
@@ -52,20 +53,34 @@ public class VentanaInicio extends JFrame {
 	 */
 	public static void main(String[] args) {
 		try {
+			//Creamos el usuario admin, para poder ingresar a la aplicacion
 			UsuariosBeanRemote usuariosBeanRemote;
-			Rol rol = new Rol();
-			Usuario usuario = new Usuario();
+			RolBeanRemote rolBeanRemote;
+			Rol rolAdmin = new Rol();
+			Rol rolExperto = new Rol();
+			Rol rolComun = new Rol();
+			Usuario uAdmin = new Usuario();
 			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			rolBeanRemote = EJBLocator.getInstance().lookup(RolBeanRemote.class);
 			 if(usuariosBeanRemote.registro("admin") == false) {
-				usuario.setNombreUsuario("admin");
-				usuario.setContrasena("admin");
-				usuario.setApellido("admin");
-				usuario.setCorreo("admin");
-				usuario.setNombre("admin");
-				usuario.setRol(rol);
-				rol.setNombreRol("Administrador");
+				 //Usuario admin y Rol admin
+				 uAdmin.setNombreUsuario("admin");
+				 uAdmin.setContrasena("admin");
+				 uAdmin.setApellido("admin");
+				 uAdmin.setCorreo("admin");
+				 uAdmin.setNombre("admin");
+				 uAdmin.setRol(rolAdmin);
+				 rolAdmin.setNombreRol("Administrador");
+				 
+				//Rol experto
+				 rolExperto.setNombreRol("Experto");
+				 
+				//Rol comun
+				 rolComun.setNombreRol("Comun");
 				try {
-					usuariosBeanRemote.crear(usuario);
+					usuariosBeanRemote.crear(uAdmin);
+					rolBeanRemote.crear(rolExperto);
+					rolBeanRemote.crear(rolComun);
 					JFrame frame1 = null;
 					//JOptionPane.showMessageDialog(frame1, "Inicie sesion de administrador", "Usuario Registrado!",
 					//		JOptionPane.INFORMATION_MESSAGE);

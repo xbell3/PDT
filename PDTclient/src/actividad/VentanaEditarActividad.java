@@ -17,6 +17,7 @@ import com.servicios.UsuariosBeanRemote;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
@@ -31,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import com.toedter.calendar.JDateChooser;
 
 public class VentanaEditarActividad extends JFrame {
 
@@ -38,8 +40,6 @@ public class VentanaEditarActividad extends JFrame {
 	private JTextField txtDepartamento;
 	private JTextField txtEstacionMuestreo;
 	private JTextField txtMetodoMuestreo;
-	private JTextField txtFechaFin;
-	private JTextField txtFechaInicio;
 	private JTextField txtFormulario;
 	private JTextField txtUsuario;
 	private JTextField txtRol;
@@ -52,6 +52,8 @@ public class VentanaEditarActividad extends JFrame {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JLabel lblNuevaCasilla;
+	private JDateChooser dateChooserInicio = new JDateChooser();
+	private JDateChooser dateChooserFin = new JDateChooser();
 
 	/**
 	 * Create the frame.
@@ -172,16 +174,6 @@ public class VentanaEditarActividad extends JFrame {
 		txtMetodoMuestreo.setBounds(20, 299, 130, 20);
 		panelActividad.add(txtMetodoMuestreo);
 
-		txtFechaFin = new JTextField();
-		txtFechaFin.setColumns(10);
-		txtFechaFin.setBounds(182, 244, 129, 20);
-		panelActividad.add(txtFechaFin);
-
-		txtFechaInicio = new JTextField();
-		txtFechaInicio.setColumns(10);
-		txtFechaInicio.setBounds(20, 244, 130, 20);
-		panelActividad.add(txtFechaInicio);
-
 		txtFormulario = new JTextField();
 		txtFormulario.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtFormulario.setText(actividad.getNombreFormulario());
@@ -200,7 +192,7 @@ public class VentanaEditarActividad extends JFrame {
 
 		txtRol = new JTextField();
 		txtRol.setFont(new Font("Tahoma", Font.BOLD, 11));
-		txtRol.setText(actividad.getRol());
+		txtRol.setText(actividad.getRol().getNombreRol());
 		txtRol.setEditable(false);
 		txtRol.setColumns(10);
 		txtRol.setBounds(344, 173, 130, 20);
@@ -296,6 +288,14 @@ public class VentanaEditarActividad extends JFrame {
 		lblNuevaCasilla.setBackground(new Color(60, 179, 113));
 		lblNuevaCasilla.setBounds(0, 11, 624, 23);
 		panelActividad.add(lblNuevaCasilla);
+		
+		//Calendario Inicio
+		dateChooserInicio.setBounds(20, 244, 130, 20);
+		panelActividad.add(dateChooserInicio);
+		
+		//Calendario Fin
+		dateChooserFin.setBounds(182, 244, 130, 20);
+		panelActividad.add(dateChooserFin);
 
 	}
 
@@ -307,14 +307,16 @@ public class VentanaEditarActividad extends JFrame {
 		 * (getText();) y lo "setea" al campo nombreUsuario de la entidad Usuario
 		 */
 		ActividadesBeanRemote actividadesBeanRemote;
-		actividad.setFechaInicio(txtFechaInicio.getText());
-		actividad.setFechaFin(txtFechaFin.getText());
+		Rol rol = new Rol();
+		actividad.setFechaInicio((GregorianCalendar)dateChooserInicio.getCalendar());
+		actividad.setFechaFin((GregorianCalendar)dateChooserFin.getCalendar());
 		actividad.setMetodoMuestreo(txtMetodoMuestreo.getText());
 		actividad.setEstacionMuestreo(txtEstacionMuestreo.getText());
 		actividad.setNombreFormulario(txtFormulario.getText());
 		actividad.setNombreUsuario(txtUsuario.getText());
 		actividad.setDepartamento(txtDepartamento.getText());
-		actividad.setRol(txtRol.getText());
+		actividad.setRol(rol);
+		rol.setNombreRol(txtRol.getText());
 		try {
 			actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
 			actividadesBeanRemote.actualizar(actividad);
