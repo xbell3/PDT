@@ -76,5 +76,11 @@ public class CasillasBean implements CasillasBeanRemote {
 				.setParameter("parametro", filtro);
 		return query.getResultList();
 	}
+	@Override
+	public List<Casilla> obtenerTodosPorFormulario(String filtro) {
+		TypedQuery<Casilla> query = em.createQuery("SELECT c FROM Casilla c WHERE c.formulario.nombreFormulario LIKE :nombreFormulario", Casilla.class)
+				.setParameter("nombreFormulario", filtro);
+		return query.getResultList();
+	}
 
 }

@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.NamingException;
 import javax.swing.DefaultComboBoxModel;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -22,9 +25,11 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
+import com.entidades.Casilla;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
+import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
 import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
@@ -34,6 +39,7 @@ import usuario.VentanaUsuario;
 
 import java.awt.SystemColor;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -50,6 +56,8 @@ public class VentanaEditarFormulario extends JFrame {
 	private JTextField txtNombreDeFormulario;
 	private JTextField txtDescripcinDeFormulario;
 	public static JLabel lblNombreUsuario;
+	private JTable tableCasilla;
+
 	/**
 	 * Create the frame.
 	 */
@@ -221,6 +229,24 @@ public class VentanaEditarFormulario extends JFrame {
 		lblNuevaCasilla_1.setBackground(new Color(60, 179, 113));
 		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
 		panelFormulario.add(lblNuevaCasilla_1);
+		
+		tableCasilla = new JTable();
+		tableCasilla.setBounds(427, 100, 187, 150);
+		panelFormulario.add(tableCasilla);
+		
+		JLabel lblCasillas = new JLabel("Casillas");
+		lblCasillas.setBounds(446, 80, 65, 14);
+		panelFormulario.add(lblCasillas);
+		
+		JButton btnRefrescarTabla = new JButton("Refrescar");
+		btnRefrescarTabla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				listarCasillasAsignadas(formulario);
+			}
+		});
+		btnRefrescarTabla.setBounds(525, 76, 89, 23);
+		panelFormulario.add(btnRefrescarTabla);
 
 	}
 	/*El metodo modificarFormulRio, llama al EJBLocator para localizar los Beans y 
@@ -260,5 +286,32 @@ public class VentanaEditarFormulario extends JFrame {
 			e1.printStackTrace();
 		}
 	
+	}
+	private void listarCasillasAsignadas(Formulario formulario) {
+		try {
+			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
+			List<Casilla> casillas = new ArrayList<>();
+			DefaultTableModel model = new DefaultTableModel();
+	
+			casillas = casillasBeanRemote.obtenerTodosPorFormulario(formulario.getNombreFormulario().toString());
+
+			String[] columnNames = {  "parametro", "descripcion", "unidadMedida", "tipoUnidad" };
+					
+			
+			tableCasilla.setModel(model);
+			
+			model.setColumnIdentifiers(columnNames);
+			for (Casilla casilla : casillas) {
+				Object[] fila = new Object[4];
+				fila[0] = casilla.getParametro();
+				fila[1] = casilla.getDescripcion();
+				fila[2] = casilla.getUnidadMedida();
+				fila[3] = casilla.getTipoUnidad();
+				model.addRow(fila);
+			}		
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
