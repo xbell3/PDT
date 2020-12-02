@@ -21,12 +21,17 @@ import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
+import com.cliente.VentanaInicio;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.FormulariosBeanRemote;
 import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
+
+import actividad.VentanaActividad;
+import usuario.VentanaUsuario;
+
 import java.awt.SystemColor;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
@@ -44,6 +49,7 @@ public class VentanaEditarFormulario extends JFrame {
 	private JTextField txtResumen;
 	private JTextField txtNombreDeFormulario;
 	private JTextField txtDescripcinDeFormulario;
+	public static JLabel lblNombreUsuario;
 	/**
 	 * Create the frame.
 	 */
@@ -57,6 +63,20 @@ public class VentanaEditarFormulario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaEditarFormulario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblIconUser;
+		lblIconUser = new JLabel("");
+		lblIconUser.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblIconUser.setBounds(10, 0, 37, 28);
+		contentPane.add(lblIconUser);
+		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),		UIManager.getColor("Button.shadow"), null, null));
@@ -64,30 +84,44 @@ public class VentanaEditarFormulario extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
-		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(368, 36, 46, 14);
-		panelUsuario.add(lblTipoUser);
-		
-		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(315, 11, 118, 14);
-		panelUsuario.add(lblNewLabel);
-		
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
 		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSalir.setForeground(new Color(0, 102, 0));
-		btnSalir.setBounds(541, 7, 60, 23);
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
 		panelUsuario.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
+
 		
-		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setBounds(443, 7, 88, 23);
-		panelUsuario.add(btnNewButton);
-		
-		JLabel lblNombreSistema = new JLabel("ARCD");
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
+		lblNombreSistema.setBounds(259, 4, 98, 86);
 		panelUsuario.add(lblNombreSistema);
 		
 		JLabel lblNewLabel_1 = new JLabel("");

@@ -21,12 +21,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import com.cliente.EJBLocator;
+import com.cliente.VentanaGeneral;
+import com.cliente.VentanaInicio;
 import com.entidades.Casilla;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
+
+import actividad.VentanaActividad;
+import usuario.VentanaUsuario;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButtonMenuItem;
@@ -48,6 +54,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 	private JTextField txtUnidadDeMedida;
 	private JTextField txtDescripcinDeCasilla;
 	private JTextField txtTipoDeValor_1;
+	public static JLabel lblNombreUsuario;
 	/**
 	 * Create the frame.
 	 */
@@ -66,6 +73,20 @@ public class VentanaRegistrarCasilla extends JFrame {
 		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaRegistrarCasilla.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblIconUser;
+		lblIconUser = new JLabel("");
+		lblIconUser.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblIconUser.setBounds(10, 0, 37, 28);
+		contentPane.add(lblIconUser);
 		
 		txtParametro = new JTextField();
 		txtParametro.setToolTipText("Ingrese par\u00E1metro");
@@ -197,36 +218,49 @@ public class VentanaRegistrarCasilla extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
-		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(382, 51, 46, 14);
-		panelUsuario.add(lblTipoUser);
-		
-		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(329, 26, 118, 14);
-		panelUsuario.add(lblNewLabel);
-		
-		JButton btnSalir = new JButton("Salir");
-		btnSalir.setForeground(new Color(0, 102, 0));
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
 		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSalir.setBounds(555, 22, 60, 23);
+		btnSalir.setForeground(new Color(0, 102, 0));
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
 		panelUsuario.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
 		
-		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBounds(457, 22, 88, 23);
-		panelUsuario.add(btnNewButton);
-		
-		JLabel lblNombreSistema = new JLabel("ARCD");
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
+		lblNombreSistema.setBounds(259, 4, 98, 86);
 		panelUsuario.add(lblNombreSistema);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaRegistrarCasilla.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_1.setBounds(-102, 0, 726, 90);
-		panelUsuario.add(lblNewLabel_1);
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblPortada);
 	}
 	private void crearCasilla(Formulario formulario) {
 

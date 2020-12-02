@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
+import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
 import com.entidades.Actividad;
 import com.entidades.Formulario;
@@ -33,6 +34,9 @@ import java.awt.Cursor;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
+import formulario.VentanaRegistrarFormulario;
+import usuario.VentanaUsuario;
+
 public class VentanaMuestreo extends JFrame {
 
 	private JPanel contentPane;
@@ -54,6 +58,7 @@ public class VentanaMuestreo extends JFrame {
 	private JLabel lblNuevaCasilla;
 	private JDateChooser dateChooserInicio = new JDateChooser();
 	private JDateChooser dateChooserFin = new JDateChooser();
+	public static JLabel lblNombreUsuario;
 
 
 	/**
@@ -70,6 +75,20 @@ public class VentanaMuestreo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaMuestreo.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblIconUser;
+		lblIconUser = new JLabel("");
+		lblIconUser.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblIconUser.setBounds(10, 0, 37, 28);
+		contentPane.add(lblIconUser);
 
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
@@ -80,15 +99,11 @@ public class VentanaMuestreo extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 
-		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(453, 45, 46, 14);
-		panelUsuario.add(lblTipoUser);
-
-		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(400, 20, 118, 14);
-		panelUsuario.add(lblNewLabel);
-
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
@@ -96,24 +111,38 @@ public class VentanaMuestreo extends JFrame {
 				ventanaInicio.setVisible(true);
 				dispose();
 			}
+
 		});
+		btnSalir.setBounds(556, 11, 55, 31);
+		panelUsuario.add(btnSalir);
 
-		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setBounds(528, 16, 88, 23);
-		panelUsuario.add(btnNewButton);
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
 
-		JLabel lblNombreSistema = new JLabel("ARCD");
+
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
+		lblNombreSistema.setBounds(259, 4, 98, 86);
 		panelUsuario.add(lblNombreSistema);
 
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_1.setBounds(-94, 0, 718, 90);
-		panelUsuario.add(lblNewLabel_1);
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblPortada);
 
 		JPanel panelActividad = new JPanel();
 		panelActividad.setToolTipText("Ingrese departamento");

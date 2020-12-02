@@ -34,6 +34,12 @@ public interface UsuariosBeanRemote {
 	List<Usuario> obtenerTodos(String filtro);
 
 	boolean registro(String nombreUsuario);
+	
+	public List<Usuario> obtenerTodosDesc();
+	
+	public List<Usuario> obtenerTodosAsc();
+	
+	boolean registroCedula(String nombreUsuario);
 
 
 }

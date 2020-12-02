@@ -12,11 +12,15 @@ import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
+import com.cliente.VentanaInicio;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.RolBeanRemote;
 import com.servicios.UsuariosBeanRemote;
+
+import actividad.VentanaActividad;
+import formulario.VentanaRegistrarFormulario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -55,6 +59,8 @@ public class VentanaEditarUsuario extends JFrame {
 	private JLabel lblNewLabel;
 	private JComboBox comboRol;
 	private JLabel lblModificacinDeUsuario;
+	public static JLabel lblNombreUsuario;
+	
 	public VentanaEditarUsuario(Usuario usuario) {
 		
 		setIconImage(Toolkit.getDefaultToolkit()
@@ -67,6 +73,30 @@ public class VentanaEditarUsuario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreSistema.setForeground(Color.WHITE);
+		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombreSistema.setBounds(259, 4, 98, 86);
+		contentPane.add(lblNombreSistema);
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaEditarUsuario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblNewLabel_1.setBounds(10, 0, 37, 28);
+		contentPane.add(lblNewLabel_1);
+		
+		
+		
 
 		comboRol = new JComboBox();
 		comboRol.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -252,17 +282,38 @@ public class VentanaEditarUsuario extends JFrame {
 		txtRol.setBackground(new Color(0, 102, 0));
 		txtRol.setBounds(336, 146, 196, 14);
 		contentPane.add(txtRol);
+		
 
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(-130, -70, 950, 168);
-		contentPane.add(lblNewLabel);
-		lblNewLabel.setBackground(new Color(0, 102, 0));
-		lblNewLabel.setIcon(new ImageIcon(VentanaEditarUsuario.class.getResource("/Imagenes/klipartz.com.png")));
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 102, 0));
-		panel.setBounds(0, 0, 624, 98);
-		contentPane.add(panel);
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
+		contentPane.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		contentPane.add(btnAyuda);
 		
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -292,6 +343,16 @@ public class VentanaEditarUsuario extends JFrame {
 		lblModificacinDeUsuario.setBackground(new Color(60, 179, 113));
 		lblModificacinDeUsuario.setBounds(0, 109, 624, 23);
 		contentPane.add(lblModificacinDeUsuario);
+		
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		contentPane.add(lblPortada);
+				
+						JPanel panel = new JPanel();
+						panel.setBackground(new Color(0, 102, 0));
+						panel.setBounds(0, 0, 624, 90);
+						contentPane.add(panel);
 
 	}
 	/* El siguiente metodo evaluarComboBox evalua el item seleccionado en el comboBox y establece

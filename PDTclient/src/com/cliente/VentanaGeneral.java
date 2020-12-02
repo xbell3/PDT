@@ -12,6 +12,7 @@ import com.servicios.RolBeanRemote;
 
 import actividad.VentanaActividad;
 import formulario.VentanaFormulario;
+import formulario.VentanaRegistrarFormulario;
 import usuario.VentanaUsuario;
 
 import javax.swing.JLabel;
@@ -48,6 +49,7 @@ public class VentanaGeneral extends JFrame {
 
 	public VentanaGeneral(Usuario usuario) {
 
+
 		/*
 		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
 		 * parametro declarado.
@@ -66,57 +68,70 @@ public class VentanaGeneral extends JFrame {
 		panelUsuario.setBackground(new Color(0, 100, 0));
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
 				UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBounds(0, 0, 624, 115);
+		panelUsuario.setBounds(0, 0, 624, 91);
 		contentPane.add(panelUsuario);
 		panelUsuario.setLayout(null);
 		
-				JButton btnSalir = new JButton("Salir");
-				btnSalir.setBounds(544, 11, 70, 20);
-				panelUsuario.add(btnSalir);
-				btnSalir.setForeground(new Color(0, 102, 0));
-				btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				btnSalir.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						VentanaInicio ventanaInicio = new VentanaInicio(usuario);
-						ventanaInicio.setLocation(400, 150);
-						ventanaInicio.setVisible(true);
-						dispose();
-					}
-				});
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreSistema.setForeground(Color.WHITE);
+		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombreSistema.setBounds(259, 4, 98, 86);
+		panelUsuario.add(lblNombreSistema);
 		
-				JButton btnAyuda = new JButton("Ayuda");
-				btnAyuda.setBounds(456, 11, 70, 20);
-				panelUsuario.add(btnAyuda);
-				btnAyuda.setForeground(new Color(0, 102, 0));
-				btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				btnAyuda.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		panelUsuario.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
-		lblNewLabel_1.setBounds(10, 74, 24, 39);
+		lblNewLabel_1.setBounds(10, 0, 37, 28);
 		panelUsuario.add(lblNewLabel_1);
-
-		JLabel lblTipoUser = new JLabel();
-		//VentanaGeneral.lblTipoUser.setText(VentanaInicio.nombreRol);
-		lblTipoUser.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblTipoUser.setForeground(new Color(255, 255, 255));
-		lblTipoUser.setBounds(10, 65, 100, 14);
-		panelUsuario.add(lblTipoUser);
-		lblTipoUser.setText("Rol");
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(-67, 0, 784, 113);
-		panelUsuario.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/klipartz.com.png")));
 		
-		lblNombreUsuario = new JLabel();
-		lblNombreUsuario.setBounds(35, 90, 119, 14);
-		panelUsuario.add(lblNombreUsuario);
-		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
+		panelUsuario.add(btnSalir);
+		
+		
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
+
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblPortada);
 		/*
 		 * Dividimos el panel, para tener una parte movil y otra estatica de esta
 		 * manera, por ejemplo el usuario va a poder visualiar parte de su informacion
@@ -126,7 +141,7 @@ public class VentanaGeneral extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204, 255, 204));
-		panel.setBounds(0, 111, 624, 371);
+		panel.setBounds(0, 90, 624, 392);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -212,6 +227,6 @@ public class VentanaGeneral extends JFrame {
 		 * sin tener que cerrarla por completo. De esta manera se mantiene el flujo de
 		 * la aplicacion.
 		 */
-		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+		
 	}
 }

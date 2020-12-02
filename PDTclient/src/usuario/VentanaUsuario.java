@@ -8,9 +8,12 @@ import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
 //import com.cliente.VentanaRegistrarUsuario;
-import com.cliente.VentanaInicio;
+//import com.cliente.VentanaInicio;
 import com.entidades.Usuario;
 import com.servicios.UsuariosBeanRemote;
+
+import actividad.VentanaActividad;
+import formulario.VentanaRegistrarFormulario;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
@@ -42,39 +45,109 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Cursor;
 import javax.swing.JTextPane;
+import javax.swing.DropMode;
+import javax.swing.DebugGraphics;
 
 public class VentanaUsuario extends JFrame {
 
+	public JPanel panelUsuario;
 	private JPanel contentPane;
 	private JTable tableUsuario;
 	private JTextField txtBusqueda;
 	public JComboBox combofiltro;
 	public String seleccionar = "";
 	private JFrame frame;
+	public static JLabel lblNombreUsuario;
  
 	public VentanaUsuario(Usuario usuario) {
-		setTitle("Usuarios");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaUsuario.class.getResource("/Imagenes/iAGRO_V04.png")));
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		/*
+		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
+		 * parametro declarado.
+		 */
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGeneral.class.getResource("/Imagenes/iAGRO_V04.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 520);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(204, 255, 204));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		panelUsuario = new JPanel();
+		panelUsuario.setForeground(new Color(255, 255, 255));
+		panelUsuario.setBackground(new Color(0, 100, 0));
+		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
+				UIManager.getColor("Button.shadow"), null, null));
+		panelUsuario.setBounds(0, 0, 624, 91);
+		contentPane.add(panelUsuario);
+		panelUsuario.setLayout(null);
+		
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreSistema.setForeground(Color.WHITE);
+		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombreSistema.setBounds(259, 4, 98, 86);
+		panelUsuario.add(lblNombreSistema);
+						
+						
+						lblNombreUsuario = new JLabel();
+						lblNombreUsuario.setBounds(32, 0, 211, 28);
+						panelUsuario.add(lblNombreUsuario);
+						lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+						lblNombreUsuario.setForeground(Color.WHITE);
+						
+						VentanaUsuario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+						JLabel lblNewLabel_1 = new JLabel("");
+						lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+						lblNewLabel_1.setBounds(10, 0, 37, 28);
+						panelUsuario.add(lblNewLabel_1);				
+				
+						
+								JButton btnSalir = new JButton("");
+								btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+								btnSalir.setToolTipText("Cambiar usuario");
+								btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+								btnSalir.setForeground(new Color(0, 102, 0));
+								btnSalir.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+										ventanaInicio.setLocation(400, 150);
+										ventanaInicio.setVisible(true);
+										dispose();
+									}
+
+								});
+								btnSalir.setBounds(556, 11, 55, 31);
+								panelUsuario.add(btnSalir);
+								
+										JButton btnAyuda = new JButton("");
+										btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+										btnAyuda.setToolTipText("Ayuda");
+										btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+										btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+										btnAyuda.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+											}
+										});
+										
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
+		
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblPortada);
+		
+		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		txtBusqueda = new JTextField();
 		txtBusqueda.setBounds(441, 130, 138, 20);
 		contentPane.add(txtBusqueda);
 		txtBusqueda.setColumns(10);
-
-		JPanel panelUsuario = new JPanel();
-		panelUsuario.setLayout(null);
-		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
-				UIManager.getColor("Button.shadow"), null, null));
-		panelUsuario.setBackground(new Color(0, 102, 0));
-		panelUsuario.setBounds(0, 0, 784, 92);
-		contentPane.add(panelUsuario);
 
 		JComboBox combofiltro = new JComboBox();
 		combofiltro.setForeground(new Color(0, 102, 0));
@@ -82,53 +155,8 @@ public class VentanaUsuario extends JFrame {
 		combofiltro.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Usuario", "Rol" }));
 		combofiltro.setBounds(353, 130, 81, 22);
 		contentPane.add(combofiltro);
-
-		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setForeground(new Color(255, 255, 255));
-		lblTipoUser.setBounds(10, 52, 46, 14);
-		panelUsuario.add(lblTipoUser);
-
-		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(37, 27, 118, 14);
-		panelUsuario.add(lblNewLabel);
-
-		JButton btnSalir = new JButton("Salir");
-		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSalir.setForeground(new Color(0, 102, 0));
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
-				ventanaInicio.setLocation(400, 150);
-				ventanaInicio.setVisible(true);
-				dispose();
-			}
-
-		});
-		btnSalir.setBounds(539, 16, 68, 17);
-		panelUsuario.add(btnSalir);
-
-		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-			
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setBounds(461, 16, 68, 17);
-		panelUsuario.add(btnNewButton);
-
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(10, 11, 55, 45);
-		panelUsuario.add(lblNewLabel_1);
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Usuario_gris.png")));
-
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_2.setBounds(-52, 0, 698, 90);
-		panelUsuario.add(lblNewLabel_2);
+		
+		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblTituloUsuario = new JLabel("Usuarios");
 		lblTituloUsuario.setForeground(new Color(0, 102, 0));
@@ -139,7 +167,16 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(lblTituloUsuario);
 
 		tableUsuario = new JTable();
-		tableUsuario.setModel(new DefaultTableModel());
+		tableUsuario.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), null, null, null));
+		tableUsuario.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		
+		
 		tableUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -214,6 +251,10 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(btnRegistrar);
 			
 				JButton btnRefrescar = new JButton("");
+				btnRefrescar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 				btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				btnRefrescar.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/refrescar4.png")));
 				btnRefrescar.addMouseListener(new MouseAdapter() {
@@ -248,6 +289,44 @@ public class VentanaUsuario extends JFrame {
 		txtpnNombreDeUsuario.setText("Nombre de Usuario         | Nombre                         | Apellido                          | Correo                           | Rol");
 		txtpnNombreDeUsuario.setBounds(10, 186, 604, 22);
 		contentPane.add(txtpnNombreDeUsuario);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 90, 624, 392);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		panel.setBackground(new Color(204, 255, 204));
+		
+		JButton btnordenarAsc_ = new JButton("");
+		btnordenarAsc_.setBounds(10, 82, 21, 14);
+		panel.add(btnordenarAsc_);
+		btnordenarAsc_.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Asc2.png")));
+		btnordenarAsc_.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnordenarAsc_.setForeground(new Color(0, 128, 0));
+		btnordenarAsc_.setToolTipText("");
+		
+		btnordenarAsc_.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				 orednarTablaDesc();
+			}
+		});
+		
+		
+		
+		JButton btnordenarDesc = new JButton("");
+		btnordenarDesc.setBounds(30, 82, 21, 14);
+		panel.add(btnordenarDesc);
+		btnordenarDesc.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Desc2.png")));
+		btnordenarDesc.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnordenarDesc.setForeground(new Color(0, 128, 0));
+		btnordenarDesc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				 orednarTablaAsc();
+			}
+		});
+		
+		
 	}
 	
 	
@@ -392,6 +471,70 @@ public class VentanaUsuario extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+
+	}
+	
+	private void orednarTablaDesc() {
+		try {
+			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			List<Usuario> usuarios = new ArrayList<>();
+
+			usuarios = usuariosBeanRemote.obtenerTodosAsc();
+
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableUsuario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Usuario usuario : usuarios) {
+				Object[] fila = new Object[6];
+				fila[0] = usuario.getNombreUsuario();
+				fila[1] = usuario.getNombre();
+				fila[2] = usuario.getApellido();
+				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
+				model.addRow(fila);
+			}
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+	}
+	private void orednarTablaAsc() {
+		try {
+			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
+			List<Usuario> usuarios = new ArrayList<>();
+
+			usuarios = usuariosBeanRemote.obtenerTodosDesc();
+
+			String[] columnNames = { "nombreUsuario", "Nombre", "Apellido", "Correo", "Rol" };
+			DefaultTableModel model = new DefaultTableModel();
+			tableUsuario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Usuario usuario : usuarios) {
+				Object[] fila = new Object[6];
+				fila[0] = usuario.getNombreUsuario();
+				fila[1] = usuario.getNombre();
+				fila[2] = usuario.getApellido();
+				fila[3] = usuario.getCorreo();
+				fila[4] = usuario.getRol().getNombreRol();
+				model.addRow(fila);
+			}
+
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 }
+

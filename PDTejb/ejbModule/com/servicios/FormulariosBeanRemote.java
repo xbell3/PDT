@@ -14,6 +14,10 @@ public interface FormulariosBeanRemote {
 	boolean registro(String nombreFormulario);
 
 	List<Formulario> obtenerTodos(String filtro);
+	
+	List<Formulario> obtenerTodosAsc();
+	
+	List<Formulario> obtenerTodosDesc();
 
 	List<Formulario> obtenerTodos();
 

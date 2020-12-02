@@ -65,8 +65,23 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	}
 
 	@Override
+	public List<Usuario> obtenerTodosAsc() {
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u ORDER BY u.nombreUsuario", Usuario.class);
+		//TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Usuario> obtenerTodosDesc() {
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u ORDER BY u.nombreUsuario DESC", Usuario.class);
+		//TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+		return query.getResultList();
+	}
+	
+	@Override
 	public List<Usuario> obtenerTodos() {
-		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u ORDER BY u.nombre", Usuario.class);
+		//TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
 		return query.getResultList();
 	}
 
@@ -155,6 +170,26 @@ public class UsuariosBean implements UsuariosBeanRemote {
 		}
 
 	}
+	
+	@Override
+	public boolean registroCedula(String cedula) {
+		try {
+			TypedQuery<Usuario> query = em.createQuery("SELECT m FROM Usuario m WHERE m.cedula = :cedula",
+					Usuario.class);
+			query.setParameter("cedula", cedula);
+			try {
+				Usuario m = query.getSingleResult();
+				return true;
+			} catch (javax.persistence.NoResultException e) {
+				return false;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
+	
 
 	@Override
 	public List<Usuario> obtenerTodos(String filtro) {

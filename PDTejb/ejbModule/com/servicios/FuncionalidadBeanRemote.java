@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import com.entidades.Formulario;
 import com.entidades.Funcionalidad;
+import com.entidades.Usuario;
 import com.exception.ServiciosException;
 
 @Remote
@@ -19,5 +21,7 @@ public interface FuncionalidadBeanRemote {
 	void actualizar(Funcionalidad f) throws ServiciosException;
 
 	void crear(Funcionalidad f) throws ServiciosException;
+	
+
 
 }

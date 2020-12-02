@@ -14,10 +14,14 @@ import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
+import com.cliente.VentanaInicio;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.UsuariosBeanRemote;
+
+import actividad.VentanaActividad;
+import formulario.VentanaRegistrarFormulario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -63,6 +67,7 @@ public class VentanaRegistrarUsuario extends JFrame {
 	private JLabel lblNewLabel;
 	private JComboBox comboRol;
 	private JLabel lblRegistroDeUsuario;
+	public static JLabel lblNombreUsuario;
 
 
 	public VentanaRegistrarUsuario(Usuario usuario) {
@@ -80,6 +85,14 @@ public class VentanaRegistrarUsuario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreSistema.setForeground(Color.WHITE);
+		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombreSistema.setBounds(259, 4, 98, 86);
+		contentPane.add(lblNombreSistema);
 
 		comboRol = new JComboBox();
 		comboRol.addActionListener(new ActionListener() {
@@ -139,6 +152,51 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtContrasena.setColumns(10);
 		txtContrasena.setBounds(33, 352, 196, 26);
 		contentPane.add(txtContrasena);
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaRegistrarUsuario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblNewLabel_1.setBounds(10, 0, 37, 28);
+		contentPane.add(lblNewLabel_1);
+		
+
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
+		contentPane.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		contentPane.add(btnAyuda);
 
 		JButton btnRegistrarme = new JButton("Registrar");
 		btnRegistrarme.setBackground(new Color(34, 139, 34));
@@ -315,15 +373,14 @@ public class VentanaRegistrarUsuario extends JFrame {
 		txtRol.setBounds(331, 165, 196, 14);
 		contentPane.add(txtRol);
 
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(-130, -70, 950, 168);
-		contentPane.add(lblNewLabel);
-		lblNewLabel.setBackground(new Color(0, 102, 0));
-		lblNewLabel.setIcon(new ImageIcon(VentanaRegistrarUsuario.class.getResource("/Imagenes/klipartz.com.png")));
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		contentPane.add(lblPortada);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 102, 0));
-		panel.setBounds(0, 0, 624, 98);
+		panel.setBounds(0, 0, 624, 90);
 		contentPane.add(panel);
 		
 		lblRegistroDeUsuario = new JLabel("Registro de usuario");
@@ -463,7 +520,10 @@ public class VentanaRegistrarUsuario extends JFrame {
 				 */
 				return;
 				
-			} else if (contieneNumeros(txtNombreUsuario.getText()) || txtNombreUsuario.getText().length() < 8) {
+			} 
+			
+			
+			else if (contieneNumeros(txtNombreUsuario.getText()) || txtNombreUsuario.getText().length() < 8) {
 				
 				JOptionPane.showMessageDialog(frame, "El nombre de usuario debe contener al menos 8 caracteres no numéricos",
 						"Nombre de usuario incorrecto!", JOptionPane.ERROR_MESSAGE);
@@ -477,6 +537,12 @@ public class VentanaRegistrarUsuario extends JFrame {
 				 */
 				JOptionPane.showMessageDialog(frame, "Cedula identidad incorrecta. Debe contener 8 caracteres.",
 						"Cedula incorrecta!", JOptionPane.ERROR_MESSAGE);
+				return;
+				
+			} else if (usuariosBeanRemote.registroCedula(txtCedula.getText())) {
+				JOptionPane.showMessageDialog(frame, "La cédula de identidad ya se encuentra en uso. Intente Nuevamente",
+						"Cédula de identidad en uso!", JOptionPane.ERROR_MESSAGE);
+				
 				return;
 				
 			} else if (contieneNumeros(txtNombre.getText()) || contieneNumeros(txtApellido.getText())) {

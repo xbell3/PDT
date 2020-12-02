@@ -12,11 +12,16 @@ import javax.swing.border.SoftBevelBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
+import com.cliente.VentanaInicio;
 import com.entidades.Formulario;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.FormulariosBeanRemote;
 import com.servicios.UsuariosBeanRemote;
+
+import actividad.VentanaActividad;
+import usuario.VentanaEditarUsuario;
+import usuario.VentanaUsuario;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
@@ -29,6 +34,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
@@ -40,6 +46,8 @@ public class VentanaRegistrarFormulario extends JFrame {
 	public JFrame frame;
 	private JTextField txtNombreDeFormulario;
 	private JTextField txtDescripcinDeFormulario;
+	public static JLabel lblNombreUsuario;
+	private JLabel lblIconUser;
 	/**
 	 * Create the frame.
 	 */
@@ -59,6 +67,22 @@ public class VentanaRegistrarFormulario extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaRegistrarFormulario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblIconUser;
+		lblIconUser = new JLabel("");
+		lblIconUser.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblIconUser.setBounds(10, 0, 37, 28);
+		contentPane.add(lblIconUser);
+		
+	
+		
 		txtNombreFormulario = new JTextField();
 		txtNombreFormulario.setToolTipText("Ingrese nombre de formulario");
 		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -69,7 +93,7 @@ public class VentanaRegistrarFormulario extends JFrame {
 		
 		txtResumen = new JTextField();
 		txtResumen.setToolTipText("Ingrese una descripic\u00F3n del formulario a crear");
-		txtResumen.setHorizontalAlignment(SwingConstants.CENTER);
+		txtResumen.setHorizontalAlignment(SwingConstants.LEFT);
 		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResumen.setColumns(10);
 		txtResumen.setBounds(43, 160, 462, 94);
@@ -161,6 +185,8 @@ public class VentanaRegistrarFormulario extends JFrame {
 		lblNuevoFormulario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNuevoFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
+		
+		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
@@ -169,27 +195,49 @@ public class VentanaRegistrarFormulario extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
-		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(340, 41, 46, 14);
-		panelUsuario.add(lblTipoUser);
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreSistema.setForeground(Color.WHITE);
+		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNombreSistema.setBounds(259, 4, 98, 86);
+		panelUsuario.add(lblNombreSistema);
 		
-		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(287, 16, 118, 14);
-		panelUsuario.add(lblNewLabel);
-		
-		JButton btnSalir = new JButton("Salir");
+
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSalir.setForeground(new Color(0, 102, 0));
-		btnSalir.setBounds(542, 26, 60, 23);
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
 		panelUsuario.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
 		
-		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setBounds(444, 26, 88, 23);
-		panelUsuario.add(btnNewButton);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_1.setBounds(-112, 0, 736, 90);
-		panelUsuario.add(lblNewLabel_1);
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblPortada);
 	}
 }

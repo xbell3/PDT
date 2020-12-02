@@ -14,7 +14,9 @@ import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
+import actividad.VentanaActividad;
 import usuario.VentanaEditarUsuario;
+import usuario.VentanaUsuario;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -47,6 +49,7 @@ public class VentanaFormulario extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtBusqueda;
 	private JTable tableFormulario;
+	public static JLabel lblNombreUsuario;
 
 	public VentanaFormulario(Usuario usuario) {
 		setTitle("Crear Formulario");
@@ -63,6 +66,50 @@ public class VentanaFormulario extends JFrame {
 		panelFormulario.setBounds(0, 90, 624, 392);
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
+		
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		contentPane.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
+		
+		VentanaFormulario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblIconUser;
+		lblIconUser = new JLabel("");
+		lblIconUser.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblIconUser.setBounds(10, 0, 37, 28);
+		contentPane.add(lblIconUser);
+		
+		JButton btnordenarAsc_ = new JButton("");
+		btnordenarAsc_.setBounds(10, 86, 21, 14);
+		panelFormulario.add(btnordenarAsc_);
+		btnordenarAsc_.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Asc2.png")));
+		btnordenarAsc_.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnordenarAsc_.setForeground(new Color(0, 128, 0));
+		btnordenarAsc_.setToolTipText("");
+		
+		btnordenarAsc_.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cargarFormulariosAsc();
+			}
+		});
+		
+		
+		
+		JButton btnordenarDesc = new JButton("");
+		btnordenarDesc.setBounds(30, 86, 21, 14);
+		panelFormulario.add(btnordenarDesc);
+		btnordenarDesc.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Desc2.png")));
+		btnordenarDesc.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnordenarDesc.setForeground(new Color(0, 128, 0));
+		btnordenarDesc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cargarFormulariosDes();
+			}
+		});
 		
 		JButton btnCrearFormulario = new JButton("Crear formulario");
 		btnCrearFormulario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -134,6 +181,7 @@ public class VentanaFormulario extends JFrame {
 		panelFormulario.add(btnVolver);
 		
 		tableFormulario = new JTable();
+		tableFormulario.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), null, null, null));
 		tableFormulario.setModel(new DefaultTableModel());
 		tableFormulario.addMouseListener(new MouseAdapter() {
 			@Override
@@ -197,15 +245,10 @@ public class VentanaFormulario extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 89);
 		contentPane.add(panelUsuario);
 		
-		JLabel lblTipoUser = new JLabel("TipoUser");
-		lblTipoUser.setBounds(382, 45, 46, 14);
-		panelUsuario.add(lblTipoUser);
-		
-		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
-		lblNewLabel.setBounds(329, 20, 118, 14);
-		panelUsuario.add(lblNewLabel);
-		
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -214,25 +257,38 @@ public class VentanaFormulario extends JFrame {
 				ventanaInicio.setVisible(true);
 				dispose();
 			}
+
 		});
-		btnSalir.setBounds(555, 16, 60, 23);
+		btnSalir.setBounds(556, 11, 55, 31);
 		panelUsuario.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+			
+		btnAyuda.setForeground(new Color(0, 102, 0));
+		btnAyuda.setBounds(574, 52, 37, 25);
+		panelUsuario.add(btnAyuda);
+
 		
-		JButton btnNewButton = new JButton("Ayuda");
-		btnNewButton.setForeground(new Color(0, 102, 0));
-		btnNewButton.setBounds(457, 16, 88, 23);
-		panelUsuario.add(btnNewButton);
-		
-		JLabel lblNombreSistema = new JLabel("ARCD");
+		JLabel lblNombreSistema = new JLabel("");
+		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
+		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(10, 16, 152, 34);
+		lblNombreSistema.setBounds(259, 4, 98, 86);
 		panelUsuario.add(lblNombreSistema);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaFormulario.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_1.setBounds(-98, 0, 722, 86);
-		panelUsuario.add(lblNewLabel_1);
+		JLabel lblPortada = new JLabel("");
+		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
+		lblPortada.setBounds(-112, 0, 736, 90);
+		panelUsuario.add(lblPortada);
 		
 	}
 	private void cargarCasillas() {
@@ -269,6 +325,56 @@ public class VentanaFormulario extends JFrame {
 			List<Formulario> formularios = new ArrayList<>();
 	
 			formularios = formulariosBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
+
+			String[] columnNames = {"nombreFormulario","resumen"};
+			DefaultTableModel model = new DefaultTableModel();
+			tableFormulario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Formulario formulario : formularios) {
+				Object[] fila = new Object[2];
+				fila[0] = formulario.getNombreFormulario();
+				fila[1] = formulario.getResumen();
+				
+				model.addRow(fila);
+			}		
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void cargarFormulariosDes() {
+		try {
+			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
+			List<Formulario> formularios = new ArrayList<>();
+	
+			formularios = formulariosBeanRemote.obtenerTodosDesc();
+
+			String[] columnNames = {"nombreFormulario","resumen"};
+			DefaultTableModel model = new DefaultTableModel();
+			tableFormulario.setModel(model);
+
+			model.setColumnIdentifiers(columnNames);
+			for (Formulario formulario : formularios) {
+				Object[] fila = new Object[2];
+				fila[0] = formulario.getNombreFormulario();
+				fila[1] = formulario.getResumen();
+				
+				model.addRow(fila);
+			}		
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void cargarFormulariosAsc() {
+		try {
+			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);
+			List<Formulario> formularios = new ArrayList<>();
+	
+			formularios = formulariosBeanRemote.obtenerTodosAsc();
 
 			String[] columnNames = {"nombreFormulario","resumen"};
 			DefaultTableModel model = new DefaultTableModel();

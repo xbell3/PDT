@@ -60,6 +60,19 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		}
 
 	}
+	
+	@Override
+	public List<Formulario> obtenerTodosAsc() {
+		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f ORDER BY f.nombreFormulario", Formulario.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Formulario> obtenerTodosDesc() {
+		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f ORDER BY f.nombreFormulario DESC", Formulario.class);
+		return query.getResultList();
+	}
+	
 	@Override
 	public List<Formulario> obtenerTodos() {
 		TypedQuery<Formulario> query = em.createQuery("SELECT f FROM Formulario f", Formulario.class);
