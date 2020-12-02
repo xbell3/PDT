@@ -1,5 +1,7 @@
 package com.servicios;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -63,9 +65,9 @@ public class ActividadesBean implements ActividadesBeanRemote {
 	}
 
 	@Override
-	public List<Actividad> obtenerRangoFechas(GregorianCalendar startFecha, GregorianCalendar endFecha) {
+	public List<Actividad> obtenerRangoFechas(Date startFecha, Date endFecha) {
 		TypedQuery<Actividad> query = em
-				.createQuery("SELECT e FROM Actividad e WHERE e.fechaInicio BETWEEN :fechaInicio AND :fechaFin ORDERBY departamento",
+				.createQuery("SELECT e FROM Actividad e WHERE e.fechaInicio BETWEEN :fechaInicio AND :fechaFin",
 						Actividad.class)
 				.setParameter("fechaInicio", startFecha, TemporalType.TIMESTAMP)
 				.setParameter("fechaFin", endFecha, TemporalType.TIMESTAMP);

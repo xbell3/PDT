@@ -17,7 +17,6 @@ import com.servicios.ActividadesBeanRemote;
 import com.servicios.UsuariosBeanRemote;
 
 import usuario.VentanaEditarUsuario;
-import usuario.VentanaUsuario;
 
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -42,14 +41,14 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.awt.Cursor;
 import javax.swing.JTextPane;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
-
-import formulario.VentanaRegistrarFormulario;
 
 public class VentanaRegistroActividad extends JFrame {
 
@@ -58,7 +57,8 @@ public class VentanaRegistroActividad extends JFrame {
 	private JTextField txtBusquedaActividad;
 	private JDateChooser dateChooserFin = new JDateChooser();
 	private JDateChooser dateChooserInicio = new JDateChooser();
-	public static JLabel lblNombreUsuario;
+	private Date dateInicio;
+	private Date dateFin;
 
 	/**
 	 * Create the frame.
@@ -73,20 +73,6 @@ public class VentanaRegistroActividad extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblNombreUsuario = new JLabel();
-		lblNombreUsuario.setBounds(32, 0, 211, 28);
-		contentPane.add(lblNombreUsuario);
-		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNombreUsuario.setForeground(Color.WHITE);
-		
-		VentanaRegistroActividad.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
-
-		JLabel lblIconUser;
-		lblIconUser = new JLabel("");
-		lblIconUser.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
-		lblIconUser.setBounds(10, 0, 37, 28);
-		contentPane.add(lblIconUser);
-		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"),
@@ -96,11 +82,15 @@ public class VentanaRegistroActividad extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
 		
-		JButton btnSalir = new JButton("");
-		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
-		btnSalir.setToolTipText("Cambiar usuario");
-		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSalir.setForeground(new Color(0, 102, 0));
+		JLabel lblTipoUser = new JLabel("TipoUser");
+		lblTipoUser.setBounds(453, 45, 46, 14);
+		panelUsuario.add(lblTipoUser);
+		
+		JLabel lblNewLabel = new JLabel("(Nombre del usuario)");
+		lblNewLabel.setBounds(400, 20, 118, 14);
+		panelUsuario.add(lblNewLabel);
+		
+		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
@@ -108,37 +98,23 @@ public class VentanaRegistroActividad extends JFrame {
 				ventanaInicio.setVisible(true);
 				dispose();
 			}
-
 		});
-		btnSalir.setBounds(556, 11, 55, 31);
-		panelUsuario.add(btnSalir);
-
-		JButton btnAyuda = new JButton("");
-		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
-		btnAyuda.setToolTipText("Ayuda");
-		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAyuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-			
-		btnAyuda.setForeground(new Color(0, 102, 0));
-		btnAyuda.setBounds(574, 52, 37, 25);
-		panelUsuario.add(btnAyuda);
-
-		JLabel lblNombreSistema = new JLabel("");
-		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
-		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JButton btnNewButton = new JButton("Ayuda");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnNewButton.setForeground(new Color(0, 102, 0));
+		btnNewButton.setBounds(537, 16, 79, 23);
+		panelUsuario.add(btnNewButton);
+		
+		JLabel lblNombreSistema = new JLabel("ARDC");
 		lblNombreSistema.setForeground(Color.WHITE);
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombreSistema.setBounds(259, 4, 98, 86);
+		lblNombreSistema.setBounds(10, 16, 54, 34);
 		panelUsuario.add(lblNombreSistema);
 		
-		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
-		lblNewLabel_1.setBounds(-112, 0, 736, 90);
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/klipartz.com.png")));
+		lblNewLabel_1.setBounds(-70, 0, 718, 90);
 		panelUsuario.add(lblNewLabel_1);
 		
 		JPanel panelActividad = new JPanel();
@@ -150,7 +126,7 @@ public class VentanaRegistroActividad extends JFrame {
 		JComboBox combofiltro = new JComboBox();
 		combofiltro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		combofiltro.setForeground(new Color(0, 102, 0));
-		combofiltro.setModel(new DefaultComboBoxModel(new String[] {"Rago de fechas", "Estacion de muestreo", "Usuario Experto"}));
+		combofiltro.setModel(new DefaultComboBoxModel(new String[] {"Rango de fechas", "Estacion de muestreo", "Usuario Experto"}));
 		combofiltro.setBounds(246, 70, 129, 22);
 		panelActividad.add(combofiltro);
 		
@@ -162,7 +138,6 @@ public class VentanaRegistroActividad extends JFrame {
 		panelActividad.add(lblFiltroActividad);
 		
 		tableActividad = new JTable();
-		tableActividad.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), null, null, null));
 		tableActividad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -212,7 +187,7 @@ public class VentanaRegistroActividad extends JFrame {
 					cargarActividadEstacion();
 				} else if (combofiltro.getSelectedItem() == "Usuario Experto") {
 					cargarActividadUsuario();
-				} else if (combofiltro.getSelectedItem() == "Rago de fechas") {
+				} else if (combofiltro.getSelectedItem() == "Rango de fechas") {
 					cargarActividadRangoFecha();
 				}
 			}
@@ -274,6 +249,8 @@ public class VentanaRegistroActividad extends JFrame {
 		
 		dateChooserFin.setBounds(246, 134, 70, 20);
 		panelActividad.add(dateChooserFin);
+		
+
 		
 		JLabel lblFechaInicio = new JLabel("Fecha Inicio");
 		lblFechaInicio.setBounds(170, 110, 66, 14);
@@ -347,8 +324,8 @@ public class VentanaRegistroActividad extends JFrame {
 		try {
 			ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
 			List<Actividad> actividades = new ArrayList<>();
-
-			actividades = actividadesBeanRemote.obtenerRangoFechas((GregorianCalendar)dateChooserInicio.getCalendar(), (GregorianCalendar)dateChooserFin.getCalendar());
+			
+			actividades = actividadesBeanRemote.obtenerRangoFechas(dateChooserInicio.getDate(), dateChooserFin.getDate());
 
 			String[] columnNames = { "Estacion de Muestreo", "Metodo de muestreo", "Nombre de usuario", "Departamento","Fecha Inicio", "Fecha fin" };
 			DefaultTableModel model = new DefaultTableModel();

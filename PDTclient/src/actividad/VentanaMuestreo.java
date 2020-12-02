@@ -2,23 +2,30 @@ package actividad;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import com.cliente.EJBLocator;
 import com.cliente.VentanaGeneral;
 import com.cliente.VentanaInicio;
 import com.entidades.Actividad;
+import com.entidades.Casilla;
 import com.entidades.Formulario;
 import com.entidades.Rol;
 import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.ActividadesBeanRemote;
+import com.servicios.CasillasBeanRemote;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
@@ -59,7 +66,9 @@ public class VentanaMuestreo extends JFrame {
 	private JDateChooser dateChooserInicio = new JDateChooser();
 	private JDateChooser dateChooserFin = new JDateChooser();
 	public static JLabel lblNombreUsuario;
-
+	private JTable tableCasilla;
+	private Date dateInicio;
+	private Date dateFin;
 
 	/**
 	 * Create the frame.
@@ -342,6 +351,23 @@ public class VentanaMuestreo extends JFrame {
 		
 		dateChooserFin.setBounds(357, 291, 72, 20);
 		panelActividad.add(dateChooserFin);
+		
+//		tableCasilla = new JTable();
+//		tableCasilla.setBounds(358, 213, 241, 141);
+//		panelActividad.add(tableCasilla);
+//		
+//		JButton btnRefrescarTabla = new JButton("Refrescar");
+//		btnRefrescarTabla.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				listarCasillasAsignada(formulario);
+//			}
+//		});
+//		btnRefrescarTabla.setBounds(510, 183, 89, 23);
+//		panelActividad.add(btnRefrescarTabla);
+//		
+//		JLabel lblCasillas = new JLabel("Casillas");
+//		lblCasillas.setBounds(377, 193, 65, 14);
+//		panelActividad.add(lblCasillas);
 
 	}
 
@@ -355,8 +381,8 @@ public class VentanaMuestreo extends JFrame {
 		ActividadesBeanRemote actividadesBeanRemote;
 		Actividad actividad = new Actividad();
 		Rol rol = new Rol();
-		actividad.setFechaInicio((GregorianCalendar)dateChooserInicio.getCalendar());
-		actividad.setFechaFin((GregorianCalendar) dateChooserFin.getCalendar());
+		actividad.setFechaInicio(dateChooserInicio.getDate());
+		actividad.setFechaFin(dateChooserFin.getDate());
 		actividad.setMetodoMuestreo(txtMetodoMuestreo.getText());
 		actividad.setEstacionMuestreo(txtEstacionMuestreo.getText());
 		actividad.setNombreFormulario(txtFormulario.getText());
@@ -372,5 +398,34 @@ public class VentanaMuestreo extends JFrame {
 			e.printStackTrace();
 		}
 
+	}
+	private void listarCasillasAsignada(Formulario formulario) {
+		try {
+			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
+			List<Casilla> casillas = new ArrayList<>();
+			DefaultTableModel model = new DefaultTableModel();
+	
+			casillas = casillasBeanRemote.obtenerTodosPorFormulario(formulario.getNombreFormulario().toString());
+
+			String[] columnNames = {  "parametro", "descripcion", "unidadMedida", "tipoUnidad" };
+					
+			
+			tableCasilla.setModel(model);
+			
+			model.setColumnIdentifiers(columnNames);
+			for (Casilla casilla : casillas) {
+				Object[] fila = new Object[4];
+				fila[0] = casilla.getParametro();
+				fila[1] = casilla.getDescripcion();
+				fila[2] = casilla.getUnidadMedida();
+				fila[3] = casilla.getTipoUnidad();
+				model.addRow(fila);
+			}		
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
 	}
 }

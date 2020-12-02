@@ -189,19 +189,19 @@ public class VentanaEditarActividad extends JFrame {
 		panelActividad.add(btnInicio);
 
 		txtDepartamento = new JTextField();
-	//	txtDepartamento.setText(actividad.getDepartamento());
+		txtDepartamento.setText(actividad.getDepartamento());
 		txtDepartamento.setColumns(10);
 		txtDepartamento.setBounds(182, 299, 129, 20);
 		panelActividad.add(txtDepartamento);
 
 		txtEstacionMuestreo = new JTextField();
-	//	txtEstacionMuestreo.setText(actividad.getEstacionMuestreo());
+		txtEstacionMuestreo.setText(actividad.getEstacionMuestreo());
 		txtEstacionMuestreo.setColumns(10);
 		txtEstacionMuestreo.setBounds(344, 244, 130, 20);
 		panelActividad.add(txtEstacionMuestreo);
 
 		txtMetodoMuestreo = new JTextField();
-	//	txtMetodoMuestreo.setText(actividad.getMetodoMuestreo());
+		txtMetodoMuestreo.setText(actividad.getMetodoMuestreo());
 		txtMetodoMuestreo.setColumns(10);
 		txtMetodoMuestreo.setBounds(20, 299, 130, 20);
 		panelActividad.add(txtMetodoMuestreo);
@@ -340,8 +340,8 @@ public class VentanaEditarActividad extends JFrame {
 		 */
 		ActividadesBeanRemote actividadesBeanRemote;
 		Rol rol = new Rol();
-		actividad.setFechaInicio((GregorianCalendar)dateChooserInicio.getCalendar());
-		actividad.setFechaFin((GregorianCalendar)dateChooserFin.getCalendar());
+		actividad.setFechaInicio(dateChooserInicio.getDate());
+		actividad.setFechaFin(dateChooserFin.getDate());
 		actividad.setMetodoMuestreo(txtMetodoMuestreo.getText());
 		actividad.setEstacionMuestreo(txtEstacionMuestreo.getText());
 		actividad.setNombreFormulario(txtFormulario.getText());

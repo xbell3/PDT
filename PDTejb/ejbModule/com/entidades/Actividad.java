@@ -26,11 +26,11 @@ public class Actividad implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idActividad;
 	
-	@Column(length = 20)
-	private GregorianCalendar fechaInicio;
+	@Column(length = 50)
+	private Date fechaInicio;
 	
-	@Column(length = 20)
-	private GregorianCalendar fechaFin;
+	@Column(length = 50)
+	private Date fechaFin;
 	
 	@Column(length = 40)
 	private String nombreFormulario;
@@ -51,37 +51,6 @@ public class Actividad implements Serializable {
 	@JoinColumn(name = "rolUsuario")
 	private Rol rol;
 
-	@Column(length = 40)
-	private String casilla1;
-	
-	@Column(length = 40)
-	private String casilla2;
-
-	@Column(length = 40)
-	private String casilla3;
-
-	@Column(length = 40)
-	private String casilla4;
-
-	@Column(length = 40)
-	private String casilla5;
-
-	@Column(length = 40)
-	private String casilla6;
-
-	@Column(length = 40)
-	private String casilla7;
-
-	@Column(length = 40)
-	private String casilla8;
-
-	@Column(length = 40)
-	private String casilla9;
-
-	@Column(length = 40)
-	private String casilla10;
-
-
 	public Long getIdActividad() {
 		return idActividad;
 	}
@@ -90,19 +59,20 @@ public class Actividad implements Serializable {
 		this.idActividad = idActividad;
 	}
 
-	public GregorianCalendar getFechaInicio() {
+	
+	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(GregorianCalendar fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public GregorianCalendar getFechaFin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(GregorianCalendar fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
