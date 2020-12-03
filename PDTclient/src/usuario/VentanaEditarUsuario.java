@@ -151,7 +151,6 @@ public class VentanaEditarUsuario extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				Usuario usuario = new Usuario();
 				modificarUsuario(usuario);
 				
 			}
@@ -470,13 +469,11 @@ public class VentanaEditarUsuario extends JFrame {
 				 * no se encuentre en la base de datos ya registrado, de esta manera evitaremos
 				 * que los usuarios no accedan a cuentas agenas.*/
 			} else {
-				usuariosBeanRemote.crear(usuario);
+				usuariosBeanRemote.actualizar(usuario);
 
 				JOptionPane.showMessageDialog(frame, "El Usuario ha sido modificado con éxito.",
 						"Usuario modificado!", JOptionPane.INFORMATION_MESSAGE);
-				VentanaGeneral ventanaGeneral = new VentanaGeneral(usuario);
-				ventanaGeneral.setVisible(true);
-				ventanaGeneral.setLocation(400, 150);
+				
 				dispose();
 			}
 
