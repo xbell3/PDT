@@ -81,7 +81,7 @@ public class VentanaEditarCasilla extends JFrame {
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
 		
-		VentanaRegistrarCasilla.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+		VentanaEditarCasilla.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
 		lblIconUser = new JLabel("");
