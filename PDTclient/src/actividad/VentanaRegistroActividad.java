@@ -54,18 +54,20 @@ import com.toedter.calendar.JDateChooser;
 import formulario.VentanaRegistrarFormulario;
 
 public class VentanaRegistroActividad extends JFrame {
+	
+	//Declaramos los componentes o parametros.
 
 	private JPanel contentPane;
 	private JTable tableActividad;
 	private JTextField txtBusquedaActividad;
 	private JDateChooser dateChooserFin = new JDateChooser();
 	private JDateChooser dateChooserInicio = new JDateChooser();
-	private Date dateInicio;
-	private Date dateFin;
 	public static JLabel lblNombreUsuario;
 
 	/**
-	 * Create the frame.
+	 * VentanaRegistroActividad nos brindara las herramientas para 
+	 * listar las actividades realizadas por el usuario segun el filtro 
+	 * que se indique.
 	 */
 	public VentanaRegistroActividad(Usuario usuario) {
 		setTitle("Actividad de campo");
@@ -77,12 +79,14 @@ public class VentanaRegistroActividad extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		/*El siguiente label lblNombreUsuario obtiene el nombre de usuario
+		 * del usuario logeado.
+		 * */
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(32, 0, 211, 28);
 		contentPane.add(lblNombreUsuario);
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
-		
 		VentanaIniciarActividad.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
@@ -99,7 +103,6 @@ public class VentanaRegistroActividad extends JFrame {
 		panelUsuario.setBackground(new Color(0, 102, 0));
 		panelUsuario.setBounds(0, 0, 624, 90);
 		contentPane.add(panelUsuario);
-		
 		VentanaRegistroActividad.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 	
@@ -112,7 +115,7 @@ public class VentanaRegistroActividad extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();
@@ -161,6 +164,8 @@ public class VentanaRegistroActividad extends JFrame {
 		lblFiltroActividad.setBounds(203, 74, 39, 14);
 		panelActividad.add(lblFiltroActividad);
 		
+		/*tableActividad es la tabla donde las actividades seran cargados 
+		 * con el metodo correspondientes a cada filtro indicado */
 		tableActividad = new JTable();
 		tableActividad.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), null, null, null));
 		tableActividad.addMouseListener(new MouseAdapter() {
@@ -220,11 +225,15 @@ public class VentanaRegistroActividad extends JFrame {
 		btnBuscarActividad.setBounds(385, 70, 72, 23);
 		panelActividad.add(btnBuscarActividad);
 		
+		/*txtBusquedaActividad es el campo de texto que utilizaremos 
+		 * para algunos de los filtros*/
 		txtBusquedaActividad = new JTextField();
 		txtBusquedaActividad.setColumns(10);
 		txtBusquedaActividad.setBounds(467, 71, 103, 20);
 		panelActividad.add(txtBusquedaActividad);
 		
+		/*El boton refrescar esta en desuso por el momento, pero
+		 * el objetivo de este era el de listar todas las actividades*/
 		JButton btnRefrescar = new JButton("");
 		btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRefrescar.setIcon(new ImageIcon(VentanaRegistroActividad.class.getResource("/Imagenes/refrescar4.png")));
@@ -291,6 +300,9 @@ public class VentanaRegistroActividad extends JFrame {
 			
 		
 	}
+	/*cargarActividadEstacion() es el metodo que usamos para listar 
+	 * las actividades segun estacion de muestreo. La estacion de muestreo 
+	 * sera indicada en el campo de texto.*/
 	private void cargarActividadEstacion() {
 		try {
 			ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
@@ -319,7 +331,9 @@ public class VentanaRegistroActividad extends JFrame {
 
 	
 		
-	}
+	}/*cargarActividadUsuario() es el metodo que usamos para listar 
+	 * las actividades segun el usuario experto que la realizo.El usuario
+	 * sera indicado en el campo de texto.*/
 	private void cargarActividadUsuario() {
 		try {
 			ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);
@@ -349,6 +363,9 @@ public class VentanaRegistroActividad extends JFrame {
 	
 		
 	}
+	/*cargarActividadRangoFecha() es el metodo que usamos para listar 
+	 * las actividades segun un rango de fecha elegido. El rango de fechas
+	 * sera indicado en los calendarios fechainicio y fechafin.*/
 	private void cargarActividadRangoFecha() {
 		try {
 			ActividadesBeanRemote actividadesBeanRemote = EJBLocator.getInstance().lookup(ActividadesBeanRemote.class);

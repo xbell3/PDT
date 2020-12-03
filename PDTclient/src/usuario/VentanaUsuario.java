@@ -58,7 +58,7 @@ public class VentanaUsuario extends JFrame {
 	public String seleccionar = "";
 	private JFrame frame;
 	public static JLabel lblNombreUsuario;
- 
+
 	public VentanaUsuario(Usuario usuario) {
 
 		/*
@@ -82,7 +82,7 @@ public class VentanaUsuario extends JFrame {
 		panelUsuario.setBounds(0, 0, 624, 91);
 		contentPane.add(panelUsuario);
 		panelUsuario.setLayout(null);
-		
+
 		JLabel lblNombreSistema = new JLabel("");
 		lblNombreSistema.setIcon(new ImageIcon(VentanaActividad.class.getResource("/Imagenes/iconoApp3.png")));
 		lblNombreSistema.setHorizontalAlignment(SwingConstants.CENTER);
@@ -90,58 +90,56 @@ public class VentanaUsuario extends JFrame {
 		lblNombreSistema.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNombreSistema.setBounds(259, 4, 98, 86);
 		panelUsuario.add(lblNombreSistema);
-						
-						
-						lblNombreUsuario = new JLabel();
-						lblNombreUsuario.setBounds(32, 0, 211, 28);
-						panelUsuario.add(lblNombreUsuario);
-						lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
-						lblNombreUsuario.setForeground(Color.WHITE);
-						
-						VentanaUsuario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
-						JLabel lblNewLabel_1 = new JLabel("");
-						lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
-						lblNewLabel_1.setBounds(10, 0, 37, 28);
-						panelUsuario.add(lblNewLabel_1);				
-				
-						
-								JButton btnSalir = new JButton("");
-								btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
-								btnSalir.setToolTipText("Cambiar usuario");
-								btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-								btnSalir.setForeground(new Color(0, 102, 0));
-								btnSalir.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										VentanaInicio ventanaInicio = new VentanaInicio(usuario);
-										ventanaInicio.setLocation(400, 150);
-										ventanaInicio.setVisible(true);
-										dispose();
-									}
+		lblNombreUsuario = new JLabel();
+		lblNombreUsuario.setBounds(32, 0, 211, 28);
+		panelUsuario.add(lblNombreUsuario);
+		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNombreUsuario.setForeground(Color.WHITE);
 
-								});
-								btnSalir.setBounds(556, 11, 55, 31);
-								panelUsuario.add(btnSalir);
-								
-										JButton btnAyuda = new JButton("");
-										btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
-										btnAyuda.setToolTipText("Ayuda");
-										btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
-										btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-										btnAyuda.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-											}
-										});
-										
+		VentanaUsuario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaGeneral.class.getResource("/Imagenes/Usuario_gris.png")));
+		lblNewLabel_1.setBounds(10, 0, 37, 28);
+		panelUsuario.add(lblNewLabel_1);
+
+		JButton btnSalir = new JButton("");
+		btnSalir.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/cambioUser.png")));
+		btnSalir.setToolTipText("Cambiar usuario");
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setForeground(new Color(0, 102, 0));
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaInicio ventanaInicio = new VentanaInicio();
+				ventanaInicio.setLocation(400, 150);
+				ventanaInicio.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnSalir.setBounds(556, 11, 55, 31);
+		panelUsuario.add(btnSalir);
+
+		JButton btnAyuda = new JButton("");
+		btnAyuda.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/Ayuda.png")));
+		btnAyuda.setToolTipText("Ayuda");
+		btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
 		btnAyuda.setForeground(new Color(0, 102, 0));
 		btnAyuda.setBounds(574, 52, 37, 25);
 		panelUsuario.add(btnAyuda);
-		
+
 		JLabel lblPortada = new JLabel("");
 		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
 		lblPortada.setBounds(-112, 0, 736, 90);
 		panelUsuario.add(lblPortada);
-		
+
 		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		txtBusqueda = new JTextField();
@@ -155,7 +153,7 @@ public class VentanaUsuario extends JFrame {
 		combofiltro.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "Apellido", "Usuario", "Rol" }));
 		combofiltro.setBounds(353, 130, 81, 22);
 		contentPane.add(combofiltro);
-		
+
 		VentanaGeneral.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblTituloUsuario = new JLabel("Usuarios");
@@ -168,15 +166,9 @@ public class VentanaUsuario extends JFrame {
 
 		tableUsuario = new JTable();
 		tableUsuario.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), null, null, null));
-		tableUsuario.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column"
-			}
-		));
-		
-		
+		tableUsuario.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "New column", "New column", "New column", "New column", "New column", "New column" }));
+
 		tableUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -231,10 +223,11 @@ public class VentanaUsuario extends JFrame {
 		});
 		btnListar.setBounds(246, 130, 72, 23);
 		contentPane.add(btnListar);
-		/*Con el boton btnRegistrar, inmediatamente accedemos a la ventana
-		 * de registro de usuario, en donde se podra registrar un usuario
-		 * en la aplicacion ingresando cada uno de sus datos y el rol que va 
-		 * a ocupar en ella.*/	
+		/*
+		 * Con el boton btnRegistrar, inmediatamente accedemos a la ventana de registro
+		 * de usuario, en donde se podra registrar un usuario en la aplicacion
+		 * ingresando cada uno de sus datos y el rol que va a ocupar en ella.
+		 */
 		JButton btnRegistrar = new JButton("Registrar usuario");
 		btnRegistrar.setBackground(new Color(0, 102, 0));
 		btnRegistrar.setForeground(new Color(255, 255, 255));
@@ -244,29 +237,29 @@ public class VentanaUsuario extends JFrame {
 				VentanaRegistrarUsuario ventanaRegistrarUsuario = new VentanaRegistrarUsuario(usuario);
 				ventanaRegistrarUsuario.setLocation(400, 150);
 				ventanaRegistrarUsuario.setVisible(true);
-				
+
 			}
 		});
 		btnRegistrar.setBounds(10, 448, 135, 25);
 		contentPane.add(btnRegistrar);
-			
-				JButton btnRefrescar = new JButton("");
-				btnRefrescar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
-				btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				btnRefrescar.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/refrescar4.png")));
-				btnRefrescar.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						refrescarTabla();
-					}
-				});
-				btnRefrescar.setBounds(589, 130, 28, 23);
-				contentPane.add(btnRefrescar);
 
-				JButton btnVolver = new JButton("Volver");
+		JButton btnRefrescar = new JButton("");
+		btnRefrescar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRefrescar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRefrescar.setIcon(new ImageIcon(VentanaUsuario.class.getResource("/Imagenes/refrescar4.png")));
+		btnRefrescar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				refrescarTabla();
+			}
+		});
+		btnRefrescar.setBounds(589, 130, 28, 23);
+		contentPane.add(btnRefrescar);
+
+		JButton btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setForeground(new Color(0, 102, 0));
 		btnVolver.addActionListener(new ActionListener() {
@@ -280,22 +273,23 @@ public class VentanaUsuario extends JFrame {
 		});
 		btnVolver.setBounds(492, 449, 122, 23);
 		contentPane.add(btnVolver);
-		
+
 		JTextPane txtpnNombreDeUsuario = new JTextPane();
 		txtpnNombreDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtpnNombreDeUsuario.setEditable(false);
 		txtpnNombreDeUsuario.setForeground(new Color(255, 255, 255));
 		txtpnNombreDeUsuario.setBackground(new Color(34, 139, 34));
-		txtpnNombreDeUsuario.setText("Nombre de Usuario         | Nombre                         | Apellido                          | Correo                           | Rol");
+		txtpnNombreDeUsuario.setText(
+				"Nombre de Usuario         | Nombre                         | Apellido                          | Correo                           | Rol");
 		txtpnNombreDeUsuario.setBounds(10, 186, 604, 22);
 		contentPane.add(txtpnNombreDeUsuario);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 90, 624, 392);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		panel.setBackground(new Color(204, 255, 204));
-		
+
 		JButton btnordenarAsc_ = new JButton("");
 		btnordenarAsc_.setBounds(10, 82, 21, 14);
 		panel.add(btnordenarAsc_);
@@ -303,16 +297,14 @@ public class VentanaUsuario extends JFrame {
 		btnordenarAsc_.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnordenarAsc_.setForeground(new Color(0, 128, 0));
 		btnordenarAsc_.setToolTipText("");
-		
+
 		btnordenarAsc_.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				 orednarTablaDesc();
+
+				orednarTablaDesc();
 			}
 		});
-		
-		
-		
+
 		JButton btnordenarDesc = new JButton("");
 		btnordenarDesc.setBounds(30, 82, 21, 14);
 		panel.add(btnordenarDesc);
@@ -321,15 +313,12 @@ public class VentanaUsuario extends JFrame {
 		btnordenarDesc.setForeground(new Color(0, 128, 0));
 		btnordenarDesc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				 orednarTablaAsc();
+
+				orednarTablaAsc();
 			}
 		});
-		
-		
+
 	}
-	
-	
 
 	private void cargarUsuarioPorRol() {
 		try {
@@ -358,6 +347,7 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
+
 	private void cargarUsuarioApellido() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -386,7 +376,7 @@ public class VentanaUsuario extends JFrame {
 		}
 
 	}
-	
+
 	private void cargarUsuarioNombre() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -471,11 +461,9 @@ public class VentanaUsuario extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 
 	}
-	
+
 	private void orednarTablaDesc() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -502,10 +490,9 @@ public class VentanaUsuario extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 
 	}
+
 	private void orednarTablaAsc() {
 		try {
 			UsuariosBeanRemote usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
@@ -532,9 +519,6 @@ public class VentanaUsuario extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 
 	}
 }
-

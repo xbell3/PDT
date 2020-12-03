@@ -211,7 +211,7 @@ public class VentanaRegistrarFormulario extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();

@@ -29,6 +29,7 @@ import com.entidades.Usuario;
 import com.exception.ServiciosException;
 import com.servicios.CasillasBeanRemote;
 import com.servicios.FormulariosBeanRemote;
+import com.servicios.UsuariosBeanRemote;
 
 import actividad.VentanaActividad;
 import usuario.VentanaUsuario;
@@ -41,7 +42,7 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Cursor;
 
-public class VentanaRegistrarCasilla extends JFrame {
+public class VentanaEditarCasilla extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtParametro;
@@ -58,7 +59,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistrarCasilla(Formulario formulario) {
+	public VentanaEditarCasilla(Formulario formulario,Casilla casilla) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaRegistrarCasilla.class.getResource("/Imagenes/iAGRO_V04.png")));
 		setTitle("Nueva casilla");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -103,19 +104,25 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtUnidadMedida.setBounds(257, 85, 196, 26);
 		panelFormulario.add(txtUnidadMedida);
 		
-		JButton btnCrearCasilla = new JButton("Crear Casilla");
-		btnCrearCasilla.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCrearCasilla.setBackground(new Color(0, 102, 0));
-		btnCrearCasilla.setForeground(new Color(255, 255, 255));
-		btnCrearCasilla.addActionListener(new ActionListener() {
+		JButton btnBorrarCasilla = new JButton("Borrar Casilla");
+		btnBorrarCasilla.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBorrarCasilla.setBackground(new Color(0, 102, 0));
+		btnBorrarCasilla.setForeground(new Color(255, 255, 255));
+		btnBorrarCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				crearCasilla(formulario);
-				
+			
+				try {
+					borrarCasilla(casilla.getIdCasilla());
+				} catch (ServiciosException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				dispose();
 			}
 		});
-		btnCrearCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearCasilla.setBounds(20, 341, 174, 40);
-		panelFormulario.add(btnCrearCasilla);
+		btnBorrarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnBorrarCasilla.setBounds(20, 341, 174, 40);
+		panelFormulario.add(btnBorrarCasilla);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -261,41 +268,21 @@ public class VentanaRegistrarCasilla extends JFrame {
 		lblPortada.setIcon(new ImageIcon(VentanaRegistrarFormulario.class.getResource("/Imagenes/klipartz.com.png")));
 		lblPortada.setBounds(-112, 0, 736, 90);
 		panelUsuario.add(lblPortada);
+		
 	}
-	private void crearCasilla(Formulario formulario) {
-
+	private void borrarCasilla(Long id) throws ServiciosException {
 		CasillasBeanRemote casillasBeanRemote;
-		Casilla casilla = new Casilla ();
-		
-		casilla.setParametro(txtParametro.getText());
-		casilla.setDescripcion(txtDescripcion.getText());
-		casilla.setTipoUnidad(txtTipoDeValor.getText());
-		casilla.setUnidadMedida(txtUnidadMedida.getText());
 		try {
-
 			casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
-
-			if (txtParametro.getText().isEmpty() || txtUnidadMedida.getText().isEmpty()
-					) {
-				JOptionPane.showMessageDialog(frame, "Debe completar todos los campos", "Campos Incompletos!",
-						JOptionPane.INFORMATION_MESSAGE);
-
-				return;
-
-			}else {
-				casillasBeanRemote.crear(casilla, txtNombreFormulario.getText());
-
-				JOptionPane.showMessageDialog(frame, "La casilla ha sido creada con éxito.",
-						"Casilla Registrado!", JOptionPane.INFORMATION_MESSAGE);
-				dispose();
-			}
-
-		
-		} catch (NamingException e1) {
-			e1.printStackTrace();
-		} catch (ServiciosException e1) {
-			e1.printStackTrace();
+			casillasBeanRemote.borrar(id);
+			
+			JOptionPane.showMessageDialog(frame, "La casilla ha sido borrada.",
+					"Casilla borrada!", JOptionPane.INFORMATION_MESSAGE);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	
+
 	}
+	
 }

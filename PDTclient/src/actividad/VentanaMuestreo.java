@@ -45,7 +45,8 @@ import formulario.VentanaRegistrarFormulario;
 import usuario.VentanaUsuario;
 
 public class VentanaMuestreo extends JFrame {
-
+	
+	//Declaramos los componentes o parametros.
 	private JPanel contentPane;
 	private JTextField txtDepartamento;
 	private JTextField txtEstacionMuestreo;
@@ -62,15 +63,16 @@ public class VentanaMuestreo extends JFrame {
 	private JTextField txtFechadeMuestreo;
 	private JTextField txtDepartamento_1;
 	private JLabel lblNuevaCasilla;
+	/*Instanciamos los JDateChooser, de esta manera el metodo
+	 * crearActividad() no nos lanza un null. */
 	private JDateChooser dateChooserInicio = new JDateChooser();
 	private JDateChooser dateChooserFin = new JDateChooser();
 	public static JLabel lblNombreUsuario;
-	private JTable tableCasilla;
-	private Date dateInicio;
-	private Date dateFin;
+
 
 	/**
-	 * Create the frame.
+	 * VentanaMuestreo es la ventana en donde se crea la actividad 
+	 * o muestreo segun los datos a considerar del usuario.
 	 */
 	public VentanaMuestreo(Usuario usuario, Formulario formulario) {
 
@@ -84,12 +86,14 @@ public class VentanaMuestreo extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		/*El siguiente label lblNombreUsuario obtiene el nombre de usuario
+		 * del usuario logeado.
+		 * */
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(32, 0, 211, 28);
 		contentPane.add(lblNombreUsuario);
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
-		
 		VentanaMuestreo.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
@@ -114,7 +118,7 @@ public class VentanaMuestreo extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();
@@ -344,33 +348,17 @@ public class VentanaMuestreo extends JFrame {
 		
 		dateChooserFin.setBounds(191, 222, 130, 20);
 		panelActividad.add(dateChooserFin);
-		
-//		tableCasilla = new JTable();
-//		tableCasilla.setBounds(358, 213, 241, 141);
-//		panelActividad.add(tableCasilla);
-//		
-//		JButton btnRefrescarTabla = new JButton("Refrescar");
-//		btnRefrescarTabla.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				listarCasillasAsignada(formulario);
-//			}
-//		});
-//		btnRefrescarTabla.setBounds(510, 183, 89, 23);
-//		panelActividad.add(btnRefrescarTabla);
-//		
-//		JLabel lblCasillas = new JLabel("Casillas");
-//		lblCasillas.setBounds(377, 193, 65, 14);
-//		panelActividad.add(lblCasillas);
-
 	}
 
 	private void crearActividad(Usuario usuario, Formulario formulario) throws ServiciosException {
 
 		/*
-		 * Se enlazan los parametros escritos en cada campo de texto con cada parametro
-		 * de la entidad Usuario i.e: txtUsuario obtiene el texto del campo
-		 * (getText();) y lo "setea" al campo nombreUsuario de la entidad Usuario
-		 */
+		 * se instancia un objeto de la clase y le insertamos los datos 
+		 * obtenidos de cada campo de texto escrito por el usuario.
+		 * Luego de setear todos los parametros, usamos esa instancia del objeto
+		 * para persistirlo en la base de datos por medio del metodo crear(objeto);
+		 * del servicios correspondiente a la entidad.
+		 * */
 		ActividadesBeanRemote actividadesBeanRemote;
 		Actividad actividad = new Actividad();
 		Rol rol = new Rol();
@@ -391,34 +379,5 @@ public class VentanaMuestreo extends JFrame {
 			e.printStackTrace();
 		}
 
-	}
-	private void listarCasillasAsignada(Formulario formulario) {
-		try {
-			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
-			List<Casilla> casillas = new ArrayList<>();
-			DefaultTableModel model = new DefaultTableModel();
-	
-			casillas = casillasBeanRemote.obtenerTodosPorFormulario(formulario.getNombreFormulario().toString());
-
-			String[] columnNames = {  "parametro", "descripcion", "unidadMedida", "tipoUnidad" };
-					
-			
-			tableCasilla.setModel(model);
-			
-			model.setColumnIdentifiers(columnNames);
-			for (Casilla casilla : casillas) {
-				Object[] fila = new Object[4];
-				fila[0] = casilla.getParametro();
-				fila[1] = casilla.getDescripcion();
-				fila[2] = casilla.getUnidadMedida();
-				fila[3] = casilla.getTipoUnidad();
-				model.addRow(fila);
-			}		
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		
 	}
 }

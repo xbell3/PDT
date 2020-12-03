@@ -46,11 +46,24 @@ import javax.swing.JTextPane;
 
 public class VentanaFormulario extends JFrame {
 
+	//Declaramos los componentes o parametros.
+
 	private JPanel contentPane;
 	private JTextField txtBusqueda;
 	private JTable tableFormulario;
+
+	/*
+	 * el parametro lblNombreUsuario se declara static de esta manera no tendremos
+	 * que instanciar un objeto de la clase para invocarlo
+	 */
 	public static JLabel lblNombreUsuario;
 
+	/*
+	 * VentanaFormulario es la ventana "general" de la seccion de formularios 
+	 * esta misma contiene los formularios creados en una tabla llamada tableFormulario
+	 * en la cual se listan los formularios filtrados por nombre de formulario 
+	 * 
+	 */
 	public VentanaFormulario(Usuario usuario) {
 		setTitle("Crear Formulario");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaFormulario.class.getResource("/Imagenes/iAGRO_V04.png")));
@@ -67,12 +80,14 @@ public class VentanaFormulario extends JFrame {
 		contentPane.add(panelFormulario);
 		panelFormulario.setLayout(null);
 		
+		/*El siguiente label lblNombreUsuario obtiene el nombre de usuario
+		 * del usuario logeado.
+		 * */
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(32, 0, 211, 28);
 		contentPane.add(lblNombreUsuario);
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
-		
 		VentanaFormulario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
@@ -224,20 +239,7 @@ public class VentanaFormulario extends JFrame {
 		txtpnNombreDeFormulario.setBackground(new Color(34, 139, 34));
 		txtpnNombreDeFormulario.setBounds(10, 101, 604, 22);
 		panelFormulario.add(txtpnNombreDeFormulario);
-		
-//		JButton btnCrearCasilla = new JButton("Crear Casilla");
-//		btnCrearCasilla.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				
-//				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario, formulario);
-//				ventanaRegistrarCasilla.setUndecorated(false);
-//				ventanaRegistrarCasilla.setVisible(true);
-//			}
-//		});
-//		btnCrearCasilla.setToolTipText("Debe seleccionar un formulario para asignar Casilla.");
-//		btnCrearCasilla.setBounds(143, 59, 132, 34);
-//		panelFormulario.add(btnCrearCasilla);
-		
+			
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);
 		panelUsuario.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, UIManager.getColor("Button.light"), UIManager.getColor("Button.shadow"), null, null));
@@ -252,7 +254,7 @@ public class VentanaFormulario extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();
@@ -290,35 +292,7 @@ public class VentanaFormulario extends JFrame {
 		lblPortada.setBounds(-112, 0, 736, 90);
 		panelUsuario.add(lblPortada);
 		
-	}
-	private void cargarCasillas() {
-		try {
-			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
-			List<Casilla> casillas = new ArrayList<>();
-			DefaultTableModel model = new DefaultTableModel();
-	
-			casillas = casillasBeanRemote.obtenerTodos(txtBusqueda.getText() + "%");
-
-			String[] columnNames = {  "parametro", "descripcion", "unidadMedida", "tipoUnidad" };
-					
-			
-			tableFormulario.setModel(model);
-			
-			model.setColumnIdentifiers(columnNames);
-			for (Casilla casilla : casillas) {
-				Object[] fila = new Object[4];
-				fila[0] = casilla.getParametro();
-				fila[1] = casilla.getDescripcion();
-				fila[2] = casilla.getUnidadMedida();
-				fila[3] = casilla.getTipoUnidad();
-				model.addRow(fila);
-			}		
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+	}	
 	private void cargarFormularios() {
 		try {
 			FormulariosBeanRemote formulariosBeanRemote = EJBLocator.getInstance().lookup(FormulariosBeanRemote.class);

@@ -44,13 +44,15 @@ import java.awt.Cursor;
 import javax.swing.JTextPane;
 
 public class VentanaIniciarActividad extends JFrame {
-
+	
+	//Declaramos los componentes o parametros.
 	private JPanel contentPane;
 	private JTable tableActividad;
 	private JTextField txtBusquedaActividad;
 	public static JLabel lblNombreUsuario;
 	/**
-	 * Create the frame.
+	 * VentanaIniciarActividad es la que nos brinda la funcion de
+	 * realizar una actividad de campo segun el formulario que elijamos.
 	 */
 	public VentanaIniciarActividad(Usuario usuario) {
 		setTitle("Actividad de campo");
@@ -62,12 +64,15 @@ public class VentanaIniciarActividad extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		/*El siguiente label lblNombreUsuario obtiene el nombre de usuario
+		 * del usuario logeado.
+		 * */
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(32, 0, 211, 28);
 		contentPane.add(lblNombreUsuario);
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
-		
 		VentanaIniciarActividad.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
@@ -92,7 +97,7 @@ public class VentanaIniciarActividad extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();
@@ -135,7 +140,8 @@ public class VentanaIniciarActividad extends JFrame {
 		panelActividad.setBackground(new Color(204, 255, 204));
 		panelActividad.setBounds(0, 90, 624, 392);
 		contentPane.add(panelActividad);
-		
+		/*tableActividad es la tabla donde los formularios seran cargados 
+		 * con el metodo cargarFormulario() */
 		tableActividad = new JTable();
 		tableActividad.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 128, 0), null, null, null));
 		tableActividad.addMouseListener(new MouseAdapter() {
@@ -181,6 +187,10 @@ public class VentanaIniciarActividad extends JFrame {
 		btnBuscarActividad.setBounds(373, 70, 84, 23);
 		panelActividad.add(btnBuscarActividad);
 		
+		/*txtBusquedaActividad es el campo de texto 
+		 * en donde escribiremos el nombre de formulario, es un pequeño
+		 * filtro que añadimos para encontrar mas facilmente el formulario 
+		 * que el usuario va a elegir.*/
 		txtBusquedaActividad = new JTextField();
 		txtBusquedaActividad.setColumns(10);
 		txtBusquedaActividad.setBounds(467, 71, 103, 20);
@@ -232,6 +242,13 @@ public class VentanaIniciarActividad extends JFrame {
 		panelActividad.add(txtpnNombreDeFormulario);
 		
 	}
+	/*
+		El metodo cargarFormularios() nos sirve para cargar todos los formularios 
+		en la tabla "tableActividad", una ves cargados el usuario podra 
+		elegir el formulario que utilizara para realizar la actividad de 
+		campo.
+		
+	 * */
 	private void cargarFormularios() {
 
 		try {

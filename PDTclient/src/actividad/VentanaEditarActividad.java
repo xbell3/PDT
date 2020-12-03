@@ -41,6 +41,7 @@ import usuario.VentanaUsuario;
 
 public class VentanaEditarActividad extends JFrame {
 
+	//Declaramos los componentes o parametros.
 	private JPanel contentPane;
 	private JTextField txtDepartamento;
 	private JTextField txtEstacionMuestreo;
@@ -59,7 +60,9 @@ public class VentanaEditarActividad extends JFrame {
 	private JLabel lblNuevaCasilla;
 	private JDateChooser dateChooserInicio = new JDateChooser();
 	private JDateChooser dateChooserFin = new JDateChooser();
-	public static JLabel lblNombreUsuario;
+	/*el parametro lblNombreUsuario se declara static de esta manera 
+	 * no tendremos que instanciar un objeto de la clase para invocarlo*/
+	private static JLabel lblNombreUsuario;
 
 	/**
 	 * Create the frame.
@@ -76,12 +79,15 @@ public class VentanaEditarActividad extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		/*El siguiente label lblNombreUsuario obtiene el nombre de usuario
+		 * del usuario logeado.
+		 * */
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(32, 0, 211, 28);
 		contentPane.add(lblNombreUsuario);
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
-		
 		VentanaEditarActividad.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
@@ -106,7 +112,7 @@ public class VentanaEditarActividad extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();

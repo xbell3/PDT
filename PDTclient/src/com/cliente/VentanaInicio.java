@@ -41,7 +41,7 @@ public class VentanaInicio extends JFrame {
 
 	private JPanel contentPane;
 	public static JTextField txtNombreUsuario;
-	public static JTextField txtContrasena;
+	private JTextField txtContrasena;
 	private JFrame frame;
 	private JTextField textField;
 	public static String nombreRol;
@@ -55,39 +55,25 @@ public class VentanaInicio extends JFrame {
 		try {
 			//Creamos el usuario admin, para poder ingresar a la aplicacion
 			UsuariosBeanRemote usuariosBeanRemote;
-			RolBeanRemote rolBeanRemote;
 			Rol rolAdmin = new Rol();
-			Rol rolExperto = new Rol();
-			Rol rolComun = new Rol();
-			Usuario uAdmin = new Usuario();
+			Usuario usuario = new Usuario();
 			usuariosBeanRemote = EJBLocator.getInstance().lookup(UsuariosBeanRemote.class);
-			rolBeanRemote = EJBLocator.getInstance().lookup(RolBeanRemote.class);
 			 if(usuariosBeanRemote.registro("admin") == false) {
 				 //Usuario admin y Rol admin
-				 uAdmin.setNombreUsuario("admin");
-				 uAdmin.setContrasena("admin");
-				 uAdmin.setApellido("admin");
-				 uAdmin.setCorreo("admin");
-				 uAdmin.setNombre("admin");
-				 uAdmin.setRol(rolAdmin);
+				 usuario.setNombreUsuario("admin");
+				 usuario.setContrasena("admin");
+				 usuario.setApellido("admin");
+				 usuario.setCorreo("admin");
+				 usuario.setNombre("admin");
+				 usuario.setRol(rolAdmin);
 				 rolAdmin.setNombreRol("Administrador");
-				 
-				//Rol experto
-				 rolExperto.setNombreRol("Experto");
-				 
-				//Rol comun
-				 rolComun.setNombreRol("Comun");
+
 				try {
-					usuariosBeanRemote.crear(uAdmin);
-					rolBeanRemote.crear(rolExperto);
-					rolBeanRemote.crear(rolComun);
-					JFrame frame1 = null;
-					//JOptionPane.showMessageDialog(frame1, "Inicie sesion de administrador", "Usuario Registrado!",
-					//		JOptionPane.INFORMATION_MESSAGE);
+					usuariosBeanRemote.crear(usuario);
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								VentanaInicio frame = new VentanaInicio(new Usuario());
+								VentanaInicio frame = new VentanaInicio();
 								frame.setLocation(400, 150);
 								frame.setVisible(true);
 							} catch (Exception e) {
@@ -103,7 +89,7 @@ public class VentanaInicio extends JFrame {
 			}else {	EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						VentanaInicio frame = new VentanaInicio(new Usuario());
+						VentanaInicio frame = new VentanaInicio();
 						frame.setLocation(400, 150);
 						frame.setVisible(true);
 					} catch (Exception e) {
@@ -122,7 +108,7 @@ public class VentanaInicio extends JFrame {
 		
 	}
 	/*Al iniciar la ventana ya le pasamos por parametro el usuario.*/
-	public VentanaInicio(Usuario usuario) {
+	public VentanaInicio() {
 		/*
 		 * A continuacion definimos todas las caracteristicas y valores de cada objeto o
 		 * parametro declarado.

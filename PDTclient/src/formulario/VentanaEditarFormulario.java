@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,17 +51,26 @@ import java.awt.Cursor;
 
 public class VentanaEditarFormulario extends JFrame {
 
+	//Declaramos los componentes o parametros.
 	private JPanel contentPane;
 	private JFrame frame;
 	private JTextField txtNombreFormulario;
 	private JTextField txtResumen;
 	private JTextField txtNombreDeFormulario;
 	private JTextField txtDescripcinDeFormulario;
+	/*
+	 * el parametro lblNombreUsuario se declara static de esta manera no tendremos
+	 * que instanciar un objeto de la clase para invocarlo
+	 */
 	public static JLabel lblNombreUsuario;
 	private JTable tableCasilla;
 
 	/**
-	 * Create the frame.
+	 * VentanaEditarFormulario nos brindara las funciones necesarias para
+	 * modificar el formulario elegido de la tableFormulario de la ventana 
+	 * VentanaFormularios. Este mismo tiene usuario y formulario pasado por 
+	 * parametros para hacer registro de los cambios ya que estos se inicializan
+	 * desde la ventana anterior. 
 	 */
 	public VentanaEditarFormulario(Usuario usuario, Formulario formulario) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaEditarFormulario.class.getResource("/Imagenes/iAGRO_V04.png")));
@@ -71,12 +82,14 @@ public class VentanaEditarFormulario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		/*El siguiente label lblNombreUsuario obtiene el nombre de usuario
+		 * del usuario logeado.
+		 * */
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(32, 0, 211, 28);
 		contentPane.add(lblNombreUsuario);
 		lblNombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNombreUsuario.setForeground(Color.WHITE);
-		
 		VentanaEditarFormulario.lblNombreUsuario.setText(VentanaInicio.txtNombreUsuario.getText());
 
 		JLabel lblIconUser;
@@ -99,7 +112,7 @@ public class VentanaEditarFormulario extends JFrame {
 		btnSalir.setForeground(new Color(0, 102, 0));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaInicio ventanaInicio = new VentanaInicio(usuario);
+				VentanaInicio ventanaInicio = new VentanaInicio();
 				ventanaInicio.setLocation(400, 150);
 				ventanaInicio.setVisible(true);
 				dispose();
@@ -191,7 +204,7 @@ public class VentanaEditarFormulario extends JFrame {
 		btnAgregarCasilla.setForeground(new Color(255, 255, 255));
 		btnAgregarCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(usuario, formulario);
+				VentanaRegistrarCasilla ventanaRegistrarCasilla = new VentanaRegistrarCasilla(formulario);
 				ventanaRegistrarCasilla.setLocation(400, 150);
 				ventanaRegistrarCasilla.setVisible(true);
 			}
@@ -230,7 +243,36 @@ public class VentanaEditarFormulario extends JFrame {
 		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
 		panelFormulario.add(lblNuevaCasilla_1);
 		
+		/*tableCasilla es una pequeña tabla que nos permite visualizar 
+		 * las casillas que le hemos ido añadiendo a nuestro formulario.*/
 		tableCasilla = new JTable();
+		tableCasilla.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				int row = tableCasilla.getSelectedRow();
+				String parametro = (String) tableCasilla.getModel().getValueAt(row, 0);
+				Casilla casilla = new Casilla();
+				casilla.setParametro(parametro);
+				List<Casilla> casillas = new ArrayList<>();
+
+				try {
+
+					CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
+
+					casillas = casillasBeanRemote.obtenerTodos(parametro);
+					casilla = casillas.get(0);
+
+				} catch (NamingException ex) {
+					ex.printStackTrace();
+				}
+				VentanaEditarCasilla ventanaEditarCasilla = new VentanaEditarCasilla(formulario, casilla);
+				ventanaEditarCasilla.setUndecorated(false);
+				ventanaEditarCasilla.setVisible(true);
+				
+				
+			}
+		});	
 		tableCasilla.setBounds(427, 100, 187, 150);
 		panelFormulario.add(tableCasilla);
 		
@@ -238,10 +280,15 @@ public class VentanaEditarFormulario extends JFrame {
 		lblCasillas.setBounds(446, 80, 65, 14);
 		panelFormulario.add(lblCasillas);
 		
+		/*btnRefrescarTabla nos permite refrescar la tabla de casillas 
+		 * para asi el usuario puede ir contemplando las casillas que va 
+		 * añadiendo */
 		JButton btnRefrescarTabla = new JButton("Refrescar");
 		btnRefrescarTabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				/*llamamos al metodo listarCasillasAsignadas y le pasamos
+				 * por parametro el formulario en cuestion, de esta manera
+				 * el metodo lista las casillas relacionadas con este formulario*/
 				listarCasillasAsignadas(formulario);
 			}
 		});
@@ -287,6 +334,9 @@ public class VentanaEditarFormulario extends JFrame {
 		}
 	
 	}
+	/*listarCasillasAsignadas es el metodo que usaremos para 
+	 * listar las casillas que hemos ido relacionando al formulario pasado por 
+	 * parametro. */
 	private void listarCasillasAsignadas(Formulario formulario) {
 		try {
 			CasillasBeanRemote casillasBeanRemote = EJBLocator.getInstance().lookup(CasillasBeanRemote.class);
