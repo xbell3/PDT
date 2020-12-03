@@ -85,8 +85,8 @@ public class VentanaRegistrarFormulario extends JFrame {
 		
 		txtNombreFormulario = new JTextField();
 		txtNombreFormulario.setToolTipText("Ingrese nombre de formulario");
-		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNombreFormulario.setHorizontalAlignment(SwingConstants.LEFT);
+		txtNombreFormulario.setFont(new Font("Tahoma", Font.BOLD, 16));
 		txtNombreFormulario.setColumns(10);
 		txtNombreFormulario.setBounds(43, 68, 196, 29);
 		panelFormulario.add(txtNombreFormulario);
@@ -96,7 +96,7 @@ public class VentanaRegistrarFormulario extends JFrame {
 		txtResumen.setHorizontalAlignment(SwingConstants.LEFT);
 		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResumen.setColumns(10);
-		txtResumen.setBounds(43, 160, 462, 94);
+		txtResumen.setBounds(43, 160, 462, 140);
 		panelFormulario.add(txtResumen);
 		
 		JButton btnCrearFormulario = new JButton("Crear formulario");

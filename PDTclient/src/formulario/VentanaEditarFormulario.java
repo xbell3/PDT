@@ -159,10 +159,10 @@ public class VentanaEditarFormulario extends JFrame {
 		txtNombreFormulario = new JTextField();
 		txtNombreFormulario.setToolTipText("Modificar nombre de formulario");
 		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNombreFormulario.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtNombreFormulario.setText(formulario.getNombreFormulario());
 		txtNombreFormulario.setColumns(10);
-		txtNombreFormulario.setBounds(10, 93, 196, 23);
+		txtNombreFormulario.setBounds(218, 58, 196, 23);
 		panelFormulario.add(txtNombreFormulario);
 		
 		txtResumen = new JTextField();
@@ -171,7 +171,7 @@ public class VentanaEditarFormulario extends JFrame {
 		txtResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtResumen.setText(formulario.getResumen());
 		txtResumen.setColumns(10);
-		txtResumen.setBounds(10, 184, 406, 69);
+		txtResumen.setBounds(31, 277, 553, 53);
 		panelFormulario.add(txtResumen);
 		
 		JButton btnModificarFormulario = new JButton("Modificar Formulario");
@@ -184,7 +184,7 @@ public class VentanaEditarFormulario extends JFrame {
 			}
 		});
 		btnModificarFormulario.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnModificarFormulario.setBounds(21, 343, 155, 42);
+		btnModificarFormulario.setBounds(21, 353, 155, 32);
 		panelFormulario.add(btnModificarFormulario);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -210,7 +210,7 @@ public class VentanaEditarFormulario extends JFrame {
 			}
 		});
 		btnAgregarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAgregarCasilla.setBounds(210, 343, 167, 42);
+		btnAgregarCasilla.setBounds(210, 353, 167, 32);
 		panelFormulario.add(btnAgregarCasilla);
 		
 		txtNombreDeFormulario = new JTextField();
@@ -220,7 +220,7 @@ public class VentanaEditarFormulario extends JFrame {
 		txtNombreDeFormulario.setEditable(false);
 		txtNombreDeFormulario.setColumns(10);
 		txtNombreDeFormulario.setBackground(new Color(0, 102, 0));
-		txtNombreDeFormulario.setBounds(10, 80, 196, 14);
+		txtNombreDeFormulario.setBounds(218, 45, 196, 14);
 		panelFormulario.add(txtNombreDeFormulario);
 		
 		txtDescripcinDeFormulario = new JTextField();
@@ -230,7 +230,7 @@ public class VentanaEditarFormulario extends JFrame {
 		txtDescripcinDeFormulario.setEditable(false);
 		txtDescripcinDeFormulario.setColumns(10);
 		txtDescripcinDeFormulario.setBackground(new Color(0, 102, 0));
-		txtDescripcinDeFormulario.setBounds(10, 171, 406, 14);
+		txtDescripcinDeFormulario.setBounds(31, 264, 553, 14);
 		panelFormulario.add(txtDescripcinDeFormulario);
 		
 		JLabel lblNuevaCasilla_1 = new JLabel("Modificar Formlario");
@@ -273,17 +273,23 @@ public class VentanaEditarFormulario extends JFrame {
 				
 			}
 		});	
-		tableCasilla.setBounds(427, 100, 187, 150);
+		tableCasilla.setBounds(31, 117, 553, 136);
 		panelFormulario.add(tableCasilla);
 		
 		JLabel lblCasillas = new JLabel("Casillas");
-		lblCasillas.setBounds(446, 80, 65, 14);
+		lblCasillas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCasillas.setOpaque(true);
+		lblCasillas.setForeground(new Color(255, 255, 255));
+		lblCasillas.setBackground(new Color(0, 102, 0));
+		lblCasillas.setBounds(31, 77, 65, 23);
 		panelFormulario.add(lblCasillas);
 		
 		/*btnRefrescarTabla nos permite refrescar la tabla de casillas 
 		 * para asi el usuario puede ir contemplando las casillas que va 
 		 * añadiendo */
-		JButton btnRefrescarTabla = new JButton("Refrescar");
+		JButton btnRefrescarTabla = new JButton("");
+		btnRefrescarTabla.setIcon(new ImageIcon(VentanaEditarFormulario.class.getResource("/Imagenes/refrescar4.png")));
+		btnRefrescarTabla.setSelectedIcon(new ImageIcon(VentanaEditarFormulario.class.getResource("/Imagenes/refrescar4.png")));
 		btnRefrescarTabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/*llamamos al metodo listarCasillasAsignadas y le pasamos
@@ -292,8 +298,15 @@ public class VentanaEditarFormulario extends JFrame {
 				listarCasillasAsignadas(formulario);
 			}
 		});
-		btnRefrescarTabla.setBounds(525, 76, 89, 23);
+		btnRefrescarTabla.setBounds(106, 77, 23, 23);
 		panelFormulario.add(btnRefrescarTabla);
+		
+		JLabel lblParmetroDescripcin = new JLabel("Par\u00E1metro                         | Descripci\u00F3n                     | Unidad de medida \t           | Tipo de valor");
+		lblParmetroDescripcin.setOpaque(true);
+		lblParmetroDescripcin.setForeground(Color.WHITE);
+		lblParmetroDescripcin.setBackground(new Color(0, 102, 0));
+		lblParmetroDescripcin.setBounds(31, 103, 553, 14);
+		panelFormulario.add(lblParmetroDescripcin);
 
 	}
 	/*El metodo modificarFormulRio, llama al EJBLocator para localizar los Beans y 

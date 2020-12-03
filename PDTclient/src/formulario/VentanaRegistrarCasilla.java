@@ -93,14 +93,14 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtParametro.setHorizontalAlignment(SwingConstants.CENTER);
 		txtParametro.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtParametro.setColumns(10);
-		txtParametro.setBounds(10, 85, 196, 26);
+		txtParametro.setBounds(10, 113, 196, 26);
 		panelFormulario.add(txtParametro);
 		
 		txtUnidadMedida = new JTextField();
 		txtUnidadMedida.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUnidadMedida.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtUnidadMedida.setColumns(10);
-		txtUnidadMedida.setBounds(257, 85, 196, 26);
+		txtUnidadMedida.setBounds(257, 113, 196, 26);
 		panelFormulario.add(txtUnidadMedida);
 		
 		JButton btnCrearCasilla = new JButton("Crear Casilla");
@@ -114,7 +114,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 			}
 		});
 		btnCrearCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCrearCasilla.setBounds(20, 341, 174, 40);
+		btnCrearCasilla.setBounds(20, 355, 174, 26);
 		panelFormulario.add(btnCrearCasilla);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -129,34 +129,40 @@ public class VentanaRegistrarCasilla extends JFrame {
 		panelFormulario.add(btnVolver);
 		
 		txtDescripcion = new JTextField();
-		txtDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
 		txtDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(10, 218, 377, 42);
+		txtDescripcion.setBounds(10, 246, 377, 84);
 		panelFormulario.add(txtDescripcion);
 		
 		txtTipoDeValor = new JTextField();
+		txtTipoDeValor.setForeground(new Color(204, 255, 153));
+		txtTipoDeValor.setBorder(null);
+		txtTipoDeValor.setVisible(false);
+		txtTipoDeValor.setOpaque(false);
+		txtTipoDeValor.setEditable(false);
+		txtTipoDeValor.setEnabled(false);
 		txtTipoDeValor.setText("Tipo de Valor");
 		txtTipoDeValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTipoDeValor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTipoDeValor.setColumns(10);
-		txtTipoDeValor.setBounds(227, 283, 168, 42);
+		txtTipoDeValor.setBounds(537, 164, 40, 23);
 		panelFormulario.add(txtTipoDeValor);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setForeground(new Color(0, 102, 0));
 		comboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Numero entero", "Numero decimal", "Texto", "Boolean"}));
-		comboBox.setBounds(10, 154, 196, 22);
+		comboBox.setBounds(10, 182, 196, 22);
 		panelFormulario.add(comboBox);
 		
 		txtNombreFormulario = new JTextField();
 		txtNombreFormulario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombreFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNombreFormulario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtNombreFormulario.setText(formulario.getNombreFormulario());
 		txtNombreFormulario.setColumns(10);
 		txtNombreFormulario.setEditable(false);
-		txtNombreFormulario.setBounds(10, 283, 196, 42);
+		txtNombreFormulario.setBounds(84, 45, 138, 26);
 		panelFormulario.add(txtNombreFormulario);
 		
 		txtParmetro = new JTextField();
@@ -166,7 +172,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtParmetro.setEditable(false);
 		txtParmetro.setColumns(10);
 		txtParmetro.setBackground(new Color(0, 102, 0));
-		txtParmetro.setBounds(10, 73, 196, 14);
+		txtParmetro.setBounds(10, 101, 196, 14);
 		panelFormulario.add(txtParmetro);
 		
 		txtUnidadDeMedida = new JTextField();
@@ -176,7 +182,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtUnidadDeMedida.setEditable(false);
 		txtUnidadDeMedida.setColumns(10);
 		txtUnidadDeMedida.setBackground(new Color(0, 102, 0));
-		txtUnidadDeMedida.setBounds(257, 73, 196, 14);
+		txtUnidadDeMedida.setBounds(257, 101, 196, 14);
 		panelFormulario.add(txtUnidadDeMedida);
 		
 		txtDescripcinDeCasilla = new JTextField();
@@ -186,7 +192,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtDescripcinDeCasilla.setEditable(false);
 		txtDescripcinDeCasilla.setColumns(10);
 		txtDescripcinDeCasilla.setBackground(new Color(0, 102, 0));
-		txtDescripcinDeCasilla.setBounds(10, 205, 377, 14);
+		txtDescripcinDeCasilla.setBounds(10, 233, 377, 14);
 		panelFormulario.add(txtDescripcinDeCasilla);
 		
 		txtTipoDeValor_1 = new JTextField();
@@ -196,7 +202,7 @@ public class VentanaRegistrarCasilla extends JFrame {
 		txtTipoDeValor_1.setEditable(false);
 		txtTipoDeValor_1.setColumns(10);
 		txtTipoDeValor_1.setBackground(new Color(0, 102, 0));
-		txtTipoDeValor_1.setBounds(10, 140, 196, 14);
+		txtTipoDeValor_1.setBounds(10, 168, 196, 14);
 		panelFormulario.add(txtTipoDeValor_1);
 		
 		JLabel lblNuevaCasilla_1 = new JLabel("Nueva Casilla");
@@ -208,6 +214,12 @@ public class VentanaRegistrarCasilla extends JFrame {
 		lblNuevaCasilla_1.setBackground(new Color(60, 179, 113));
 		lblNuevaCasilla_1.setBounds(0, 11, 624, 23);
 		panelFormulario.add(lblNuevaCasilla_1);
+		
+		JLabel lblNewLabel = new JLabel("Formulario:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setForeground(new Color(0, 100, 0));
+		lblNewLabel.setBounds(10, 45, 89, 26);
+		panelFormulario.add(lblNewLabel);
 		
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(null);

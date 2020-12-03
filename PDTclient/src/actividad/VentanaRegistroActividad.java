@@ -151,6 +151,7 @@ public class VentanaRegistroActividad extends JFrame {
 		contentPane.add(panelActividad);
 		
 		JComboBox combofiltro = new JComboBox();
+		combofiltro.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		combofiltro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		combofiltro.setForeground(new Color(0, 102, 0));
 		combofiltro.setModel(new DefaultComboBoxModel(new String[] {"Rango de fechas", "Estacion de muestreo", "Usuario Experto"}));
@@ -255,9 +256,12 @@ public class VentanaRegistroActividad extends JFrame {
 		panelActividad.add(btnVolver);
 		
 		JLabel lblSeleccioneUnFormulario = new JLabel("Listado de actividades");
-		lblSeleccioneUnFormulario.setForeground(new Color(0, 100, 0));
-		lblSeleccioneUnFormulario.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblSeleccioneUnFormulario.setBounds(10, 32, 181, 50);
+		lblSeleccioneUnFormulario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeleccioneUnFormulario.setOpaque(true);
+		lblSeleccioneUnFormulario.setBackground(new Color(0, 102, 0));
+		lblSeleccioneUnFormulario.setForeground(new Color(255, 255, 255));
+		lblSeleccioneUnFormulario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblSeleccioneUnFormulario.setBounds(12, 61, 181, 38);
 		panelActividad.add(lblSeleccioneUnFormulario);
 		
 		JLabel lblNuevaCasilla_1 = new JLabel("Actividad de campo");
@@ -279,10 +283,10 @@ public class VentanaRegistroActividad extends JFrame {
 		txtpnNombreDeFormulario.setBounds(10, 165, 604, 22);
 		panelActividad.add(txtpnNombreDeFormulario);
 		
-		dateChooserInicio.setBounds(246, 103, 70, 20);
+		dateChooserInicio.setBounds(246, 103, 129, 20);
 		panelActividad.add(dateChooserInicio);
 		
-		dateChooserFin.setBounds(246, 134, 70, 20);
+		dateChooserFin.setBounds(246, 134, 129, 20);
 		panelActividad.add(dateChooserFin);
 		
 
@@ -290,12 +294,12 @@ public class VentanaRegistroActividad extends JFrame {
 		JLabel lblFechaInicio = new JLabel("Fecha Inicio");
 		lblFechaInicio.setForeground(new Color(0, 128, 0));
 		lblFechaInicio.setHorizontalTextPosition(SwingConstants.LEADING);
-		lblFechaInicio.setBounds(185, 106, 57, 14);
+		lblFechaInicio.setBounds(170, 106, 72, 14);
 		panelActividad.add(lblFechaInicio);
 		
 		JLabel lblFechaFin = new JLabel("Fecha Fin");
 		lblFechaFin.setForeground(new Color(0, 128, 0));
-		lblFechaFin.setBounds(196, 140, 46, 14);
+		lblFechaFin.setBounds(180, 140, 62, 14);
 		panelActividad.add(lblFechaFin);
 			
 		
