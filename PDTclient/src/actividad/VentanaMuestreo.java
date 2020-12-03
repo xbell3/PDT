@@ -50,7 +50,6 @@ public class VentanaMuestreo extends JFrame {
 	private JTextField txtDepartamento;
 	private JTextField txtEstacionMuestreo;
 	private JTextField txtMetodoMuestreo;
-	private JTextField txtFechaFin;
 	private JTextField txtFormulario;
 	private JTextField txtUsuario;
 	private JTextField txtRol;
@@ -211,25 +210,19 @@ public class VentanaMuestreo extends JFrame {
 
 		txtDepartamento = new JTextField();
 		txtDepartamento.setColumns(10);
-		txtDepartamento.setBounds(195, 233, 130, 20);
+		txtDepartamento.setBounds(191, 292, 130, 20);
 		panelActividad.add(txtDepartamento);
 
 		txtEstacionMuestreo = new JTextField();
 		txtEstacionMuestreo.setColumns(10);
-		txtEstacionMuestreo.setBounds(358, 233, 130, 20);
+		txtEstacionMuestreo.setBounds(352, 222, 130, 20);
 		panelActividad.add(txtEstacionMuestreo);
 
 		txtMetodoMuestreo = new JTextField();
 		txtMetodoMuestreo.setToolTipText("Ingrese m\u00E9todo de muestreo");
 		txtMetodoMuestreo.setColumns(10);
-		txtMetodoMuestreo.setBounds(24, 232, 130, 20);
+		txtMetodoMuestreo.setBounds(20, 291, 130, 20);
 		panelActividad.add(txtMetodoMuestreo);
-
-		txtFechaFin = new JTextField();
-		txtFechaFin.setToolTipText("Ingrese fecha de fin");
-		txtFechaFin.setColumns(10);
-		txtFechaFin.setBounds(24, 278, 130, 20);
-		panelActividad.add(txtFechaFin);
 
 		txtFormulario = new JTextField();
 		txtFormulario.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -292,7 +285,7 @@ public class VentanaMuestreo extends JFrame {
 		txtFechaDeInicio.setEditable(false);
 		txtFechaDeInicio.setColumns(10);
 		txtFechaDeInicio.setBackground(new Color(0, 153, 0));
-		txtFechaDeInicio.setBounds(195, 265, 130, 14);
+		txtFechaDeInicio.setBounds(20, 209, 130, 14);
 		panelActividad.add(txtFechaDeInicio);
 		
 		txtFechaDeFin = new JTextField();
@@ -302,7 +295,7 @@ public class VentanaMuestreo extends JFrame {
 		txtFechaDeFin.setEditable(false);
 		txtFechaDeFin.setColumns(10);
 		txtFechaDeFin.setBackground(new Color(0, 153, 0));
-		txtFechaDeFin.setBounds(24, 264, 130, 14);
+		txtFechaDeFin.setBounds(191, 209, 130, 14);
 		panelActividad.add(txtFechaDeFin);
 		
 		txtMtodoDeMuestreo = new JTextField();
@@ -312,7 +305,7 @@ public class VentanaMuestreo extends JFrame {
 		txtMtodoDeMuestreo.setEditable(false);
 		txtMtodoDeMuestreo.setColumns(10);
 		txtMtodoDeMuestreo.setBackground(new Color(0, 153, 0));
-		txtMtodoDeMuestreo.setBounds(24, 219, 130, 14);
+		txtMtodoDeMuestreo.setBounds(20, 278, 130, 14);
 		panelActividad.add(txtMtodoDeMuestreo);
 		
 		txtFechadeMuestreo = new JTextField();
@@ -323,7 +316,7 @@ public class VentanaMuestreo extends JFrame {
 		txtFechadeMuestreo.setEditable(false);
 		txtFechadeMuestreo.setColumns(10);
 		txtFechadeMuestreo.setBackground(new Color(0, 153, 0));
-		txtFechadeMuestreo.setBounds(358, 220, 130, 14);
+		txtFechadeMuestreo.setBounds(352, 209, 130, 14);
 		panelActividad.add(txtFechadeMuestreo);
 		
 		txtDepartamento_1 = new JTextField();
@@ -333,7 +326,7 @@ public class VentanaMuestreo extends JFrame {
 		txtDepartamento_1.setEditable(false);
 		txtDepartamento_1.setColumns(10);
 		txtDepartamento_1.setBackground(new Color(0, 153, 0));
-		txtDepartamento_1.setBounds(195, 219, 130, 14);
+		txtDepartamento_1.setBounds(191, 278, 130, 14);
 		panelActividad.add(txtDepartamento_1);
 		
 		lblNuevaCasilla = new JLabel("Actividad de campo");
@@ -346,10 +339,10 @@ public class VentanaMuestreo extends JFrame {
 		lblNuevaCasilla.setBounds(0, 11, 624, 23);
 		panelActividad.add(lblNuevaCasilla);
 		
-		dateChooserInicio.setBounds(195, 291, 72, 20);
+		dateChooserInicio.setBounds(20, 222, 130, 20);
 		panelActividad.add(dateChooserInicio);
 		
-		dateChooserFin.setBounds(357, 291, 72, 20);
+		dateChooserFin.setBounds(191, 222, 130, 20);
 		panelActividad.add(dateChooserFin);
 		
 //		tableCasilla = new JTable();
