@@ -47,7 +47,7 @@ public class VentanaGeneral extends JFrame {
 	public static JLabel lblNombreUsuario;
 	public static JLabel lblTipoUser;
 
-	public VentanaGeneral(Usuario usuario) {
+	public VentanaGeneral(Usuario usuarioLogeado) {
 
 
 		/*
@@ -156,7 +156,7 @@ public class VentanaGeneral extends JFrame {
 			btnAdministracion.setForeground(new Color(255, 255, 255));
 			btnAdministracion.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					VentanaUsuario ventanaUsuario = new VentanaUsuario(usuario);
+					VentanaUsuario ventanaUsuario = new VentanaUsuario(usuarioLogeado);
 					ventanaUsuario.setLocation(400, 150);
 					ventanaUsuario.setVisible(true);
 					dispose();
@@ -179,7 +179,7 @@ public class VentanaGeneral extends JFrame {
 		JButton btnActividad = new JButton("Actividad de campo");
 		btnActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaActividad ventanaActividad = new VentanaActividad(usuario);
+				VentanaActividad ventanaActividad = new VentanaActividad(usuarioLogeado);
 				ventanaActividad.setVisible(true);
 				ventanaActividad.setLocation(400, 150);
 				dispose();
@@ -209,7 +209,7 @@ public class VentanaGeneral extends JFrame {
 			btnFormulario.setForeground(new Color(255, 255, 255));
 			btnFormulario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					VentanaFormulario ventanaFormulario = new VentanaFormulario(usuario);
+					VentanaFormulario ventanaFormulario = new VentanaFormulario(usuarioLogeado);
 					ventanaFormulario.setLocation(450, 150);
 					ventanaFormulario.setVisible(true);
 					dispose();
@@ -219,10 +219,10 @@ public class VentanaGeneral extends JFrame {
 			btnFormulario.setBounds(10, 76, 300, 120);
 			panel.add(btnFormulario);
 			
-			if (usuario.getRol().getNombreRol().equals("Comun")) {
+			if (usuarioLogeado.getRol().getNombreRol().equals("Común")) {
 				btnFormulario.setVisible(false);
 				btnAdministracion.setVisible(false);
-			}else if (usuario.getRol().getNombreRol().equals("Experto")) {
+			}else if (usuarioLogeado.getRol().getNombreRol().equals("Experto")) {
 				btnAdministracion.setVisible(false);
 				btnFormulario.setVisible(true);
 				

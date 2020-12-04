@@ -206,7 +206,9 @@ public class VentanaMuestreo extends JFrame {
 				} catch (ServiciosException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
 				}
+				dispose();
 			}
 		});
 		btnInicio.setBounds(24, 347, 157, 38);

@@ -390,7 +390,7 @@ public class VentanaUsuario extends JFrame {
 
 			model.setColumnIdentifiers(columnNames);
 			for (Usuario usuario : usuarios) {
-				Object[] fila = new Object[6];
+				Object[] fila = new Object[5];
 				fila[0] = usuario.getNombreUsuario();
 				fila[1] = usuario.getNombre();
 				fila[2] = usuario.getApellido();
@@ -419,7 +419,7 @@ public class VentanaUsuario extends JFrame {
 
 			model.setColumnIdentifiers(columnNames);
 			for (Usuario usuario : usuarios) {
-				Object[] fila = new Object[6];
+				Object[] fila = new Object[5];
 				fila[0] = usuario.getNombreUsuario();
 				fila[1] = usuario.getNombre();
 				fila[2] = usuario.getApellido();
